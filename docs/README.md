@@ -1,0 +1,15 @@
+# 开发者文档
+
+- [apt 配置源和代理](apt.md)
+- [conda 常用操作和配置](conda.md)
+- [Docker 常用操作](docker.md)
+- [Flask 命令操作](flask.md)
+- [git 配置和操作](git.md)
+- [邮箱配置](mail.md)
+- [MySQL 数据库常用操作](mysql.md)
+- [Oh My Zsh 安装和插件](oh-my-zsh.md)
+- [pip 常用操作和配置](pip.md)
+- [项目测试](test.md)
+- [tmux 常用操作](tmux.md)
+- [Ubuntu 常用操作](ubuntu.md)
+- [VSCode 设置](vscode.md)

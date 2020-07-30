@@ -1,0 +1,134 @@
+{% extends 'bootstrap/base.html' %}
+
+
+{% block title %}
+    {% if title %}
+    {{ _('%(title)s - Flask Quickstart', title=title) }}
+    {% else %}
+    {{ _('Welcome to Flask Quickstart') }}
+    {% endif %}
+{% endblock %}
+
+
+{%- block styles %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap-4.4.1-dist/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='tempusdominus-bootstrap-4/tempusdominus-bootstrap-4.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='font-awesome-4.7.0/css/font-awesome.min.css') }}">
+{%- endblock styles %}
+
+
+{%- block head %}
+    {{ super() }}
+    {# JQuery放在head加载 #}
+    <script src="{{ url_for('static', filename='jquery/jquery-3.4.1.min.js') }}"></script>
+{%- endblock head %}
+
+
+{% block scripts %}
+    <script src="{{ url_for('static', filename='popper.js-1.14.3/umd/popper.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='bootstrap-4.4.1-dist/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='moment.js-2.24.0/moment-with-locales.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='tempusdominus-bootstrap-4/tempusdominus-bootstrap-4.min.js') }}"></script>
+    <script>
+        moment.locale('{{ g.locale }}');
+        function flask_moment_render(elem) {
+            $(elem).text(eval('moment("' + $(elem).data('timestamp') + '").' + $(elem).data('format') + ';'));
+            $(elem).removeClass('flask-moment').show();
+        }
+        function flask_moment_render_all() {
+            $('.flask-moment').each(function() {
+                flask_moment_render(this);
+                if ($(this).data('refresh')) {
+                    (function(elem, interval) { setInterval(function() { flask_moment_render(elem) }, interval); })(this, $(this).data('refresh'));
+                }
+            })
+        }
+        $(document).ready(function() {
+            flask_moment_render_all();
+        });
+    </script>
+
+    {# 这里写有用户登录之后才能调用的全局js代码 #}
+    {% if g.current_user and g.current_user.is_authenticated %}
+    <script>
+    </script>
+    {% endif %}
+{% endblock %}
+
+
+{% block navbar %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('main.index') }}">
+                <img src="{{ url_for('static', filename='logo/logo.png') }}" width="32" height="32" class="d-inline-block align-top" alt="Logo">
+                {{ _('Flask Quickstart') }}
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarTogglerDemo01">
+                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('main.index') }}">{{ _('Home') }}</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{ _('Feature') }}
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink1">
+                            <a class="dropdown-item" href="#">{{ _('Complete functions') }}</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">{{ _('Simple deployment') }}</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">{{ _('Easy to develop') }}</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">{{ _('About') }}</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                    {% if not g.current_user or g.current_user.is_anonymous %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('auth.login') }}">{{ _('Login') }}</a>
+                    </li>
+                    {% else %}
+                    {% if g.current_user and g.current_user.is_authenticated and g.current_user.check_write_permission('main') %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('main.list_users') }}">{{ _('User Permission') }}</a>
+                    </li>
+                    {% endif %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{ g.current_user.username }}
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="{{ url_for('main.get_user', username=g.current_user.username) }}">{{ _('Profile') }}</a>
+                            <a class="dropdown-item" href="{{ url_for('auth.logout') }}">{{ _('Logout') }}</a>
+                        </div>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+{% endblock %}
+
+
+{% block content %}
+    <div class="container">
+        <div class="my-3">
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                    <div class="alert alert-info" role="alert">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div>
+
+        {# 主体部分 #}
+        {% block app_content %}
+        {% endblock %}
+    </div>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends "base.jinja2" %}
+
+
+{% block app_content %}
+    <h3>{{ _('Current date and time: ') }}{{ moment().format('LLL') }}</h3>
+
+    {% if current_user.is_authenticated %}
+    {% endif %}
+
+{% endblock %}

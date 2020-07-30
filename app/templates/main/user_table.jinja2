@@ -1,0 +1,27 @@
+{% extends "table.jinja2" %}
+
+
+{% block table_head %}
+    <tr>
+        <th>{{ _('Id') }}</th>
+        <th>{{ _('Username') }}</th>
+        {% for m in modules %}
+        <th>{{ m }}</th>
+        {% endfor %}
+        <th>{{ _('Grant') }}</th>
+    </tr>
+{% endblock %}
+
+
+{% block table_body %}
+    {% for item in res.items %}
+    <tr>
+        <td>{{ item.id }}</td>
+        <td>{{ item.username }}</td>
+        {% for m in modules %}
+        <td>{{ permissions[int(item.permission[modules[m]])] }}</td>
+        {% endfor %}
+        <td><a href="{{ url_for('main.grant_permission', username=item.username) }}" class="btn btn-primary btn-sm">{{ _('grant') }}</a></td>
+    </tr>
+    {% endfor %}
+{% endblock %}

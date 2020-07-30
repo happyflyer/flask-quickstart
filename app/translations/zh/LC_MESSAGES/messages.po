@@ -1,0 +1,231 @@
+# Chinese translations for PROJECT.
+# Copyright (C) 2020 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2020-07-30 14:50+0800\n"
+"PO-Revision-Date: 2020-07-26 01:40+0800\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: zh\n"
+"Language-Team: zh <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.8.0\n"
+
+#: app/__init__.py:34
+msgid "Please log in to access this page."
+msgstr "请登录以访问此页面"
+
+#: app/api/users.py:112 app/api/users.py:154
+msgid "missing username!"
+msgstr "缺失 username！"
+
+#: app/api/users.py:114 app/main/users.py:45
+#, python-format
+msgid "%(username)s already exists!"
+msgstr "%(username)s 已经存在！"
+
+#: app/api/users.py:147
+msgid "missing module or permission!"
+msgstr "缺失 module 或 permission！"
+
+#: app/api/users.py:151
+msgid "invalid module or permission!"
+msgstr "无效的 module 或 permission！"
+
+#: app/api/users.py:157 app/main/users.py:68
+#, python-format
+msgid "%(username)s must have %(permission)s to %(module)s!"
+msgstr "%(username)s 必须具有 %(module)s 模块的 %(permission)s 权限！"
+
+#: app/auth/forms.py:10 app/main/forms.py:13
+#: app/templates/main/user_table.jinja2:7
+msgid "Username"
+msgstr "用户名"
+
+#: app/auth/forms.py:11 app/main/forms.py:14
+msgid "Password"
+msgstr "密码"
+
+#: app/auth/forms.py:12
+msgid "Remember Me"
+msgstr "记住我"
+
+#: app/auth/forms.py:13 app/auth/routes.py:31
+msgid "Sign In"
+msgstr "登录"
+
+#: app/auth/routes.py:24
+msgid "Invalid username or password!"
+msgstr "无效的用户名或密码！"
+
+#: app/main/forms.py:15
+msgid "Repeat Password"
+msgstr "重复密码"
+
+#: app/main/forms.py:16
+msgid "Add"
+msgstr "新增"
+
+#: app/main/forms.py:24
+msgid "This username is already in use, Please change another username!"
+msgstr "此用户名被占用，请换一个用户名！"
+
+#: app/main/forms.py:28
+msgid "Module"
+msgstr "模块"
+
+#: app/main/forms.py:30
+msgid "Permission"
+msgstr "权限"
+
+#: app/main/forms.py:32 app/templates/main/user_table.jinja2:11
+msgid "Grant"
+msgstr "授权"
+
+#: app/main/forms.py:39
+msgid "Invalid module!"
+msgstr "无效的模块！"
+
+#: app/main/forms.py:43
+msgid "Invalid permission!"
+msgstr "无效的权限"
+
+#: app/main/routes.py:17 app/templates/base.jinja2:72
+msgid "Home"
+msgstr "主页"
+
+#: app/main/users.py:19
+msgid "User List"
+msgstr "用户列表"
+
+#: app/main/users.py:32
+msgid "User Profile"
+msgstr "用户配置文件"
+
+#: app/main/users.py:51
+#, python-format
+msgid "%(username)s has been added."
+msgstr "%(username)s 成功新增。"
+
+#: app/main/users.py:53 app/templates/main/user_list.jinja2:6
+msgid "Add User"
+msgstr "新增用户"
+
+#: app/main/users.py:73
+#, python-format
+msgid "%(username)s has been granted %(permission)s to %(module)s."
+msgstr "%(username)s 已经获得 %(module)s 模块的 %(permission)s 权限。"
+
+#: app/main/users.py:76
+msgid "Grant User"
+msgstr "授权用户"
+
+#: app/templates/base.jinja2:6
+#, python-format
+msgid "%(title)s - Flask Quickstart"
+msgstr "%(title)s - Flask 项目快读上手"
+
+#: app/templates/base.jinja2:8
+msgid "Welcome to Flask Quickstart"
+msgstr "欢迎访问 Flask 项目快读上手"
+
+#: app/templates/base.jinja2:64
+msgid "Flask Quickstart"
+msgstr "Flask 快读上手"
+
+#: app/templates/base.jinja2:76
+msgid "Feature"
+msgstr "特点"
+
+#: app/templates/base.jinja2:79
+msgid "Complete functions"
+msgstr "功能齐全"
+
+#: app/templates/base.jinja2:81
+msgid "Simple deployment"
+msgstr "部署简单"
+
+#: app/templates/base.jinja2:83
+msgid "Easy to develop"
+msgstr "易于开发"
+
+#: app/templates/base.jinja2:87
+msgid "About"
+msgstr "关于"
+
+#: app/templates/base.jinja2:93
+msgid "Login"
+msgstr "登录"
+
+#: app/templates/base.jinja2:98
+msgid "User Permission"
+msgstr "用户权限"
+
+#: app/templates/base.jinja2:106
+msgid "Profile"
+msgstr "配置文件"
+
+#: app/templates/base.jinja2:107
+msgid "Logout"
+msgstr "注销"
+
+#: app/templates/list.jinja2:21
+msgid "First Page"
+msgstr "首页"
+
+#: app/templates/list.jinja2:24
+msgid "Previous Page"
+msgstr "上 1 页"
+
+#: app/templates/list.jinja2:40
+msgid "Next Page"
+msgstr "下 1 页"
+
+#: app/templates/list.jinja2:43
+msgid "Last Page"
+msgstr "尾页"
+
+#: app/templates/errors/403.jinja2:5
+msgid "Forbidden!"
+msgstr "禁止访问！"
+
+#: app/templates/errors/404.jinja2:5
+msgid "Page Not Found!"
+msgstr "页面未找到！"
+
+#: app/templates/errors/405.jinja2:5
+msgid "Method Not Allowed!"
+msgstr "方法不允许！"
+
+#: app/templates/errors/500.jinja2:5
+msgid "An unexpected error has occurred!"
+msgstr "发生意外错误！"
+
+#: app/templates/errors/500.jinja2:6
+msgid "The administrator has been notified. Sorry for the inconvenience!"
+msgstr "已通知管理员。很抱歉给您带来不便！"
+
+#: app/templates/main/index.jinja2:5
+msgid "Current date and time: "
+msgstr "当前日期和时间："
+
+#: app/templates/main/user_item.jinja2:5
+#, python-format
+msgid "%(username)s"
+msgstr "%(username)s"
+
+#: app/templates/main/user_table.jinja2:6
+msgid "Id"
+msgstr "编号"
+
+#: app/templates/main/user_table.jinja2:24
+msgid "grant"
+msgstr "授权"
+
