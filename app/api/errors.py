@@ -26,3 +26,11 @@ def bad_request(message):
         message str
     """
     return error_response(400, message)
+
+
+def forbidden(message):
+    """权限不够\n
+    Args:\n
+        message str
+    """
+    return error_response(403, message)

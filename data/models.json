@@ -4,11 +4,6 @@
       "username": "admin",
       "password": "admin123",
       "permission": "22222222222222222222222222222222"
-    },
-    {
-      "username": "test",
-      "password": "test123",
-      "permission": "11000000000000000000000000000000"
     }
   ]
 }

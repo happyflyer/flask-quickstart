@@ -11,13 +11,13 @@ from . import bp, basic_auth, token_auth
 def get_token():
     """获取token
     @@@
-    #### args
+    #### 请求头
     > 参考：[HTTP Basic Authentication认证](https://www.cnblogs.com/yuqiangli0616/p/9389273.html)\n
-    > 在 request 请求头中携带 `Authorization` 字段。\n
+    > 携带 `Authorization` 字段。\n
     ```properties
     Authorization: Basic <auth>
     ```
-    #### return
+    #### 响应示例
     ```json
     {
         "token": "e4YEcn05B4lbWYqrAqLUTf9KWPlHHdb2"
@@ -35,14 +35,16 @@ def get_token():
 def revoke_token():
     """失效token
     @@@
-    #### args
-    > 在 request 请求头中携带 `Authorization` 字段。\n
+    #### 请求头
+    > 携带 `Authorization` 字段。\n
     ```properties
     Authorization: Bearer <token>
     ```
-    #### return
+    #### 响应示例
     ```json
-    {"message": "ok"}
+    {
+        "message": "ok"
+    }
     ```
     @@@
     """
@@ -55,9 +57,11 @@ def revoke_token():
 def test_request():
     """测试请求
     @@@
-    #### return
+    #### 响应示例
     ```json
-    {"message": "success in test_request"}
+    {
+        "message": "success in test_request"
+    }
     ```
     @@@
     """
@@ -69,15 +73,17 @@ def test_request():
 def test_with_auth():
     """测试Basic认证请求
     @@@
-    #### args
+    #### 请求头
     > 参考：[HTTP Basic Authentication认证](https://www.cnblogs.com/yuqiangli0616/p/9389273.html)\n
-    > 在 request 请求头中携带 `Authorization` 字段。\n
+    > 携带 `Authorization` 字段。\n
     ```properties
     Authorization: Basic <auth>
     ```
-    #### return
+    #### 响应示例
     ```json
-    {"message": "success in test_with_auth"}
+    {
+        "message": "success in test_with_auth"
+    }
     ```
     @@@
     """
@@ -89,14 +95,16 @@ def test_with_auth():
 def test_with_token():
     """测试Token认证请求
     @@@
-    #### args
-    > 在 request 请求头中携带 `Authorization` 字段。\n
+    #### 请求头
+    > 携带 `Authorization` 字段。\n
     ```properties
     Authorization: Bearer <token>
     ```
-    #### return
+    #### 响应示例
     ```json
-    {"message": "success in test_with_token"}
+    {
+        "message": "success in test_with_token"
+    }
     ```
     @@@
     """

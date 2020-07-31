@@ -40,12 +40,11 @@ def add_user():
     form = UserAddForm()
     if form.validate_on_submit():
         username = form.username.data
-        # 重复检查
+        # 用户名重复检查
         if User.query.filter(User.username == username).count() > 0:
             flash(_l('%(username)s already exists!', username=username))
             return redirect(url_for('main.add_user'))
-        user = User()
-        user.from_dict(form.data, new_user=True)
+        user = User.from_dict(form.data, new_user=True)
         db.session.add(user)
         db.session.commit()
         flash(_l('%(username)s has been added.', username=username))

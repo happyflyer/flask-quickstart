@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
-from flask import request, jsonify
+from flask import request, jsonify, g
 from flask_babel import lazy_gettext as _l
 
 from .. import db, write_required, read_required, WRITE_PERMISSION, MODULES, PERMISSIONS
 from ..models import User
-from . import bp, RECORDS_PER_PAGE, RECORDS_MAX_PER_PAGE, token_auth, bad_request
+from . import bp, RECORDS_PER_PAGE, RECORDS_MAX_PER_PAGE, token_auth, bad_request, forbidden
 
 
 @bp.route('/user', methods=['GET'])
@@ -14,10 +14,11 @@ from . import bp, RECORDS_PER_PAGE, RECORDS_MAX_PER_PAGE, token_auth, bad_reques
 def get_users():
     """获取所有用户
     @@@
-    #### args
-    > 在 request 请求头中携带 `Authorization` 字段。\n
+    #### 请求头
+    > 携带 `Authorization` 字段。\n
+    #### 权限
     > 访问用户对 main 模块有 W 权限。\n
-    #### return
+    #### 响应示例
     ```json
     {
         "_links": {
@@ -62,10 +63,12 @@ def get_users():
 def get_user_by_username(username):
     """通过用户名获取用户
     @@@
-    #### args
-    > 在 request 请求头中携带 `Authorization` 字段。\n
+    #### 请求头
+    > 携带 `Authorization` 字段。\n
+    #### 权限
     > 访问用户对 main 模块有 R 权限。\n
-    #### return
+    > 访问用户获取其他用户信息时，需要对 main 模块有 W 权限。\n
+    #### 响应示例
     ```json
     {
         "last_visit": "2020-07-30 04:04:26",
@@ -76,6 +79,10 @@ def get_user_by_username(username):
     ```
     @@@
     """
+    # 获取其他用户信息时，需要main模块的W权限
+    if g.current_user.username != username:
+        if not g.current_user.check_permission('main', WRITE_PERMISSION):
+            return forbidden(_l('insufficient permission!'))
     user = User.query.filter(User.username == username).first_or_404()
     return jsonify(user.to_dict())
 
@@ -86,15 +93,17 @@ def get_user_by_username(username):
 def add_user():
     """新增用户
     @@@
-    #### args
-    > 在 request 请求头中携带 `Authorization` 字段。\n
+    #### 请求头
+    > 携带 `Authorization` 字段。\n
+    #### 权限
     > 访问用户对 main 模块有 W 权限。\n
     > 新增的用户对所有模块的权限都默认为 N 权限。\n
+    #### 表单字段
     | 字段     | 是否必须 | 类型 | 说明   |
     | -------- | -------- | ---- | ------ |
     | username | true     | str  | 用户名 |
     | password | true     | str  | 密码   |
-    #### return
+    #### 响应示例
     ```json
     {
         "last_visit": "2020-07-30 06:26:37",
@@ -106,10 +115,10 @@ def add_user():
     @@@
     """
     form_data = request.form.to_dict()
-    user = User()
-    user = user.from_dict(form_data, new_user=True)
+    user = User.from_dict(form_data, new_user=True)
     if not user:
         return bad_request(_l('missing username!'))
+    # 用户名重复检查
     if User.query.filter(User.username == user.username).count() > 0:
         return bad_request(_l('%(username)s already exists!', username=user.username))
     db.session.add(user)
@@ -123,15 +132,16 @@ def add_user():
 def grant_user(username):
     """给用户授权
     @@@
-    #### args
-    > 在 request 请求头中携带 `Authorization` 字段。\n
+    #### 请求头
+    > 携带 `Authorization` 字段。\n
+    #### 权限
     > 访问用户对 main 模块有 W 权限。\n
-    > 新增的用户对所有模块的权限都默认为 N 权限。\n
+    #### 表单字段
     | 字段       | 是否必须 | 类型 | 说明     |
     | ---------- | -------- | ---- | -------- |
     | module     | true     | str  | 模块名   |
     | permission | true     | int  | 权限级别 |
-    #### return
+    #### 响应示例
     ```json
     {
         "last_visit": "2020-07-30 06:26:37",
@@ -143,12 +153,14 @@ def grant_user(username):
     @@@
     """
     form_data = request.form.to_dict()
+    # 模块和权限检查
     if 'module' not in form_data or 'permission' not in form_data:
         return bad_request(_l('missing module or permission!'))
     module = form_data.get('module')
     permission = int(form_data.get('permission'))
     if module not in MODULES or permission not in PERMISSIONS:
         return bad_request(_l('invalid module or permission!'))
+    # 用户存在检查
     user = User.query.filter(User.username == username).first_or_404()
     if not user:
         return bad_request(_l('missing username!'))
@@ -167,14 +179,15 @@ def grant_user(username):
 def get_modules():
     """获取所有模块
     @@@
-    #### args
-    > 在 request 请求头中携带 `Authorization` 字段。\n
+    #### 请求头
+    > 携带 `Authorization` 字段。\n
+    #### 权限
     > 访问用户对 main 模块有 R 权限。\n
-    #### return
+    #### 响应示例
     ```json
     {
-        "api": 1,
-        "main": 0
+        "main": 0,
+        "api": 1
     }
     ```
     @@@
@@ -188,10 +201,11 @@ def get_modules():
 def get_permissions():
     """获取所有权限
     @@@
-    #### args
-    > 在 request 请求头中携带 `Authorization` 字段。\n
+    #### 请求头
+    > 携带 `Authorization` 字段。\n
+    #### 权限
     > 访问用户对 main 模块有 R 权限。\n
-    #### return
+    #### 响应示例
     ```json
     {
         "0": "N",

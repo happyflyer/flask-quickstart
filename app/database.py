@@ -11,8 +11,7 @@ def init_users():
         items_ready_add = []
         for item in payload['users']:
             if User.query.filter(User.username == item['username']).count() == 0:
-                user = User()
-                user.from_dict(item, new_user=True)
+                user = User.from_dict(item, new_user=True)
                 user.set_all_permissions(item['permission'])
                 items_ready_add.append(user)
         db.session.add_all(items_ready_add)

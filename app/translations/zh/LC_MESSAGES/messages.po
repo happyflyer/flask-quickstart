@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-07-30 14:50+0800\n"
+"POT-Creation-Date: 2020-08-01 01:35+0800\n"
 "PO-Revision-Date: 2020-07-26 01:40+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: zh\n"
@@ -22,24 +22,28 @@ msgstr ""
 msgid "Please log in to access this page."
 msgstr "请登录以访问此页面"
 
-#: app/api/users.py:112 app/api/users.py:154
+#: app/api/users.py:85
+msgid "insufficient permission!"
+msgstr "权限不足！"
+
+#: app/api/users.py:120 app/api/users.py:166
 msgid "missing username!"
 msgstr "缺失 username！"
 
-#: app/api/users.py:114 app/main/users.py:45
+#: app/api/users.py:123 app/main/users.py:45
 #, python-format
 msgid "%(username)s already exists!"
 msgstr "%(username)s 已经存在！"
 
-#: app/api/users.py:147
+#: app/api/users.py:158
 msgid "missing module or permission!"
 msgstr "缺失 module 或 permission！"
 
-#: app/api/users.py:151
+#: app/api/users.py:162
 msgid "invalid module or permission!"
 msgstr "无效的 module 或 permission！"
 
-#: app/api/users.py:157 app/main/users.py:68
+#: app/api/users.py:169 app/main/users.py:67
 #, python-format
 msgid "%(username)s must have %(permission)s to %(module)s!"
 msgstr "%(username)s 必须具有 %(module)s 模块的 %(permission)s 权限！"
@@ -109,21 +113,21 @@ msgstr "用户列表"
 msgid "User Profile"
 msgstr "用户配置文件"
 
-#: app/main/users.py:51
+#: app/main/users.py:50
 #, python-format
 msgid "%(username)s has been added."
 msgstr "%(username)s 成功新增。"
 
-#: app/main/users.py:53 app/templates/main/user_list.jinja2:6
+#: app/main/users.py:52 app/templates/main/user_list.jinja2:6
 msgid "Add User"
 msgstr "新增用户"
 
-#: app/main/users.py:73
+#: app/main/users.py:72
 #, python-format
 msgid "%(username)s has been granted %(permission)s to %(module)s."
 msgstr "%(username)s 已经获得 %(module)s 模块的 %(permission)s 权限。"
 
-#: app/main/users.py:76
+#: app/main/users.py:75
 msgid "Grant User"
 msgstr "授权用户"
 

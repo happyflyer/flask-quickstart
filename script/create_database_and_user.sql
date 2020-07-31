@@ -8,7 +8,3 @@ create user 'www' @'localhost' identified by 'password';
 grant all privileges on flaskqs.* to 'www' @'localhost';
 -- grant all privileges on flaskqs_test.* to 'www'@'localhost';
 flush privileges;
--- all user
--- select host, user, authentication_string from mysql.user;
--- grant www
--- show grants for www@localhost;

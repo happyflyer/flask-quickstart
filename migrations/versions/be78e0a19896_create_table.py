@@ -1,8 +1,8 @@
 """create table
 
-Revision ID: 177cd2c3ea6f
+Revision ID: be78e0a19896
 Revises: 
-Create Date: 2020-07-30 14:47:12.872056
+Create Date: 2020-08-01 01:29:45.915175
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '177cd2c3ea6f'
+revision = 'be78e0a19896'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -22,7 +22,7 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('username', sa.String(length=20), nullable=True),
     sa.Column('password_hash', sa.String(length=128), nullable=True),
-    sa.Column('permission', sa.String(length=32), server_default='00000000000000000000000000000000', nullable=True),
+    sa.Column('permission', sa.String(length=32), server_default='11000000000000000000000000000000', nullable=True),
     sa.Column('last_visit', sa.DateTime(), nullable=True),
     sa.Column('token', sa.String(length=32), nullable=True),
     sa.Column('token_expiration', sa.DateTime(), nullable=True),

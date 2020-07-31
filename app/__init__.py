@@ -25,7 +25,7 @@ from .permission import *
 # 主版本号：当你做了不兼容的 API 修改，
 # 次版本号：当你做了向下兼容的功能性新增，
 # 修订号：当你做了向下兼容的问题修正。
-__version__ = '0.1.0'
+__version__ = '0.1.1'
 
 db = SQLAlchemy()
 migrate = Migrate()
@@ -47,6 +47,8 @@ MODULES = {
 }
 # 用于访问统计、权限控制的模块数量
 MODULES_NUMBER = 32
+# 新用户默认权限
+DEFAULT_PERMISSION = str(READ_PERMISSION) * 2 + str(NO_PERMISSION) * (MODULES_NUMBER - 2)
 # 不用于访问统计的endpoint
 EXCLUDED_ENDPOINTS = [
     'main.favicon'

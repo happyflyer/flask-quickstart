@@ -10,7 +10,7 @@ from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from . import db, login, MODULES, MODULES_NUMBER, EXCLUDED_ENDPOINTS,\
-    NO_PERMISSION, READ_PERMISSION, WRITE_PERMISSION, PERMISSIONS
+    NO_PERMISSION, READ_PERMISSION, WRITE_PERMISSION, PERMISSIONS, DEFAULT_PERMISSION
 from .utils import ENCODING, DATETIME_FORMATTER
 
 
@@ -68,7 +68,7 @@ class User(PaginatedAPIMixin, UserMixin, db.Model):
     # 用于登录的用户名，不能重复
     username = db.Column(db.String(20), index=True, unique=True)
     password_hash = db.Column(db.String(128))
-    permission = db.Column(db.String(MODULES_NUMBER), server_default=str(NO_PERMISSION) * MODULES_NUMBER)
+    permission = db.Column(db.String(MODULES_NUMBER), server_default=DEFAULT_PERMISSION)
     last_visit = db.Column(db.DateTime, default=datetime.utcnow)
     token = db.Column(db.String(32), index=True, unique=True)
     token_expiration = db.Column(db.DateTime)
@@ -168,20 +168,24 @@ class User(PaginatedAPIMixin, UserMixin, db.Model):
         }
         return payload
 
-    def from_dict(self, payload, new_user=False):
+    @staticmethod
+    def from_dict(payload, new_user=False):
         """从json解析\n
         Args:\n
             payload dict 至少包含username
             new_user bool 是否为新用户，新用户将从payload解析password，并设置password
+        Returns:\n
+            user User 根据payload解析得到的user对象，如果payload中缺少必要的字段，将返回None
         """
-        if 'username' not in payload:
-            return None
-        for field in ['username']:
-            if field in payload:
-                setattr(self, field, payload[field])
+        required_fields = ['username']
+        user = User()
+        for field in required_fields:
+            if field not in payload:
+                return None
+            setattr(user, field, payload[field])
         if new_user and 'password' in payload:
-            self.set_password(payload['password'])
-        return self
+            user.set_password(payload['password'])
+        return user
 
     def get_token(self, expires_in=24):
         """获得token\n
