@@ -64,26 +64,27 @@ flush privileges;
 ### 3.1. 查看用户权限
 
 ```sql
-show grants for www@localhost;
+show grants for 'www'@'localhost';
 ```
 
 ### 3.2. 全部授权
 
 ```sql
-grant all on db.* to www@localhost;
+grant all on db.* to 'www'@'localhost';
+grant all on db.* to 'www'@'%';
 flush privileges;
 ```
 
 ### 3.3. 部分授权
 
 ```sql
-grant select, delete, update, create, drop on db.* to www@localhost;
+grant select, delete, update, create, drop on db.* to 'www'@'localhost';
 flush privileges;
 ```
 
 ### 3.4. 取消授权
 
 ```sql
-revoke all on db.* from www@localhost;
+revoke all on db.* from 'www'@'localhost';
 flush privileges;
 ```

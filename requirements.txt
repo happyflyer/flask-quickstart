@@ -1,7 +1,6 @@
 alembic==1.4.2
 aniso8601==8.0.0
 attrs==19.3.0
-autopep8==1.5.3
 Babel==2.8.0
 blinker==1.4
 certifi==2020.6.20
@@ -38,12 +37,11 @@ packaging==20.4
 pluggy==0.13.1
 protobuf==3.12.2
 py==1.9.0
-pycodestyle==2.6.0
 pycrypto==2.6.1
 Pygments==2.6.1
 PyJWT==1.7.1
 pyparsing==2.4.7
-pytest==6.0.0
+pytest==5.4.3
 python-dateutil==2.8.1
 python-dotenv==0.14.0
 python-editor==1.0.4
@@ -51,9 +49,9 @@ pytz==2020.1
 requests==2.24.0
 six==1.15.0
 SQLAlchemy==1.3.18
-toml==0.10.1
 urllib3==1.25.10
 visitor==0.1.3
+wcwidth==0.2.5
 Werkzeug==1.0.1
 WTForms==2.3.1
 zipp==3.1.0

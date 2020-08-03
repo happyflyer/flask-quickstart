@@ -1,2 +1,2 @@
-FLASK_APP=run.py
+FLASK_APP=flaskqs.py
 FLASK_ENV=production
