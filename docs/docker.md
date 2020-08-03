@@ -112,7 +112,7 @@ FROM <image>[:<tag>]
 编译镜像时运行的脚本。`RUN` 指令会生成容器，在容器中执行脚本，容器使用当前镜像，脚本指令完成后，Docker Daemon 会将该容器提交为一个中间镜像，供后面的指令使用。Dockerfile 的指令每执行一次都会在 docker 上新建一层，过多无意义的层会造成镜像膨胀过大，推荐使用 `&&` 符号连接命令，这样执行后，只会创建 1 层镜像。
 
 ```dockerfile
-RUN <shell 命令>
+RUN <command>
 RUN ["<executable>", "<param1>", "<param2>", ...]
 ```
 
@@ -138,7 +138,7 @@ RUN apt-get install wget && \
 - `CMD` 在 `docker run` 时运行
 
 ```dockerfile
-CMD <shell 命令>
+CMD <command>
 CMD ["<executable>", "<param1>", "<param2>", ...]
 # 该写法是为 ENTRYPOINT 指令指定的程序提供默认参数
 CMD ["<param1>", "<param2>", ...]
@@ -212,7 +212,7 @@ ENV <key1>=<value1> <key2>=<value2> ...
 设置编译镜像时加入的参数。与 `ENV` 作用一致。不过作用域不一样。`ARG` 设置的环境变量仅对 Dockerfile 内有效，也就是说只有 `docker build` 的过程中有效，构建好的镜像内不存在此环境变量。
 
 ```dockerfile
-ARG <参数名>[=<默认值>]
+ARG <key>[=<value>]
 ```
 
 ### 4.9. VOLUME
@@ -223,8 +223,8 @@ ARG <参数名>[=<默认值>]
 - 避免容器不断变大
 
 ```dockerfile
-VOLUME ["<路径1>", "<路径2>", ...]
-VOLUME <路径>
+VOLUME <path>
+VOLUME ["<path1>", "<path2>", ...]
 ```
 
 ### 4.10. EXPOSE
