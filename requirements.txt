@@ -36,6 +36,7 @@ opencv-python==4.3.0.36
 packaging==20.4
 pluggy==0.13.1
 protobuf==3.12.2
+psutil==5.7.2
 py==1.9.0
 pycrypto==2.6.1
 Pygments==2.6.1

@@ -2,7 +2,7 @@
 
 import platform
 import re
-import socket
+import psutil
 import subprocess
 from queue import Queue
 
@@ -22,6 +22,10 @@ __all__ = [
 
 # 本地回环地址
 LOOPBACK_IP_ADDRESS = '127.0.0.1'
+# ping 次数
+PING_COUNT = 1
+# ping 超时时间，单位：ms
+PING_WAITOUT = 128
 
 
 def get_os():
@@ -43,13 +47,12 @@ def get_ip(filter_prefix=None):
         >>> get_ip('192.168.1.')
     """
     ip_address_list = []
-    if get_os() == 'Windows' or get_os() == 'Darwin':
-        ip_address_list = socket.gethostbyname_ex(socket.gethostname())[-1]
-    elif get_os() == 'Linux':
-        ret = subprocess.run(['hostname', '-I'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        ip_address_list = str(ret.stdout, encoding=ENCODING).split(' ')[:-1]
-    else:
-        return ip_address_list
+    dic = psutil.net_if_addrs()
+    for adapter in dic:
+        snicList = dic[adapter]
+        for snic in snicList:
+            if snic.family.name == 'AF_INET':
+                ip_address_list.append(snic.address)
     # 排除本地回环地址
     ip_address_list = list(filter(lambda x: x != LOOPBACK_IP_ADDRESS, ip_address_list))
     # 通过前缀筛选
@@ -102,13 +105,13 @@ def ping_ip(ip_address):
         wait = '-w'
     elif get_os() == 'Linux':
         count = '-c'
-        wait = '-w'
+        wait = '-W'
     elif get_os() == 'Darwin':
         count = '-c'
-        wait = '-W'
+        wait = '-t'
     else:
         raise RuntimeError('Unknown operating system!')
-    ret = subprocess.run(['ping', count, '1', wait, '1', ip_address],
+    ret = subprocess.run(['ping', count, str(PING_COUNT), wait, str(PING_WAITOUT), ip_address],
         stdout=subprocess.PIPE, stderr=subprocess.PIPE)  # NOQA
     return ret.returncode == 0
 
