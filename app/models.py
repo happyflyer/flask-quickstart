@@ -108,13 +108,12 @@ class User(PaginatedAPIMixin, UserMixin, db.Model):
             module_name str 模块名
             permission int 权限值，可以为0，1，2，分别代表无权限，读权限，写权限
         """
-        if module_name not in MODULES:
+        module_bit = MODULES.get(module_name)
+        if not module_bit:
             raise RuntimeError('Invalid module!')
-        module_bit = MODULES[module_name]
         if permission not in PERMISSIONS:
             raise RuntimeError('Invalid permission!')
-        self.permission = ''.join([self.permission[:module_bit], str(
-            permission), self.permission[module_bit+1:]])
+        self.permission = ''.join([self.permission[:module_bit], str(permission), self.permission[module_bit+1:]])
 
     def check_permission(self, module_name, permission):
         """验证权限\n
@@ -124,9 +123,9 @@ class User(PaginatedAPIMixin, UserMixin, db.Model):
         Returns:\n
             True or False
         """
-        if module_name not in MODULES:
+        module_bit = MODULES.get(module_name)
+        if not module_bit:
             raise RuntimeError('Invalid module!')
-        module_bit = MODULES[module_name]
         if permission not in PERMISSIONS:
             raise RuntimeError('Invalid permission!')
         user_premission = int(self.permission[module_bit])
@@ -178,13 +177,13 @@ class User(PaginatedAPIMixin, UserMixin, db.Model):
             user User 根据payload解析得到的user对象，如果payload中缺少必要的字段，将返回None
         """
         required_fields = ['username']
-        user = User()
         for field in required_fields:
             if field not in payload:
                 return None
-            setattr(user, field, payload[field])
+        user = User()
+        user.username = payload.get('username')
         if new_user and 'password' in payload:
-            user.set_password(payload['password'])
+            user.set_password(payload.get('password'))
         return user
 
     def get_token(self, expires_in=24):

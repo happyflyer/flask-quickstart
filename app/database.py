@@ -1,18 +1,18 @@
 # -*- coding: utf-8 -*-
 
 from . import db
-from .models import User
 from .utils import read_json
 
 
 def init_users():
     payload = read_json('data/models.json')
+    from .models import User
     with db.get_app().app_context():
         items_ready_add = []
-        for item in payload['users']:
-            if User.query.filter(User.username == item['username']).count() == 0:
+        for item in payload.get('users'):
+            if User.query.filter(User.username == item.get('username')).count() == 0:
                 user = User.from_dict(item, new_user=True)
-                user.set_all_permissions(item['permission'])
+                user.set_all_permissions(item.get('permission'))
                 items_ready_add.append(user)
         db.session.add_all(items_ready_add)
         db.session.commit()

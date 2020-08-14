@@ -35,6 +35,6 @@
 
 ```json
 "python.formatting.autopep8Args": [
-    "--max-line-length=112",
+    "--max-line-length=120",
 ]
 ```

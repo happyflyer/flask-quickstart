@@ -25,7 +25,7 @@ LOOPBACK_IP_ADDRESS = '127.0.0.1'
 # ping 次数
 PING_COUNT = 1
 # ping 超时时间，单位：ms
-PING_WAITOUT = 128
+PING_TIMEOUT = 64
 
 
 def get_os():
@@ -102,16 +102,16 @@ def ping_ip(ip_address):
         return False
     if get_os() == 'Windows':
         count = '-n'
-        wait = '-w'
+        timeout = '-w'
     elif get_os() == 'Linux':
         count = '-c'
-        wait = '-W'
+        timeout = '-W'
     elif get_os() == 'Darwin':
         count = '-c'
-        wait = '-t'
+        timeout = '-t'
     else:
         raise RuntimeError('Unknown operating system!')
-    ret = subprocess.run(['ping', count, str(PING_COUNT), wait, str(PING_WAITOUT), ip_address],
+    ret = subprocess.run(['ping', count, str(PING_COUNT), timeout, str(PING_TIMEOUT), ip_address],
         stdout=subprocess.PIPE, stderr=subprocess.PIPE)  # NOQA
     return ret.returncode == 0
 

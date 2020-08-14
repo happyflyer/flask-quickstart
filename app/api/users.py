@@ -34,16 +34,16 @@ def get_users():
         },
         "items": [
             {
-            "last_visit": "2020-07-30 04:04:26",
-            "permission": "22222222222222222222222222222222",
-            "user_id": 1,
-            "username": "admin"
+                "last_visit": "2020-07-30 04:04:26",
+                "permission": "22222222222222222222222222222222",
+                "user_id": 1,
+                "username": "admin"
             },
             {
-            "last_visit": "2020-07-30 03:48:56",
-            "permission": "10000000000000000000000000000000",
-            "user_id": 2,
-            "username": "test"
+                "last_visit": "2020-07-30 03:48:56",
+                "permission": "10000000000000000000000000000000",
+                "user_id": 2,
+                "username": "test"
             }
         ]
     }
