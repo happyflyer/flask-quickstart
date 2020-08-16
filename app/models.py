@@ -109,7 +109,7 @@ class User(PaginatedAPIMixin, UserMixin, db.Model):
             permission int 权限值，可以为0，1，2，分别代表无权限，读权限，写权限
         """
         module_bit = MODULES.get(module_name)
-        if not module_bit:
+        if module_bit is None:
             raise RuntimeError('Invalid module!')
         if permission not in PERMISSIONS:
             raise RuntimeError('Invalid permission!')
@@ -124,7 +124,7 @@ class User(PaginatedAPIMixin, UserMixin, db.Model):
             True or False
         """
         module_bit = MODULES.get(module_name)
-        if not module_bit:
+        if module_bit is None:
             raise RuntimeError('Invalid module!')
         if permission not in PERMISSIONS:
             raise RuntimeError('Invalid permission!')
