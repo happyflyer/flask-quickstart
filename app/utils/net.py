@@ -24,8 +24,8 @@ __all__ = [
 LOOPBACK_IP_ADDRESS = '127.0.0.1'
 # ping 次数
 PING_COUNT = 1
-# ping 超时时间，单位：ms
-PING_TIMEOUT = 64
+# ping 超时时间
+PING_TIMEOUT = 1
 
 
 def get_os():
