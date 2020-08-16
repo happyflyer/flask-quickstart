@@ -35,28 +35,28 @@ def read_json(filename):
     return payload
 
 
-def write_json(data, filename, new_thread=False):
-    """将data写入到json文件\n
+def write_json(payload, filename, new_thread=False):
+    """将payload写入到json文件\n
     Args:\n
-        data dict 数据
+        payload dict 数据
         filename str 文件路径
         new_thread bool 是否开一个子线程写文件
     Demo:\n
         >>> write_json({'k': 'v'}, 'demo.json')
     """
     if new_thread:
-        thr = Thread(target=_write_json, args=(data, filename), daemon=True)
+        thr = Thread(target=_write_json, args=(payload, filename), daemon=True)
         thr.start()
     else:
-        _write_json(data, filename)
+        _write_json(payload, filename)
 
 
-def _write_json(data, filename):
+def _write_json(payload, filename):
     filedir = os.path.abspath(os.path.dirname(filename))
     if not os.path.exists(filedir):
         os.makedirs(filedir)
     with open(filename, 'w', encoding=ENCODING) as f:
-        json.dump(data, f, indent=JSON_INDENT)
+        json.dump(payload, f, indent=JSON_INDENT)
 
 
 def read_properties(filename):
