@@ -43,7 +43,7 @@ class Config(object):
     ]
 
     # flask_docs
-    API_DOC_MEMBER = ['api', 'platform']
+    API_DOC_MEMBER = ['api']
     RESTFUL_API_DOC_EXCLUDE = []
 
 

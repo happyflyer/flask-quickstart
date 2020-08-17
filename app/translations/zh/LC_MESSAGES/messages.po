@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-08-01 01:35+0800\n"
+"POT-Creation-Date: 2020-08-17 14:38+0800\n"
 "PO-Revision-Date: 2020-07-26 01:40+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: zh\n"
@@ -22,31 +22,9 @@ msgstr ""
 msgid "Please log in to access this page."
 msgstr "请登录以访问此页面"
 
-#: app/api/users.py:85
-msgid "insufficient permission!"
-msgstr "权限不足！"
-
-#: app/api/users.py:120 app/api/users.py:166
-msgid "missing username!"
-msgstr "缺失 username！"
-
-#: app/api/users.py:123 app/main/users.py:45
-#, python-format
-msgid "%(username)s already exists!"
-msgstr "%(username)s 已经存在！"
-
-#: app/api/users.py:158
-msgid "missing module or permission!"
-msgstr "缺失 module 或 permission！"
-
-#: app/api/users.py:162
-msgid "invalid module or permission!"
-msgstr "无效的 module 或 permission！"
-
-#: app/api/users.py:169 app/main/users.py:67
-#, python-format
-msgid "%(username)s must have %(permission)s to %(module)s!"
-msgstr "%(username)s 必须具有 %(module)s 模块的 %(permission)s 权限！"
+#: app/__init__.py:70 app/templates/base.jinja2:64
+msgid "Flask Quickstart"
+msgstr "Flask 快读上手"
 
 #: app/auth/forms.py:10 app/main/forms.py:13
 #: app/templates/main/user_table.jinja2:7
@@ -113,6 +91,11 @@ msgstr "用户列表"
 msgid "User Profile"
 msgstr "用户配置文件"
 
+#: app/main/api/users.py:123 app/main/users.py:45
+#, python-format
+msgid "%(username)s already exists!"
+msgstr "%(username)s 已经存在！"
+
 #: app/main/users.py:50
 #, python-format
 msgid "%(username)s has been added."
@@ -121,6 +104,11 @@ msgstr "%(username)s 成功新增。"
 #: app/main/users.py:52 app/templates/main/user_list.jinja2:6
 msgid "Add User"
 msgstr "新增用户"
+
+#: app/main/api/users.py:169 app/main/users.py:67
+#, python-format
+msgid "%(username)s must have %(permission)s to %(module)s!"
+msgstr "%(username)s 必须具有 %(module)s 模块的 %(permission)s 权限！"
 
 #: app/main/users.py:72
 #, python-format
@@ -131,6 +119,22 @@ msgstr "%(username)s 已经获得 %(module)s 模块的 %(permission)s 权限。"
 msgid "Grant User"
 msgstr "授权用户"
 
+#: app/main/api/users.py:85
+msgid "insufficient permission!"
+msgstr "权限不足！"
+
+#: app/main/api/users.py:120 app/main/api/users.py:166
+msgid "missing username!"
+msgstr "缺失 username！"
+
+#: app/main/api/users.py:158
+msgid "missing module or permission!"
+msgstr "缺失 module 或 permission！"
+
+#: app/main/api/users.py:162
+msgid "invalid module or permission!"
+msgstr "无效的 module 或 permission！"
+
 #: app/templates/base.jinja2:6
 #, python-format
 msgid "%(title)s - Flask Quickstart"
@@ -139,10 +143,6 @@ msgstr "%(title)s - Flask 项目快读上手"
 #: app/templates/base.jinja2:8
 msgid "Welcome to Flask Quickstart"
 msgstr "欢迎访问 Flask 项目快读上手"
-
-#: app/templates/base.jinja2:64
-msgid "Flask Quickstart"
-msgstr "Flask 快读上手"
 
 #: app/templates/base.jinja2:76
 msgid "Feature"

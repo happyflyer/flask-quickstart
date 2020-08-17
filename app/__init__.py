@@ -25,7 +25,7 @@ from .permission import *
 # 主版本号：当你做了不兼容的 API 修改，
 # 次版本号：当你做了向下兼容的功能性新增，
 # 修订号：当你做了向下兼容的问题修正。
-__version__ = '0.2.2'
+__version__ = '0.2.3'
 
 db = SQLAlchemy()
 migrate = Migrate()
@@ -67,7 +67,7 @@ def create_app(config_class=Config):
     babel.init_app(app)
     csrf.init_app(app)
     CORS(app, supports_credentials=True)
-    doc.init_app(app, title='Flask Quickstart', version=__version__)
+    doc.init_app(app, title=_l('Flask Quickstart'), version=__version__)
 
     from .errors import bp as errors_bp
     app.register_blueprint(errors_bp, url_prefix='/')
