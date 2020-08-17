@@ -17,4 +17,5 @@ from .auth import basic_auth  # NOQA
 from .auth import token_auth  # NOQA
 
 from . import tokens  # NOQA
-from . import users  # NOQA
+
+from ..main.api import users  # NOQA

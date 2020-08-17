@@ -3,9 +3,9 @@
 from flask import request, jsonify, g
 from flask_babel import lazy_gettext as _l
 
-from .. import db, write_required, read_required, WRITE_PERMISSION, MODULES, PERMISSIONS
-from ..models import User
-from . import bp, RECORDS_PER_PAGE, RECORDS_MAX_PER_PAGE, token_auth, bad_request, forbidden
+from ... import db, write_required, read_required, WRITE_PERMISSION, MODULES, PERMISSIONS
+from ...api import bp, RECORDS_PER_PAGE, RECORDS_MAX_PER_PAGE, token_auth, bad_request, forbidden
+from ...models import User
 
 
 @bp.route('/user', methods=['GET'])
