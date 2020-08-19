@@ -4,7 +4,7 @@ WORKDIR /opt/flask-quickstart
 
 COPY . ./
 
-RUN pip install --upgrade pip -i https://pypi.tuna.tsinghua.edu.cn/simple && \
+RUN pip install --upgrade pip -i https://pypi.tuna.tsinghua.edu.cn/simple --timeout 6000 && \
     pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple --timeout 6000 && \
     sed -i "s@http://deb.debian.org@http://mirrors.aliyun.com@g" /etc/apt/sources.list && \
     rm -Rf /var/lib/apt/lists/* && \
