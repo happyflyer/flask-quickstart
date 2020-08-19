@@ -48,7 +48,7 @@ docker build -t flaskqs:<tag> .
 ```
 
 ```bash
-docker run -itd -p 8080:8080 flaskqs:<tag> /bin/bash
+docker run -itd -p 8080:8080 --name flaskqs_app -v /repo_path:/opt/flask-quickstart flaskqs:<tag> /bin/bash
 ```
 
 ```bash

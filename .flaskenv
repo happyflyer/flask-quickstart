@@ -1,2 +1,2 @@
-FLASK_APP=flaskqs.py
+FLASK_APP=flask_quickstart.py
 FLASK_ENV=production
