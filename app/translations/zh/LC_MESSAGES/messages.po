@@ -146,7 +146,7 @@ msgstr "欢迎访问 Flask 项目快读上手"
 
 #: app/templates/base.jinja2:76
 msgid "Feature"
-msgstr "特点"
+msgstr "特性"
 
 #: app/templates/base.jinja2:79
 msgid "Complete functions"
