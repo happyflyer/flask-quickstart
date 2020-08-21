@@ -31,13 +31,12 @@ docker exec -it container_id /bin/bash
 ```
 
 ```bash
-# 导出
 docker export container_id > ubuntu.tar
 ```
 
 ```bash
-# 导入
-cat ubuntu.tar | docker import - my/ubuntu:v1
+docker import ubuntu.tar
+docker tag image_id image_name:image_tag
 ```
 
 ```bash
@@ -92,8 +91,29 @@ docker commit -m="message" -a="author" container_id docker/ubuntu:v2
 
 ```bash
 vim Dockerfile
-docker build -t docker/ubuntu:v3 .
+docker build -t ubuntu:v2 .
 ```
+
+```bash
+docker save > ubuntu_v2.tar
+```
+
+```bash
+docker load < ubuntu_v2.tar
+docker tag image_id ubuntu:v2
+```
+
+镜像导入和容器导入的区别：
+
+- 容器导入 是将当前容器变成一个新的镜像
+- 镜像导入 是复制的过程
+
+`save` 和 `export` 区别：
+
+- `save` 保存镜像所有的信息（包含历史）
+- `export` 只导出当前的信息
+
+> 推荐使用 `save`
 
 ## 4. Dockerfile
 
