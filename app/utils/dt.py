@@ -44,6 +44,7 @@ def is_date_str(date_str):
     Returns:\n
         True or False
     """
+    date_str = str(date_str)
     if not re.match(r'^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$', date_str):
         return False
     year, month, day = list(map(int, str.split(date_str, DATE_SEPARATOR)))
@@ -66,6 +67,7 @@ def is_time_str(time_str):
     Returns:\n
         True or False
     """
+    time_str = str(time_str)
     if re.match(r'^([0-1][0-9]|2[0-3])(:[0-5][0-9]){2}$', time_str):
         return True
     return False
@@ -79,7 +81,7 @@ def date_str_2_dt(date_str):
         dt datetime
     """
     if not is_date_str(date_str):
-        raise RuntimeError('Invalid date_str!')
+        return None
     return datetime.strptime(date_str, DATE_FORMATTER)
 
 
@@ -91,7 +93,7 @@ def time_str_2_dt(time_str, dt=datetime.now()):
         dt datetime
     """
     if not is_time_str(time_str):
-        raise RuntimeError('Invalid time_str!')
+        return None
     hour, minute, second = list(map(int, str.split(time_str, TIME_SEPARATOR)))
     return datetime(dt.year, dt.month, dt.day, hour, minute, second)
 
@@ -105,7 +107,7 @@ def dt_str_2_dt(dt_str):
     """
     date_str, time_str = str.split(dt_str, DATETIME_SEPARATOR)
     if not (is_date_str(date_str) and is_time_str(time_str)):
-        raise RuntimeError('Invalid dt_str!')
+        return None
     return datetime.strptime(dt_str, DATETIME_FORMATTER)
 
 
@@ -117,7 +119,7 @@ def dt_start(dt):
         dt datetime
     """
     if not isinstance(dt, datetime):
-        raise RuntimeError('Invalid dt!')
+        return None
     return datetime(dt.year, dt.month, dt.day)
 
 
@@ -129,7 +131,7 @@ def dt_end(dt):
         dt datetime
     """
     if not isinstance(dt, datetime):
-        raise RuntimeError('Invalid dt!')
+        return None
     return datetime(dt.year, dt.month, dt.day) + timedelta(days=1, seconds=-1)
 
 

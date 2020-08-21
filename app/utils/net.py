@@ -110,7 +110,7 @@ def ping_ip(ip_address):
         count = '-c'
         timeout = '-t'
     else:
-        raise RuntimeError('Unknown operating system!')
+        return False
     ret = subprocess.run(['ping', count, str(PING_COUNT), timeout, str(PING_TIMEOUT), ip_address],
         stdout=subprocess.PIPE, stderr=subprocess.PIPE)  # NOQA
     return ret.returncode == 0

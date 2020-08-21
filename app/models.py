@@ -125,9 +125,9 @@ class User(PaginatedAPIMixin, UserMixin, db.Model):
         """
         module_bit = MODULES.get(module_name)
         if module_bit is None:
-            raise RuntimeError('Invalid module!')
+            return False
         if permission not in PERMISSIONS:
-            raise RuntimeError('Invalid permission!')
+            return False
         user_premission = int(self.permission[module_bit])
         return user_premission >= permission
 
