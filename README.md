@@ -115,6 +115,9 @@ flask translate compile
 ```
 
 ```bash
+cp supervisor.conf /etc/supervisor/conf.d/flask_quickstart.conf
 service supervisor start
+rm /etc/nginx/sites-enabled/default
+cp nginx.conf /etc/nginx/sites-enabled/
 service nginx start
 ```
