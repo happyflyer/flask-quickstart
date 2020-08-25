@@ -181,7 +181,7 @@ class User(PaginatedAPIMixin, UserMixin, db.Model):
             if field not in payload:
                 return None
         user = User()
-        user.username = payload.get('username')
+        user.username = payload.get('username', '')[:20]
         if new_user and 'password' in payload:
             user.set_password(payload.get('password'))
         return user
