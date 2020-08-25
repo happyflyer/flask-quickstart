@@ -21,7 +21,7 @@ Flask Quickstart 是一个具有 Web 后端基本功能、易于快读二次开�
 - `app`：源代码
   - `api`：api 蓝图，只用于注册端点，实现分散到各个模块的 api
   - `auth`：用户认证，只用于界面验证，api 用户认证在 `api/tokens.py`
-  - `beans`:业务模型
+  - `beans`：业务模型
   - `errors`：错误处理
   - `main`：用户管理
   - `static`：静态资源
@@ -97,13 +97,13 @@ DB_PORT=3306
 DB_USERNAME=www
 DB_PASSWORD=password
 DB_DATABASE=flaskqs
-DB_DATABASE_TEST=flaskqs_test
-MAIL_SERVER=smtp.qq.com
-MAIL_PORT=<465或者587>
-MAIL_USE_SSL=1
-MAIL_USERNAME=<qq账号>
-MAIL_PASSWORD=<qq邮箱授权码>
-MAIL_ADMINS=<邮箱，多个邮箱之间用','分隔>
+DB_DATABASE_TEST=
+MAIL_SERVER=
+MAIL_PORT=
+MAIL_USE_SSL=
+MAIL_USERNAME=
+MAIL_PASSWORD=
+MAIL_ADMINS=
 ```
 
 - 执行 `python -c "import uuid; print(uuid.uuid4().hex)"` ，粘贴到 `SECRET_KEY`
