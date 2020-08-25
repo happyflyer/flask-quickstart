@@ -149,7 +149,7 @@ media
 .idea
 
 # mac
-.DS_store
+.DS_Store
 
 # 临时文件
 log
