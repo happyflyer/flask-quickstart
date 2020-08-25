@@ -96,7 +96,7 @@ docker build -t ubuntu:v2 .
 ```
 
 ```bash
-docker save > ubuntu_v2.tar
+docker save image_id > ubuntu_v2.tar
 ```
 
 ```bash

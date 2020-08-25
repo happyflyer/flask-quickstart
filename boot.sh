@@ -1,5 +1,6 @@
 #!/bin/sh
 # this script is used to boot a Docker container
+cd /opt/flask-quickstart
 cp .env.template .env
 while true; do
     flask db upgrade
@@ -10,7 +11,6 @@ while true; do
     sleep 5
 done
 flask translate compile
-cd /opt/flask-quickstart
 cp supervisor.conf /etc/supervisor/conf.d/flask_quickstart.conf
 service supervisor start
 rm /etc/nginx/sites-enabled/default

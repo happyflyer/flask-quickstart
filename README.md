@@ -66,7 +66,7 @@ flush privileges;
 1. 修改 `/etc/mysql/mysql.conf.d/mysqld.cnf` 中为：`bind-address = 0.0.0.0`
 2. 从 `/etc/mysql/mysql.conf.d/mysqld.cnf` 中还可以获知数据库端口，默认：`3306`
 3. 重启 mysql 服务 `service mysql restart`
-4. 验证 mysql 服务 `netstat -tnl | grep 3306` ，出现 `0.0.0.0:3306` 和 `LISTEN` 说明运行正常。
+4. 验证 mysql 服务 `netstat -tnl | grep 3306` ，出现 `0.0.0.0:3306` , `:::3306`, `LISTEN` 类似字符，说明数据库运行正常。
 
 ### 4.2. 启动容器
 
@@ -84,10 +84,14 @@ docker ps
 docker exec -it flask_quickstart_web_app /bin/bash
 ```
 
-### 4.3. 配置 .env
+### 4.3. 容器内部操作
+
+> 该节内容执行后效果等同于运行 `boot.sh`
 
 ```bash
+cd /opt/flask-quickstart
 cp .env.template .env
+vim .env
 ```
 
 ```properties
@@ -106,25 +110,60 @@ MAIL_PASSWORD=
 MAIL_ADMINS=
 ```
 
+根据需要修改 .env 文件
+
 - 执行 `python -c "import uuid; print(uuid.uuid4().hex)"` ，粘贴到 `SECRET_KEY`
 - `172.17.0.1` 为 docker 网桥中宿主机默认 ip，其他 `DB` 信息根据需要修改
 - `MAIL` 信息配置可参见 [邮箱配置](docs/mail.md)
 
-### 4.4. 启动服务
-
 ```bash
+# 数据库升级
+# 执行前提：创建好数据库和配置 .env 文件
+# 执行效果：生成数据库表结构
 flask db upgrade
 ```
 
 ```bash
+# 编译 web 后端界面的本地化文件
+# 执行效果：后端界面变成全中文
 flask translate compile
 ```
 
 ```bash
-cd /opt/flask-quickstart
+# 启动 supervisor 服务
 cp supervisor.conf /etc/supervisor/conf.d/flask_quickstart.conf
 service supervisor start
+# 启动 nginx 服务
 rm /etc/nginx/sites-enabled/default
 cp nginx.conf /etc/nginx/sites-enabled/
 service nginx start
 ```
+
+### 4.4. 验证运行情况
+
+> 验证方法均在容器内部进行。方法选其一即可。
+
+#### 4.4.1. 端口监听
+
+```bash
+netstat -tnl
+```
+
+- 出现 `127.0.0.1:8000` , `LISTEN` 类似字符，说明 web 后端程序运行正常。
+- 出现 `0.0.0.0:8080` , `:::8080`, `LISTEN` 类似字符，说明 nginx 运行正常。
+
+#### 4.4.2. 服务状态
+
+```bash
+service supervisor status
+# supervisord is running
+```
+
+说明 web 后端程序运行正常。
+
+```bash
+service nginx status
+# [ ok ] Starting nginx: nginx.
+```
+
+说明 nginx 运行正常。
