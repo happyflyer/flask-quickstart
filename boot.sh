@@ -10,5 +10,9 @@ while true; do
     sleep 5
 done
 flask translate compile
+cd /opt/flask-quickstart
+cp supervisor.conf /etc/supervisor/conf.d/flask_quickstart.conf
 service supervisor start
+rm /etc/nginx/sites-enabled/default
+cp nginx.conf /etc/nginx/sites-enabled/
 service nginx start

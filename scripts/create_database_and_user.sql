@@ -5,11 +5,16 @@ create database `flaskqs` character set 'utf8' collate 'utf8_general_ci';
 drop database if exists `flaskqs_test`;
 create database `flaskqs_test` character set 'utf8' collate 'utf8_general_ci';
 -- 创建用户，用户名和密码根据需要设置
+drop user 'www' @'%';
 create user 'www' @'%' identified by 'password';
+flush privileges;
 -- 给用户授权
 grant all privileges on flaskqs.* to 'www' @'%';
 grant all privileges on flaskqs_test.* to 'www' @'%';
 flush privileges;
 -- 验证用户和授权
--- select host, user, authentication_string from mysql.user;
--- show grants for 'www'@'%';
+select host,
+    user,
+    authentication_string
+from mysql.user;
+show grants for 'www' @'%';

@@ -1,4 +1,4 @@
-# tmux 常用操作
+# tmux 使用
 
 `prefix` 默认为： `Ctrl` + `b`
 
@@ -111,6 +111,6 @@ prefix t
 prefix ?
 ```
 
-[tmux 基本操作](https://www.cnblogs.com/liuguanglin/p/9290345.html)
+[tmux 基本操作 - Guanglin - 博客园](https://www.cnblogs.com/liuguanglin/p/9290345.html)
 
-[优雅地使用命令行：Tmux 终端复用](https://harttle.land/2015/11/06/tmux-startup.html)
+[优雅地使用命令行：Tmux 终端复用 | Harttle Land](https://harttle.land/2015/11/06/tmux-startup.html)

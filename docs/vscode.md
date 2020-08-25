@@ -1,4 +1,4 @@
-# VSCode 设置
+# VSCode 使用
 
 ## 1. sftp 插件
 

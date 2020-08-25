@@ -3,12 +3,6 @@
 from threading import Thread
 
 
-__all__ = [
-    'async_execute',
-    'parallel_execute'
-]
-
-
 def async_execute(f):
     """新开一个子线程执行函数\n
     Args:\n

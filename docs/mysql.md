@@ -1,4 +1,4 @@
-# MySQL 数据库常用操作
+# MySQL 使用
 
 > 以下操作在 MySQL 5.7.31 上测试通过。
 
@@ -11,9 +11,6 @@ mysql -u root -p
 ```sql
 show databases;
 use db;
-```
-
-```sql
 show tables;
 ```
 

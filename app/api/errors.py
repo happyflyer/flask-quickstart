@@ -34,3 +34,11 @@ def forbidden(message):
         message str
     """
     return error_response(403, message)
+
+
+def not_found(message):
+    """页面未找到\n
+    Args:\n
+        message str
+    """
+    return error_response(404, message)

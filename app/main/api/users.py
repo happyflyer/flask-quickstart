@@ -16,6 +16,10 @@ def get_users():
     @@@
     #### 请求头
     > 携带 `Authorization` 字段。\n
+    #### 查询字段
+    | 字段     | 是否必须 | 类型 | 说明     |
+    | -------- | -------- | ---- | -------- |
+    | username |          | str  | 模糊查询 |
     #### 权限
     > 访问用户对 main 模块有 W 权限。\n
     #### 响应示例
@@ -50,10 +54,16 @@ def get_users():
     ```
     @@@
     """
+    custom_query = User.query
+    username = request.args.get('username', None, type=str)
+    if username:
+        custom_query = custom_query.filter(User.username.like('%' + username + '%'))
     page = request.args.get('page', 1, type=int)
     per_page = request.args.get('per_page', RECORDS_PER_PAGE, type=int)
     per_page = min(per_page, RECORDS_MAX_PER_PAGE)
-    payload = User.to_collection_dict(User.query.order_by(User.id.asc()), page, per_page, 'api.get_users')
+    payload = User.to_collection_dict(custom_query.order_by(
+        User.id.asc()), page, per_page, 'api.get_users',
+        username=username)  # NOQA
     return jsonify(payload)
 
 

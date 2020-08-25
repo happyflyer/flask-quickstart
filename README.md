@@ -21,6 +21,7 @@ Flask Quickstart 是一个具有 Web 后端基本功能、易于快读二次开�
 - `app`：源代码
   - `api`：api 蓝图，只用于注册端点，实现分散到各个模块的 api
   - `auth`：用户认证，只用于界面验证，api 用户认证在 `api/tokens.py`
+  - `beans`:业务模型
   - `errors`：错误处理
   - `main`：用户管理
   - `static`：静态资源
@@ -28,13 +29,16 @@ Flask Quickstart 是一个具有 Web 后端基本功能、易于快读二次开�
   - `translations`：本地化资源
   - `utils`：工具函数
   - `__init__.py`：应用程序创建函数
-  - `models.py`：数据模型，业务模型放到 `app/beans`
-- `data`：数据，缓存文件放到 `tmp`
+  - `models.py`：系统模型，业务模型放到 `app/beans`
+- `.env`：配置文件，应用程序启动前必须具备！
+- `.env.template`：配置文件模版
+- `data`：数据等，应用程序运行时产生的临时缓存数据放到 `tmp`
 - `docs`：开发者文档
+- `log`: 日志
 - `migrations`：数据库迁移记录
 - `scripts`：脚本
 - `tests`：单元测试
-- `.env.template`：配置文件模版
+- `tmp`：临时缓存数据
 - `config.py`：配置加载脚本
 - `flask_quickstart.py`：启动脚本
 
@@ -57,6 +61,8 @@ grant all privileges on flaskqs.* to 'www' @'%';
 flush privileges;
 ```
 
+> 开发者执行 SQL 脚本 `scripts/create_database_and_user.sql`
+
 1. 修改 `/etc/mysql/mysql.conf.d/mysqld.cnf` 中为：`bind-address = 0.0.0.0`
 2. 从 `/etc/mysql/mysql.conf.d/mysqld.cnf` 中还可以获知数据库端口，默认：`3306`
 3. 重启 mysql 服务 `service mysql restart`
@@ -66,16 +72,16 @@ flush privileges;
 
 ```bash
 # 构建镜像
-docker build -t flaskqs:<tag> .
+docker build -t flask_quickstart_web:<tag> .
 ```
 
 ```bash
-docker run -itd -p 8080:8080 --name flaskqs_app -v /repo_path:/opt/flask-quickstart flaskqs:<tag> /bin/bash
+docker run -itd -p 8080:8080 --name flask_quickstart_web_app -v /repo_path:/opt/flask-quickstart flask_quickstart_web:<tag> /bin/bash
 ```
 
 ```bash
 docker ps
-docker exec -it <container_id> /bin/bash
+docker exec -it flask_quickstart_web_app /bin/bash
 ```
 
 ### 4.3. 配置 .env
@@ -115,6 +121,7 @@ flask translate compile
 ```
 
 ```bash
+cd /opt/flask-quickstart
 cp supervisor.conf /etc/supervisor/conf.d/flask_quickstart.conf
 service supervisor start
 rm /etc/nginx/sites-enabled/default

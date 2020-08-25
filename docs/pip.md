@@ -1,6 +1,6 @@
-# pip 常用操作和配置
+# pip 使用
 
-## 1. 安装依赖
+## 1. 包管理
 
 ```bash
 pip install -r requirements.txt

@@ -4,4 +4,5 @@ from flask import Blueprint
 
 
 bp = Blueprint('main', __name__)
-from . import routes, users  # NOQA
+from . import routes  # NOQA
+from . import users  # NOQA

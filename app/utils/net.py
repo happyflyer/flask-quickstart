@@ -2,23 +2,14 @@
 
 import platform
 import re
-import psutil
 import subprocess
 from queue import Queue
+
+import psutil
 
 from . import ENCODING
 from .thr import parallel_execute
 
-
-__all__ = [
-    'LOOPBACK_IP_ADDRESS',
-    'get_os',
-    'get_ip',
-    'check_ip',
-    'extract_ip',
-    'ping_ip',
-    'scan_ip'
-]
 
 # 本地回环地址
 LOOPBACK_IP_ADDRESS = '127.0.0.1'

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-08-17 14:38+0800\n"
+"POT-Creation-Date: 2020-08-25 16:27+0800\n"
 "PO-Revision-Date: 2020-07-26 01:40+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: zh\n"
@@ -83,55 +83,60 @@ msgstr "无效的权限"
 msgid "Home"
 msgstr "主页"
 
-#: app/main/users.py:19
+#: app/main/users.py:23
 msgid "User List"
 msgstr "用户列表"
 
-#: app/main/users.py:32
+#: app/main/users.py:36
 msgid "User Profile"
 msgstr "用户配置文件"
 
-#: app/main/api/users.py:123 app/main/users.py:45
+#: app/main/users.py:49
 #, python-format
-msgid "%(username)s already exists!"
-msgstr "%(username)s 已经存在！"
+msgid "%(obj)s already exists!"
+msgstr "%(obj)s 已经存在！"
 
-#: app/main/users.py:50
+#: app/main/users.py:54
 #, python-format
-msgid "%(username)s has been added."
-msgstr "%(username)s 成功新增。"
+msgid "%(obj)s has been added."
+msgstr "%(obj)s 已经新增。"
 
-#: app/main/users.py:52 app/templates/main/user_list.jinja2:6
+#: app/main/users.py:56 app/templates/main/user_list.jinja2:6
 msgid "Add User"
 msgstr "新增用户"
 
-#: app/main/api/users.py:169 app/main/users.py:67
+#: app/main/api/users.py:179 app/main/users.py:71
 #, python-format
 msgid "%(username)s must have %(permission)s to %(module)s!"
 msgstr "%(username)s 必须具有 %(module)s 模块的 %(permission)s 权限！"
 
-#: app/main/users.py:72
+#: app/main/users.py:76
 #, python-format
 msgid "%(username)s has been granted %(permission)s to %(module)s."
 msgstr "%(username)s 已经获得 %(module)s 模块的 %(permission)s 权限。"
 
-#: app/main/users.py:75
+#: app/main/users.py:79
 msgid "Grant User"
 msgstr "授权用户"
 
-#: app/main/api/users.py:85
+#: app/main/api/users.py:95
 msgid "insufficient permission!"
 msgstr "权限不足！"
 
-#: app/main/api/users.py:120 app/main/api/users.py:166
+#: app/main/api/users.py:130 app/main/api/users.py:176
 msgid "missing username!"
 msgstr "缺失 username！"
 
-#: app/main/api/users.py:158
+#: app/main/api/users.py:133
+#, python-format
+msgid "%(username)s already exists!"
+msgstr "%(username)s 已经存在！"
+
+#: app/main/api/users.py:168
 msgid "missing module or permission!"
 msgstr "缺失 module 或 permission！"
 
-#: app/main/api/users.py:162
+#: app/main/api/users.py:172
 msgid "invalid module or permission!"
 msgstr "无效的 module 或 permission！"
 

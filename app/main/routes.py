@@ -8,7 +8,7 @@ from . import bp
 
 @bp.route('/favicon.ico', methods=['GET'])
 def favicon():
-    return redirect(url_for('static', filename='logo/logo.png'))
+    return redirect(url_for('static', filename='logo/favicon.ico'))
 
 
 @bp.route('/', methods=['GET'])

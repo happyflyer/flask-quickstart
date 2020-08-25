@@ -6,11 +6,6 @@ from datetime import datetime
 import cv2
 
 
-__all__ = [
-    'save_screenshot'
-]
-
-
 def save_screenshot(filename, image_dir='tmp', image_prefix='screenshot', image_suffix='%Y%m%d_%H%M%S_%f'):
     """保存视频文件、图片文件、视频流的截图\n
     Args:\n

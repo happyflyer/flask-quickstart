@@ -1,4 +1,4 @@
-# Docker 常用操作
+# Docker 使用
 
 ## 1. 容器使用
 
@@ -22,10 +22,11 @@ docker ps -a
 docker start container_id
 docker stop container_id
 docker restart container_id
-docker attach container_id
 ```
 
 ```bash
+# 不推荐
+docker attach container_id
 # 推荐
 docker exec -it container_id /bin/bash
 ```
@@ -105,8 +106,8 @@ docker tag image_id ubuntu:v2
 
 镜像导入和容器导入的区别：
 
-- 容器导入 是将当前容器变成一个新的镜像
-- 镜像导入 是复制的过程
+- 容器导入是将当前容器变成一个新的镜像
+- 镜像导入是复制的过程
 
 `save` 和 `export` 区别：
 
@@ -117,7 +118,7 @@ docker tag image_id ubuntu:v2
 
 ## 4. Dockerfile
 
-每条指令都会生成一个镜像层，Docker 中镜像 **最多 127 层** ，如果超出 Docker Daemon 就会报错。
+每条指令都会生成一个镜像层，Docker 中镜像最多 **127** 层 ，如果超出 Docker Daemon 就会报错。
 
 ### 4.1. FROM
 
@@ -271,4 +272,4 @@ WORKDIR <path>
 USER <username>[:<group>]
 ```
 
-[Docker 教程菜鸟教程](https://www.runoob.com/docker/docker-hello-world.html)
+[Docker Hello World | 菜鸟教程](https://www.runoob.com/docker/docker-hello-world.html)

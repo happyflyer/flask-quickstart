@@ -14,8 +14,12 @@ from .forms import UserAddForm, UserGrantForm
 @login_required
 @write_required()
 def list_users():
+    custom_query = User.query
+    username = request.args.get('username', None, type=str)
+    if username:
+        custom_query = custom_query.filter(User.username.like('%' + username + '%'))
     page = request.args.get('page', 1, type=int)
-    res = User.query.order_by(User.id.asc()).paginate(page, RECORDS_PER_PAGE, False)
+    res = custom_query.order_by(User.id.asc()).paginate(page, RECORDS_PER_PAGE, False)
     return render_template('main/user_list.jinja2', title=_l('User List'),
         res=res, page_target='main.list_users', modules=MODULES, permissions=PERMISSIONS)  # NOQA
 
@@ -42,12 +46,12 @@ def add_user():
         username = form.username.data
         # 用户名重复检查
         if User.query.filter(User.username == username).count() > 0:
-            flash(_l('%(username)s already exists!', username=username))
+            flash(_l('%(obj)s already exists!', obj=username))
             return redirect(url_for('main.add_user'))
         user = User.from_dict(form.data, new_user=True)
         db.session.add(user)
         db.session.commit()
-        flash(_l('%(username)s has been added.', username=username))
+        flash(_l('%(obj)s has been added.', obj=username))
         return redirect(url_for('main.list_users'))
     return render_template('edit.jinja2', title=_l('Add User'),
         form=form)  # NOQA

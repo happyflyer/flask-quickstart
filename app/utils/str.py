@@ -3,12 +3,6 @@
 from . import EMPTY
 
 
-__all__ = [
-    'has_empty',
-    'all_empty'
-]
-
-
 def has_empty(*values):
     """是否存在空字符串\n
     Args:\n

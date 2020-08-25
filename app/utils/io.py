@@ -7,13 +7,6 @@ from threading import Thread
 from . import EMPTY, ENCODING
 
 
-__all__ = [
-    'JSON_INDENT',
-    'read_json',
-    'write_json',
-    'read_properties'
-]
-
 # json文件缩进空格
 JSON_INDENT = 2
 

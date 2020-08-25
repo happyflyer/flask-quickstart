@@ -1,4 +1,4 @@
-# git 配置和操作
+# git 使用
 
 ## 1. 全局配置
 
@@ -51,6 +51,7 @@ git diff doc.txt
 # 提交日志
 git log
 git log --pretty=oneline
+git log --oneline --graph --decorate --all
 ```
 
 ```bash
@@ -96,12 +97,13 @@ git checkout -- doc.txt
 ## 6. 关联远程仓库
 
 ```bash
-ssh-keygen -t rsa -C "your_email@example.com"
+ssh-keygen -t rsa -C "your_message"
 ```
 
-将公钥 ~/.ssh/id_rsa.pub 添加到 github/gitlab/gitee/.. 账户的 ssh 公钥。
+将公钥 ~/.ssh/id_rsa.pub 添加到 github/gitlab/gitee/.. 账户的 SSH 公钥。
 
 ```bash
+# 测试
 ssh -T git@github.com
 ```
 
@@ -123,6 +125,6 @@ git pull origin next:master
 git push origin master
 ```
 
-[廖雪峰 Git 教程](https://www.liaoxuefeng.com/wiki/896043488029600)
+[Git 教程 - 廖雪峰的官方网站](https://www.liaoxuefeng.com/wiki/896043488029600)
 
-[git clone，push，pull，fetch 命令详解](https://www.cnblogs.com/xiaopangjr/p/7469687.html)
+[git clone，push，pull，fetch 命令详解（转载） - xiaopang1983 - 博客园](https://www.cnblogs.com/xiaopangjr/p/7469687.html)

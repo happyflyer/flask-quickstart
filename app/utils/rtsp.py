@@ -11,12 +11,6 @@ from .net import check_ip, extract_ip, scan_ip
 from .thr import parallel_execute
 
 
-__all__ = [
-    'RTSP_PORT',
-    'check_rtsp',
-    'scan_rtsp'
-]
-
 # rtsp视频流默认端口
 RTSP_PORT = 554
 

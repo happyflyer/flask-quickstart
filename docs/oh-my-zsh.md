@@ -1,4 +1,4 @@
-# Oh My Zsh 安装和插件
+# Oh My Zsh 使用
 
 > 安装过程为 ubuntu 版本。
 
@@ -22,43 +22,36 @@ sudo apt-get install git
 ```bash
 # 安装 oh-my-zsh
 sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-# 码云
+# 建议使用 gitee 镜像
 sh -c "$(curl -fsSL https://gitee.com/shmhlsy/oh-my-zsh-install.sh/raw/master/install.sh)"
 ```
 
-## 3. autojump
+## 3. 插件
 
 ```bash
 sudo apt-get install autojump
 ```
 
 ```bash
-vim ~/.zshrc
-# . /usr/share/autojump/autojump.sh
-```
-
-## 4. zsh-syntax-highlighting
-
-```bash
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git
+# 建议使用 gitee 镜像
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
 ```
 
 ```bash
-vim ~/.zshrc
-# source ${(q-)PWD}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-```
-
-## 5. zsh-autosuggestions
-
-```bash
-git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
+# 建议使用 gitee 镜像
+git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestions
 ```
 
 ```bash
 vim ~/.zshrc
-# plugins=(
-#     git
-#     zsh-autosuggestions
-# )
-# source $ZSH_CUSTOM/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+```
+
+```properties
+plugins=(
+    git
+    zsh-autosuggestions
+)
+. /usr/share/autojump/autojump.sh
+source $ZSH_CUSTOM/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $ZSH_CUSTOM/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 ```
