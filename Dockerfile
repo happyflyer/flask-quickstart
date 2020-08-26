@@ -9,7 +9,7 @@ RUN pip install --upgrade pip -i https://mirrors.aliyun.com/pypi/simple --timeou
     sed -i "s@http://deb.debian.org@http://mirrors.aliyun.com@g" /etc/apt/sources.list && \
     rm -Rf /var/lib/apt/lists/* && \
     apt-get update && \
-    apt-get install -y git net-tools vim tmux supervisor nginx
+    apt-get install -y git net-tools vim tmux htop supervisor nginx
 
 EXPOSE 8080
 

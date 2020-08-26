@@ -105,7 +105,7 @@ msgstr "%(obj)s 已经新增。"
 msgid "Add User"
 msgstr "新增用户"
 
-#: app/main/api/users.py:179 app/main/users.py:71
+#: app/main/api/users.py:181 app/main/users.py:71
 #, python-format
 msgid "%(username)s must have %(permission)s to %(module)s!"
 msgstr "%(username)s 必须具有 %(module)s 模块的 %(permission)s 权限！"
@@ -119,24 +119,24 @@ msgstr "%(username)s 已经获得 %(module)s 模块的 %(permission)s 权限。"
 msgid "Grant User"
 msgstr "授权用户"
 
-#: app/main/api/users.py:95
+#: app/main/api/users.py:97
 msgid "insufficient permission!"
 msgstr "权限不足！"
 
-#: app/main/api/users.py:130 app/main/api/users.py:176
+#: app/main/api/users.py:132 app/main/api/users.py:178
 msgid "missing username!"
 msgstr "缺失 username！"
 
-#: app/main/api/users.py:133
+#: app/main/api/users.py:135
 #, python-format
 msgid "%(username)s already exists!"
 msgstr "%(username)s 已经存在！"
 
-#: app/main/api/users.py:168
+#: app/main/api/users.py:170
 msgid "missing module or permission!"
 msgstr "缺失 module 或 permission！"
 
-#: app/main/api/users.py:172
+#: app/main/api/users.py:174
 msgid "invalid module or permission!"
 msgstr "无效的 module 或 permission！"
 
