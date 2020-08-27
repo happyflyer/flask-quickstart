@@ -64,7 +64,7 @@ def scan_rtsp(ip_address, user=None, pwd=None, port=None):
     return rtsp_url_list
 
 
-@parallel_execute(32)
+@parallel_execute(64)
 def _shot_fun(in_queue, out_list):
     while not in_queue.empty():
         rtsp_url = in_queue.get()

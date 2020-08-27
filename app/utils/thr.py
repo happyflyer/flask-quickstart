@@ -8,13 +8,13 @@ def async_execute(f):
     Args:\n
         f function
     """
-    def decorated_view(*args, **kwargs):
+    def decorator(*args, **kwargs):
         thr = Thread(target=f, args=args, kwargs=kwargs)
         thr.setDaemon(True)
         thr.start()
-    decorated_view.__name__ = f.__name__
-    decorated_view.__doc__ = f.__doc__
-    return decorated_view
+    decorator.__name__ = f.__name__
+    decorator.__doc__ = f.__doc__
+    return decorator
 
 
 def parallel_execute(threads=10):
@@ -22,13 +22,13 @@ def parallel_execute(threads=10):
     Args:\n
         threads int 并行执行的子线程数
     """
-    def parallel_decorator(f):
-        def decorated_view(*args, **kwargs):
+    def decorator(f):
+        def decorator2(*args, **kwargs):
             for i in range(threads):
                 thr = Thread(target=f, args=args, kwargs=kwargs)
                 thr.setDaemon(True)
                 thr.start()
-        decorated_view.__name__ = f.__name__
-        decorated_view.__doc__ = f.__doc__
-        return decorated_view
-    return parallel_decorator
+        decorator2.__name__ = f.__name__
+        decorator2.__doc__ = f.__doc__
+        return decorator2
+    return decorator

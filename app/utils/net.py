@@ -137,7 +137,7 @@ def scan_ip(ip_address, start=1, end=255, including_me=False):
     return ip_address_list
 
 
-@parallel_execute(64)
+@parallel_execute(128)
 def _ping_fun(in_queue, out_list):
     while not in_queue.empty():
         ip = in_queue.get()

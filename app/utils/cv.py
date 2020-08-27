@@ -18,6 +18,7 @@ def save_screenshot(filename, image_dir='tmp', image_prefix='screenshot', image_
     Demo:\n
         >>> save_screenshot('rtsp://admin:Hik@sxxs4500@192.168.1.3')
     """
+    # FIXME: 如果视频流地址不可用，该函数会阻塞
     cap = cv2.VideoCapture(filename)
     if cap.isOpened():
         image_name = '_'.join([image_prefix, datetime.utcnow().strftime(image_suffix)])
