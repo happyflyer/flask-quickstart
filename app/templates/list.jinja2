@@ -15,35 +15,36 @@
     {# 底部页码 #}
     {% if res and res.total %}
     <div class="my-3">
-        <nav aria-label="Page navigation example">
-            <ul class="pagination pagination-sm justify-content-center">
-                <li class="page-item {% if res.page == 1 %} disabled {% endif %}">
-                    <a class="page-link" href="{{ url_for('{}'.format(page_target), page=1) }}">{{ _('First Page') }}</a>
-                </li>
-                <li class="page-item {% if not res.has_prev %} disabled {% endif %}">
-                    <a class="page-link" href="{{ url_for('{}'.format(page_target), page=res.prev_num or '#') }}">{{ _('Previous Page') }}</a>
-                </li>
-                {% for i in range(max(res.page-3, 1), res.page) %}
-                <li class="page-item">
-                    <a class="page-link" href="{{ url_for('{}'.format(page_target), page=i or '#') }}">{{ i }}</a>
-                </li>
-                {% endfor %}
-                <li class="page-item active">
-                    <a class="page-link" href="#">{{ res.page }}<span class="sr-only">(current)</span></a>
-                </li>
-                {% for i in range(res.page+1, min(res.page+4, res.pages+1)) %}
-                <li class="page-item">
-                    <a class="page-link" href="{{ url_for('{}'.format(page_target), page=i or '#') }}">{{ i }}</a>
-                </li>
-                {% endfor %}
-                <li class="page-item {% if not res.has_next %} disabled {% endif %}">
-                    <a class="page-link" href="{{ url_for('{}'.format(page_target), page=res.next_num or '#') }}">{{ _('Next Page') }}</a>
-                </li>
-                <li class="page-item {% if res.page == res.pages %} disabled {% endif %}">
-                    <a class="page-link" href="{{ url_for('{}'.format(page_target), page=res.pages or '#') }}">{{ _('Last Page') }}</a>
-                </li>
-            </ul>
-        </nav>
+        <form>
+            {% if keywords %}
+            {% for key in keywords %}
+            <input type="hidden" class="page-link" name="{{ key }}" value="{{ keywords.get(key) }}" >
+            {% endfor %}
+            {% endif %}
+            <nav aria-label="Page navigation example">
+                <ul class="pagination pagination-sm justify-content-center">
+                    <li class="page-item {% if res.page == 1 %} disabled {% endif %}">
+                        <input type="submit" class="page-link" name="page" value="{{ 1 }}">
+                    </li>
+                    {% for i in range(max(res.page-3, 1), res.page) %}
+                    <li class="page-item">
+                        <input type="submit" class="page-link" name="page" value="{{ i or '#' }}" >
+                    </li>
+                    {% endfor %}
+                    <li class="page-item active">
+                        <input type="submit" class="page-link" name="page" value="{{ res.page }}">
+                    </li>
+                    {% for i in range(res.page+1, min(res.page+4, res.pages+1)) %}
+                    <li class="page-item">
+                        <input type="submit" class="page-link" name="page" value="{{ i or '#' }}" >
+                    </li>
+                    {% endfor %}
+                    <li class="page-item {% if res.page == res.pages %} disabled {% endif %}">
+                        <input type="submit" class="page-link" name="page" value="{{ res.pages }}">
+                    </li>
+                </ul>
+            </nav>
+        </form>
     </div>
     {% endif %}
 {% endblock %}

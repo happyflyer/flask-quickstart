@@ -25,7 +25,7 @@ from .permission import *
 # 主版本号：当你做了不兼容的 API 修改，
 # 次版本号：当你做了向下兼容的功能性新增，
 # 修订号：当你做了向下兼容的问题修正。
-__version__ = '0.2.7'
+__version__ = '0.2.8'
 
 db = SQLAlchemy()
 migrate = Migrate()
@@ -163,3 +163,4 @@ def get_locale():
 
 
 from . import models  # NOQA
+from .beans import *  # NOQA

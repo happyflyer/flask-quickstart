@@ -21,7 +21,12 @@ def list_users():
     page = request.args.get('page', 1, type=int)
     res = custom_query.order_by(User.id.asc()).paginate(page, RECORDS_PER_PAGE, False)
     return render_template('main/user_list.jinja2', title=_l('User List'),
-        res=res, page_target='main.list_users', modules=MODULES, permissions=PERMISSIONS)  # NOQA
+        res=res,
+        modules=MODULES,
+        permissions=PERMISSIONS,
+        keywords={
+            "username": username if username else ''
+        })  # NOQA
 
 
 @bp.route('/user/<string:username>', methods=['GET'])
