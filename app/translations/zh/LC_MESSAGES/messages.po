@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-08-25 16:27+0800\n"
+"POT-Creation-Date: 2020-08-28 14:01+0800\n"
 "PO-Revision-Date: 2020-07-26 01:40+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: zh\n"
@@ -27,6 +27,8 @@ msgid "Flask Quickstart"
 msgstr "Flask 快读上手"
 
 #: app/auth/forms.py:10 app/main/forms.py:13
+#: app/templates/main/user_list.jinja2:11
+#: app/templates/main/user_list.jinja2:12
 #: app/templates/main/user_table.jinja2:7
 msgid "Username"
 msgstr "用户名"
@@ -87,35 +89,35 @@ msgstr "主页"
 msgid "User List"
 msgstr "用户列表"
 
-#: app/main/users.py:36
+#: app/main/users.py:41
 msgid "User Profile"
 msgstr "用户配置文件"
 
-#: app/main/users.py:49
+#: app/main/users.py:54
 #, python-format
 msgid "%(obj)s already exists!"
 msgstr "%(obj)s 已经存在！"
 
-#: app/main/users.py:54
+#: app/main/users.py:59
 #, python-format
 msgid "%(obj)s has been added."
 msgstr "%(obj)s 已经新增。"
 
-#: app/main/users.py:56 app/templates/main/user_list.jinja2:6
+#: app/main/users.py:61 app/templates/main/user_list.jinja2:8
 msgid "Add User"
 msgstr "新增用户"
 
-#: app/main/api/users.py:181 app/main/users.py:71
+#: app/main/api/users.py:181 app/main/users.py:76
 #, python-format
 msgid "%(username)s must have %(permission)s to %(module)s!"
 msgstr "%(username)s 必须具有 %(module)s 模块的 %(permission)s 权限！"
 
-#: app/main/users.py:76
+#: app/main/users.py:81
 #, python-format
 msgid "%(username)s has been granted %(permission)s to %(module)s."
 msgstr "%(username)s 已经获得 %(module)s 模块的 %(permission)s 权限。"
 
-#: app/main/users.py:79
+#: app/main/users.py:84
 msgid "Grant User"
 msgstr "授权用户"
 
@@ -185,22 +187,6 @@ msgstr "配置文件"
 msgid "Logout"
 msgstr "注销"
 
-#: app/templates/list.jinja2:21
-msgid "First Page"
-msgstr "首页"
-
-#: app/templates/list.jinja2:24
-msgid "Previous Page"
-msgstr "上 1 页"
-
-#: app/templates/list.jinja2:40
-msgid "Next Page"
-msgstr "下 1 页"
-
-#: app/templates/list.jinja2:43
-msgid "Last Page"
-msgstr "尾页"
-
 #: app/templates/errors/403.jinja2:5
 msgid "Forbidden!"
 msgstr "禁止访问！"
@@ -229,6 +215,10 @@ msgstr "当前日期和时间："
 #, python-format
 msgid "%(username)s"
 msgstr "%(username)s"
+
+#: app/templates/main/user_list.jinja2:15
+msgid "Search"
+msgstr "检索"
 
 #: app/templates/main/user_table.jinja2:6
 msgid "Id"
