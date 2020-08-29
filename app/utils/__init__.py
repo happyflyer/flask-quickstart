@@ -24,12 +24,13 @@ __all__ = [
     'date_str_2_dt',
     'time_str_2_dt',
     'dt_str_2_dt',
-    'dt_start',
-    'dt_end',
-    'get_monday',
-    'get_sunday',
-    'get_firstday',
-    'get_lastday',
+    'second_start',
+    'minute_start',
+    'hour_start',
+    'day_start',
+    'week_start',
+    'month_start',
+    'month_end',
     'JSON_INDENT',
     'read_json',
     'write_json',
@@ -76,12 +77,13 @@ from .dt import is_time_str  # NOQA
 from .dt import date_str_2_dt  # NOQA
 from .dt import time_str_2_dt  # NOQA
 from .dt import dt_str_2_dt  # NOQA
-from .dt import dt_start  # NOQA
-from .dt import dt_end  # NOQA
-from .dt import get_monday  # NOQA
-from .dt import get_sunday  # NOQA
-from .dt import get_firstday  # NOQA
-from .dt import get_lastday  # NOQA
+from .dt import second_start  # NOQA
+from .dt import minute_start  # NOQA
+from .dt import hour_start  # NOQA
+from .dt import day_start  # NOQA
+from .dt import week_start  # NOQA
+from .dt import month_start  # NOQA
+from .dt import month_end  # NOQA
 
 from .io import JSON_INDENT  # NOQA
 from .io import read_json  # NOQA

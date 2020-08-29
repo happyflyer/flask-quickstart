@@ -47,35 +47,40 @@ class UserModelCase(unittest.TestCase):
         from app.utils import dt_str_2_dt
         self.assertEqual(datetime(2020, 12, 31, 23, 59, 59), dt_str_2_dt('2020-12-31 23:59:59'))
 
-    def test_dt_start(self):
+    def test_second_start(self):
         from datetime import datetime
-        from app.utils import dt_start
-        self.assertEqual(datetime(2020, 12, 31), dt_start(datetime(2020, 12, 31, 23, 59, 59)))
+        from app.utils import second_start
+        self.assertEqual(datetime(2020, 12, 31, 23, 59, 59), second_start(datetime(2020, 12, 31, 23, 59, 59)))
 
-    def test_dt_end(self):
+    def test_minute_start(self):
         from datetime import datetime
-        from app.utils import dt_end
-        self.assertEqual(datetime(2020, 12, 31, 23, 59, 59), dt_end(datetime(2020, 12, 31)))
+        from app.utils import minute_start
+        self.assertEqual(datetime(2020, 12, 31, 23, 59), minute_start(datetime(2020, 12, 31, 23, 59, 59)))
 
-    def test_get_monday(self):
+    def test_hour_start(self):
         from datetime import datetime
-        from app.utils import get_monday
-        self.assertEqual(0, get_monday(datetime.now()).weekday())
+        from app.utils import hour_start
+        self.assertEqual(datetime(2020, 12, 31, 23), hour_start(datetime(2020, 12, 31, 23, 59, 59)))
 
-    def test_get_sunday(self):
+    def test_day_start(self):
         from datetime import datetime
-        from app.utils import get_sunday
-        self.assertEqual(6, get_sunday(datetime.now()).weekday())
+        from app.utils import day_start
+        self.assertEqual(datetime(2020, 12, 31), day_start(datetime(2020, 12, 31, 23, 59, 59)))
 
-    def test_get_firstday(self):
+    def test_week_start(self):
         from datetime import datetime
-        from app.utils import get_firstday
-        self.assertEqual(1, get_firstday(datetime.now()).day)
+        from app.utils import week_start
+        self.assertEqual(0, week_start(datetime.now()).weekday())
 
-    def test_get_lastday(self):
+    def test_month_start(self):
+        from datetime import datetime
+        from app.utils import month_start
+        self.assertEqual(1, month_start(datetime.now()).day)
+
+    def test_month_end(self):
         from datetime import datetime, timedelta
-        from app.utils import get_lastday
-        self.assertEqual(1, (get_lastday(datetime.now()) + timedelta(days=1)).day)
+        from app.utils import month_end
+        self.assertEqual(1, (month_end(datetime.now()) + timedelta(days=1)).day)
 
 
 if __name__ == '__main__':

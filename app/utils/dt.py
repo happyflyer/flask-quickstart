@@ -84,13 +84,50 @@ def dt_str_2_dt(dt_str):
     Returns:\n
         dt datetime
     """
+    dt_str = str(dt_str)
     date_str, time_str = str.split(dt_str, DATETIME_SEPARATOR)
     if not (is_date_str(date_str) and is_time_str(time_str)):
         return None
     return datetime.strptime(dt_str, DATETIME_FORMATTER)
 
 
-def dt_start(dt):
+def second_start(dt):
+    """dt的时间设置为`xx:xx:xx`\n
+    Args:\n
+        dt datetime
+    Returns:\n
+        dt datetime
+    """
+    if not isinstance(dt, datetime):
+        return None
+    return datetime(dt.year, dt.month, dt.day, dt.hour, dt.minute, dt.second)
+
+
+def minute_start(dt):
+    """dt的时间设置为`xx:xx:00`\n
+    Args:\n
+        dt datetime
+    Returns:\n
+        dt datetime
+    """
+    if not isinstance(dt, datetime):
+        return None
+    return datetime(dt.year, dt.month, dt.day, dt.hour, dt.minute)
+
+
+def hour_start(dt):
+    """dt的时间设置为`xx:00:00`\n
+    Args:\n
+        dt datetime
+    Returns:\n
+        dt datetime
+    """
+    if not isinstance(dt, datetime):
+        return None
+    return datetime(dt.year, dt.month, dt.day, dt.hour)
+
+
+def day_start(dt):
     """dt的时间设置为`00:00:00`\n
     Args:\n
         dt datetime
@@ -102,20 +139,8 @@ def dt_start(dt):
     return datetime(dt.year, dt.month, dt.day)
 
 
-def dt_end(dt):
-    """dt的时间设置为`23:59:59`\n
-    Args:\n
-        dt datetime
-    Returns:\n
-        dt datetime
-    """
-    if not isinstance(dt, datetime):
-        return None
-    return datetime(dt.year, dt.month, dt.day) + timedelta(days=1, seconds=-1)
-
-
-def get_monday(dt):
-    """dt所在周的星期一\n
+def week_start(dt):
+    """dt所在周的星期一，时间为 `00:00:00`\n
     Args:\n
         dt datetime
     Returns:\n
@@ -126,30 +151,18 @@ def get_monday(dt):
     return dt
 
 
-def get_sunday(dt):
-    """dt所在周的星期日\n
+def month_start(dt):
+    """dt所在月的第一天，时间为 `00:00:00`\n
     Args:\n
         dt datetime
     Returns:\n
         dt datetime
     """
-    return get_monday(dt + timedelta(weeks=1)) - timedelta(days=1)
+    return datetime(dt.year, dt.month, 1)
 
 
-def get_firstday(dt):
-    """dt所在月的第一天\n
-    Args:\n
-        dt datetime
-    Returns:\n
-        dt datetime
-    """
-    while dt.day > 1:
-        dt -= timedelta(days=1)
-    return dt
-
-
-def get_lastday(dt):
-    """dt所在月的最后一天\n
+def month_end(dt):
+    """dt所在月的最后一天，时间为 `00:00:00`\n
     Args:\n
         dt datetime
     Returns:\n
