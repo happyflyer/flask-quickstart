@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-08-28 14:01+0800\n"
+"POT-Creation-Date: 2020-08-30 20:00+0800\n"
 "PO-Revision-Date: 2020-07-26 01:40+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: zh\n"
@@ -218,7 +218,7 @@ msgstr "%(username)s"
 
 #: app/templates/main/user_list.jinja2:15
 msgid "Search"
-msgstr "检索"
+msgstr "搜索"
 
 #: app/templates/main/user_table.jinja2:6
 msgid "Id"
