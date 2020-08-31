@@ -14,9 +14,9 @@ from .forms import UserAddForm, UserGrantForm
 @login_required
 @write_required()
 def list_users():
-    custom_query = User.query
     username = request.args.get('username', None, type=str)
-    if username:
+    custom_query = User.query
+    if username is not None:
         custom_query = custom_query.filter(User.username.like('%' + username + '%'))
     page = request.args.get('page', 1, type=int)
     res = custom_query.order_by(User.id.asc()).paginate(page, RECORDS_PER_PAGE, False)

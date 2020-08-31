@@ -76,11 +76,12 @@ docker build -t flask_quickstart_web:<tag> .
 ```
 
 ```bash
-docker run -itd -p 8080:8080 --name flask_quickstart_web_app -v /repo_path:/opt/flask-quickstart flask_quickstart_web:<tag> /bin/bash
+docker run -itd --name=flask_quickstart_web_app -p 8080:8080 \
+  -v /repo_path:/opt/flask-quickstart \
+  flask_quickstart_web:<tag> /bin/bash
 ```
 
 ```bash
-docker ps
 docker exec -it flask_quickstart_web_app /bin/bash
 ```
 
