@@ -70,7 +70,7 @@ def _shot_fun(in_queue, out_list):
         rtsp_url = in_queue.get()
         if not check_rtsp(rtsp_url):
             in_queue.task_done()
-        image_path = save_screenshot(rtsp_url)
+        image_path = save_screenshot(rtsp_url, image_dir='tmp/utils/scan_rtsp')
         if image_path:
             out_list.append({'rtsp_url': rtsp_url, 'image_path': image_path})
         in_queue.task_done()
