@@ -26,9 +26,13 @@ PERMISSIONS = {
 
 
 def _custom_required(permission, *args, **kw_args):
-    """访问用户是否对指定蓝图有permission权限\n
-    Args:\n
-        permission int READ_PERMISSION｜WRITE_PERMISSION
+    """访问用户对指定模块有permission权限
+
+    Args:
+        permission (int): 权限级别
+
+    Returns:
+        None: 权限验证通过时执行函数，权限验证不通过时返回403状态码
     """
     def _permission_required(func):
         @wraps(func)

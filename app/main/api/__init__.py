@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from flask import Blueprint
-bp = Blueprint('main', __name__)
+bp = Blueprint('main_api', __name__)
 
-from . import routes  # NOQA
+from . import metadata
 from . import users  # NOQA

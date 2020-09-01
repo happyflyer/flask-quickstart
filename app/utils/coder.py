@@ -1,5 +1,30 @@
 # -*- coding: utf-8 -*-
 
+"""pycrypto模块支持的加密方式:
+对称加密方式
+    - AES
+    - DES
+    - ARC4
+散列值计算
+    - MD5
+    - SHA
+    - HMAC
+公钥加密和签名
+    - RSA
+    - DSA
+
+以下错误仅见于 Windows
+
+from Crypto import Random 导入包时候发生错误：
+ModuleNotFoundError: No module named 'winrandom'
+
+Problem is solved by editing string in crypto/Random/OSRNG/nt.py:
+import winrandom
+to
+from . import winrandom
+
+"""
+
 import base64
 import hashlib
 import hmac
@@ -16,73 +41,47 @@ from Crypto.PublicKey import RSA
 from . import ENCODING
 
 
-"""pycrypto模块支持的加密方式:
-对称加密方式
-    - AES
-    - DES
-    - ARC4
-散列值计算
-    - MD5
-    - SHA
-    - HMAC
-公钥加密和签名
-    - RSA
-    - DSA
-"""
-
-"""以下错误仅见于 Windows
-
-from Crypto import Random 导入包时候发生错误：
-ModuleNotFoundError: No module named 'winrandom'
-
-Problem is solved by editing string in crypto/Random/OSRNG/nt.py:
-import winrandom
-to
-from . import winrandom
-"""
-
-
 class Coder(metaclass=ABCMeta):
-    """加密算法抽象类\n
-    """
-
-    def __init__(self):
-        """初始化加密算法\n
-        """
-        super().__init__()
+    """加密算法抽象类"""
 
     @abstractmethod
     def encode(self, text):
-        """加密文本方法\n
-        Args:\n
-            text str
+        """加密
+
+        Args:
+            text (str): 明文
         """
         pass
 
 
 class Base64Coder(Coder):
-    """Base64算法的加密和解密\n
-    """
+    """base64"""
 
     def encode(self, text):
-        """加密文本方法\n
-        Args:\n
-            text str
-        Returns:\n
-            token str
-        Demo:\n
+        """加密
+
+        Args:
+            text (str): 明文
+
+        Returns:
+            str: 密文
+
+        Examples:
             >>> Base64Coder().encode('hello')
         """
         token = base64.encodebytes(str.encode(text, ENCODING))
         return bytes.decode(token, ENCODING)
 
     def decode(self, token):
-        """解密文本方法\n
-        Args:\n
+        """解密
+
+        Args:
             token: str
-        Returns:\n
+
+        Returns:
             text str
-        Demo:\n
+
+        Examples:
             >>> token = Base64Coder().encode('hello')
             >>> Base64Coder().decode(token)
         """
@@ -91,15 +90,19 @@ class Base64Coder(Coder):
 
 
 class HashCoder(Coder):
-    """Hash算法的加密\n
-    """
+    """Hash"""
 
     def __init__(self, algorithm='md5'):
-        """初始化Hash加密算法\n
-        Args:\n
-            algorithm str 'md5'|'sha1'|'sha224'|'sha256'|'sha384'|'sha512'
+        """初始化
+
+        Args:
+            algorithm (str, optional): 算法名，可选：'md5'|'sha1'|'sha224'|'sha256'|'sha384'|'sha512'. Defaults to 'md5'.
+
+        Raises:
+            RuntimeError: 未知的算法名
         """
         super().__init__()
+
         if algorithm.lower() == 'md5':
             self.__hash = hashlib.md5()
         elif algorithm.lower() == 'sha1':
@@ -116,13 +119,16 @@ class HashCoder(Coder):
             raise RuntimeError('Unknown encryption algorithm!')
 
     def encode(self, text, salt=None):
-        """加密文本方法\n
-        Args:\n
-            text str
-            salt: obj 加盐值
-        Returns:\n
-            token str
-        Demo:\n
+        """加密
+
+        Args:
+            text (str): 明文
+            salt (object), optional): 加盐值. Defaults to None.
+
+        Returns:
+            str: 密文
+
+        Examples:
             >>> HashCoder().encode('hello')
         """
         self.__hash.update(str.encode(text, ENCODING))
@@ -133,14 +139,18 @@ class HashCoder(Coder):
 
 
 class HmacCoder(Coder):
-    """Hmac算法的加密\n
-    """
+    """Hmac"""
 
     def __init__(self, key, msg, algorithm='md5'):
-        """初始化Hmac加密算法\n
-        Args:\n
-            key str
-            msg str
+        """初始化
+
+        Args:
+            key (str): key
+            msg (str): msg
+            algorithm (str, optional): 算法名，可选：'md5'|'sha1'|'sha224'|'sha256'|'sha384'|'sha512'. Defaults to 'md5'.
+
+        Raises:
+            RuntimeError: 未知的算法名
         """
         super().__init__()
         if algorithm.lower() == 'md5':
@@ -163,12 +173,15 @@ class HmacCoder(Coder):
             digestmod=self.__digestmod)
 
     def encode(self, text):
-        """加密文本方法\n
-        Args:\n
-            text str
-        Returns:\n
-            token str
-        Demo:\n
+        """加密
+
+        Args:
+            text (str): 明文
+
+        Returns:
+            str: 密文
+
+        Examples:
             >>> HmacCoder(key='hh', msg='kk').encode('hello')
         """
         self.__hmac.update(str.encode(text, ENCODING))
@@ -176,24 +189,27 @@ class HmacCoder(Coder):
 
 
 class AESCoder(Coder):
-    """AES算法的加密和解密\n
-    """
+    """AES"""
 
     def __init__(self, key):
-        """初始化AES算法\n
-        Args:\n
-            key: str 密钥的长度必须为16(AES-128)，24(AES-192)，32(AES-256)Bytes，目前16Bytes已经够用
+        """初始化
+
+        Args:
+            key (str): key，长度必须为 16(AES-128)|24(AES-192)|32(AES-256) Bytes，目前 16 Bytes 已经够用
         """
         self.__key = key
         self.__mode = AES.MODE_CBC
 
     def encode(self, text):
-        """加密文本方法\n
-        Args:\n
-            text str
-        Returns:\n
-            token str
-        Demo:\n
+        """加密
+
+        Args:
+            text (str): 明文
+
+        Returns:
+            str: 密文
+
+        Examples:
             >>> AESCoder('hellohellohelloo').encode('hello')
         """
         # 如果 text 不是 16 的倍数，那就补足为 16 的倍数
@@ -210,12 +226,15 @@ class AESCoder(Coder):
         return bytes.decode(token, ENCODING)
 
     def decode(self, token):
-        """解密文本方法，解密需要和加密使用相同key初始化的AESCoder对象。\n
-        Args:\n
-            token: str
-        Returns:\n
-            text str
-        Demo:\n
+        """解密
+
+        Args:
+            token (str): 密文
+
+        Returns:
+            str: 明文
+
+        Examples:
             >>> token = AESCoder('hellohellohelloo').encode('hello')
             >>> AESCoder('hellohellohelloo').decode(token)
         """
@@ -225,12 +244,10 @@ class AESCoder(Coder):
 
 
 class RSACoder(Coder):
-    """RSA算法的加密和解密\n
-    """
+    """RSA"""
 
     def __init__(self):
-        """初始化RSA算法\n
-        """
+        """初始化"""
         super().__init__()
         rsa = RSA.generate(1024, Random.new().read)
         # 生成秘钥对
@@ -238,12 +255,15 @@ class RSACoder(Coder):
         self.__private_key = rsa.exportKey().decode(ENCODING)
 
     def encode(self, text):
-        """加密文本方法\n
-        Args:\n
-            text str
-        Returns:\n
-            token str
-        Demo:\n
+        """加密
+
+        Args:
+            text (str): 明文
+
+        Returns:
+            str: 密文
+
+        Examples:
             >>> RSACoder().encode('hello')
         """
         # 导入公钥
@@ -257,12 +277,15 @@ class RSACoder(Coder):
         return bytes.decode(token, ENCODING)
 
     def decode(self, token):
-        """解密文本方法，解密需使用和加密同一个RSACoder对象。\n
-        Args:\n
-            token: str
-        Returns:\n
-            text str
-        Demo:\n
+        """解密
+
+        Args:
+            token (str): 密文
+
+        Returns:
+            str: 明文
+
+        Examples:
             >>> rsa = RSACoder()
             >>> token = rsa.encode('hello')
             >>> rsa.decode(token)
@@ -277,24 +300,29 @@ class RSACoder(Coder):
 
 
 class JWTCoder(Coder):
-    """JWT算法的加密和解密\n
-    """
+    """JWT"""
 
-    def __init__(self, key):
-        """初始化JWT加密算法\n
-        Args:\n
-            key str
+    def __init__(self, key):             
+        """初始化
+
+        Args:
+            key (str): key
         """
         super().__init__()
+
         self.__key = key
 
     def encode(self, payload, algorithm='HS256'):
-        """加密字典方法\n
-        Args:\n
-            payload dict
-        Returns:\n
-            token str
-        Demo:\n
+        """加密
+
+        Args:
+            payload (dict): 明文
+            algorithm (str, optional): 算法. Defaults to 'HS256'.
+
+        Returns:
+            str: 密文
+
+        Examples:
             >>> JWTCoder('hello').encode({'hello': 'world'})
         """
         # jwt.encode(payload, key, algorithm='HS256', headers=None, json_encoder=None)
@@ -303,12 +331,16 @@ class JWTCoder(Coder):
         return bytes.decode(token, ENCODING)
 
     def decode(self, token, algorithms=['HS256']):
-        """解密文本方法\n
-        Args:\n
-            token str
-        Returns:\n
-            payload dict
-        Demo:\n
+        """解密
+
+        Args:
+            token (str): 密文
+            algorithms (list, optional): 算法. Defaults to ['HS256'].
+
+        Returns:
+            dict: 明文
+
+        Examples:
             >>> token = JWTCoder('hello').encode({'hello': 'world'})
             >>> JWTCoder('hello').decode(token)
         """
@@ -319,14 +351,17 @@ class JWTCoder(Coder):
 
 
 def generate_random_string(length, digits=False, punctuation=False):
-    """产生随机字符串\n
-    Args:\n
-        length int 字符串长度
-        digits bool 是否包含数字
-        punctuation bool 是否包含标点符号
-    Returns:\n
-        token str
-    Demo:
+    """生成随机字符串
+
+    Args:
+        length (int): 长度
+        digits (bool, optional): 是否包含数字. Defaults to False.
+        punctuation (bool, optional): 是否包含符号. Defaults to False.
+
+    Returns:
+        str: 随机字符串
+
+    Examples:
         >>> generate_random_string(16)
     """
     s = string.ascii_letters

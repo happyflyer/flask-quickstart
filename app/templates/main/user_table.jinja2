@@ -21,7 +21,7 @@
         {% for m in modules %}
         <td>{{ permissions[int(item.permission[modules[m]])] }}</td>
         {% endfor %}
-        <td><a href="{{ url_for('main.grant_permission', username=item.username) }}" class="btn btn-primary btn-sm">{{ _('grant') }}</a></td>
+        <td><a href="{{ url_for('main.grant_user', username=item.username) }}" class="btn btn-primary btn-sm">{{ _('grant') }}</a></td>
     </tr>
     {% endfor %}
 {% endblock %}

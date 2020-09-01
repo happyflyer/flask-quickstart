@@ -14,6 +14,7 @@ from .forms import UserAddForm, UserGrantForm
 @login_required
 @write_required()
 def list_users():
+    """用户列表"""
     username = request.args.get('username', None, type=str)
     custom_query = User.query
     if username is not None:
@@ -33,6 +34,7 @@ def list_users():
 @login_required
 @read_required()
 def get_user(username):
+    """用户页"""
     # 访问他人主页时，需要main模块的W权限
     if current_user.username != username:
         if not current_user.check_permission('main', WRITE_PERMISSION):
@@ -46,6 +48,7 @@ def get_user(username):
 @login_required
 @write_required()
 def add_user():
+    """新增用户"""
     form = UserAddForm()
     if form.validate_on_submit():
         username = form.username.data
@@ -62,24 +65,25 @@ def add_user():
         form=form)  # NOQA
 
 
-@bp.route('/user/<string:username>/grant', methods=['GET', 'POST'])
+@bp.route('/user/grant/<string:username>', methods=['GET', 'POST'])
 @login_required
 @write_required()
-def grant_permission(username):
+def grant_user(username):
+    """用户授权"""
     user = User.query.filter(User.username == username).first_or_404()
     form = UserGrantForm()
     if form.validate_on_submit():
-        module = form.module.data
+        module_name = form.module.data
         permission = int(form.permission.data)
         # admin必须具有main模块的W权限
-        if username == 'admin' and module == 'main' and permission < WRITE_PERMISSION:
+        if username == 'admin' and module_name == 'main' and permission < WRITE_PERMISSION:
             flash(_l('%(username)s must have %(permission)s to %(module)s!',
                 username='admin', permission=PERMISSIONS[WRITE_PERMISSION], module='main'))  # NOQA
-            return redirect(url_for('main.grant_permission', username=username))
-        user.set_permission(module, permission)
+            return redirect(url_for('main.grant_user', username=username))
+        user.set_permission(module_name, permission)
         db.session.commit()
         flash(_l('%(username)s has been granted %(permission)s to %(module)s.',
-            username=username, permission=PERMISSIONS[permission], module=module))  # NOQA
-        return redirect(url_for('main.grant_permission', username=username))
+            username=username, permission=PERMISSIONS[permission], module=module_name))  # NOQA
+        return redirect(url_for('main.grant_user', username=username))
     return render_template('edit.jinja2', title=_l('Grant User'),
         form=form)  # NOQA

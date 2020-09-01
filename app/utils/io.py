@@ -12,13 +12,13 @@ JSON_INDENT = 2
 
 
 def read_json(filename):
-    """读取json文件\n
-    Args:\n
-        filename str 文件路径
-    Returns:\n
-        payload dict json文件内容，当文件路径不可用时，返回{}
-    Demo:\n
-        >>> read_json('demo.json')
+    """读取json
+
+    Args:
+        filename (str): 文件路径
+
+    Returns:
+        dict: 文件内容，当文件不可用时返回 {}
     """
     payload = {}
     if not os.path.exists(filename):
@@ -29,13 +29,12 @@ def read_json(filename):
 
 
 def write_json(payload, filename, new_thread=False):
-    """将payload写入到json文件\n
-    Args:\n
-        payload dict 数据
-        filename str 文件路径
-        new_thread bool 是否开一个子线程写文件
-    Demo:\n
-        >>> write_json({'k': 'v'}, 'demo.json')
+    """写json
+
+    Args:
+        payload (dict): 文件内容
+        filename (str): 文件路径
+        new_thread (bool, optional): 是否使用新线程. Defaults to False.
     """
     if new_thread:
         thr = Thread(target=_write_json, args=(payload, filename), daemon=True)
@@ -53,13 +52,13 @@ def _write_json(payload, filename):
 
 
 def read_properties(filename):
-    """读取properties文件\n
-    Args:\n
-        filename str 文件路径
-    Returns:\n
-        payload dict 文件内容，当文件路径不可用时，返回{}
-    Demo:\n
-        >>> read_properties('demo.properties')
+    """读取properties
+
+    Args:
+        filename (str): 文件路径
+
+    Returns:
+        dict: 文件内容，当文件不可用时返回 {}
     """
     properties = []
     with open(filename, 'r', encoding=ENCODING) as f:

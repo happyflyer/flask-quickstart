@@ -37,13 +37,15 @@ class Config(object):
     # flask_babel
     LANGUAGES = [
         'en',
-        'en_US',
         'zh',
         'zh_CN'
     ]
 
     # flask_docs
-    API_DOC_MEMBER = ['api']
+    API_DOC_MEMBER = [
+        'api',
+        'main'
+    ]
     RESTFUL_API_DOC_EXCLUDE = []
 
 

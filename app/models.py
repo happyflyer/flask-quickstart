@@ -15,15 +15,20 @@ from .utils import ENCODING, DATETIME_FORMATTER
 
 
 class PaginatedAPIMixin(object):
+    """分页数据抽象类"""
     @staticmethod
     def to_collection_dict(query, page, per_page, endpoint, **kwargs):
-        """获取分页数据\n
-        Args:\n
-            query BaseQuery
-            page int 请求页码
-            per_page int 每页记录数量
-            endpoint endpoint
-        Returns:\n
+        """获得分页数据
+
+        Args:
+            query (BaseQuery): orm查询
+            page (int): 页码
+            per_page (int): 每页条数
+            endpoint (function): 端点函数
+
+        Returns:
+            dict: 分页数据
+
             {
                 "items": [
                     { ... item resource ... },
@@ -78,35 +83,47 @@ class User(PaginatedAPIMixin, UserMixin, db.Model):
         return '<User {}>'.format(self.username)
 
     def set_password(self, password):
-        """设置密码\n
-        Args:\n
-            password str
+        """设置密码
+
+        Args:
+            password (str): 明文
         """
         self.password_hash = generate_password_hash(password)
 
     def check_password(self, password):
-        """验证密码\n
-        Args:\n
-            password str
-        Returns:\n
-            True or False
+        """检查密码
+
+        Args:
+            password (str): 明文
+
+        Returns:
+            bool: 检查结果
         """
         return check_password_hash(self.password_hash, password)
 
     def set_all_permissions(self, all_permissions):
-        """设置所有模块权限\n
-        Args:\n
-            all_permissions str 长度为MODULES_NUMBER的权限控制字符串
+        """设置所有模块权限
+
+        Args:
+            all_permissions (str): 权限字符串，长度为 MODULES_NUMBER
+
+        Raises:
+            RuntimeError: 无效的权限字符串
         """
         if len(all_permissions) != MODULES_NUMBER:
             raise RuntimeError('Invalid all_permissions!')
         self.permission = all_permissions
 
     def set_permission(self, module_name, permission):
-        """设置单个模块权限\n
-        Args:\n
-            module_name str 模块名
-            permission int 权限值，可以为0，1，2，分别代表无权限，读权限，写权限
+        """设置单个模块权限
+
+        Args:
+            module_name (str): 模块名
+            permission (int): 权限级别
+
+        Raises:
+            RuntimeError: 无效的模块名
+            RuntimeError: 无效的权限级别
         """
         module_bit = MODULES.get(module_name)
         if module_bit is None:
@@ -116,12 +133,14 @@ class User(PaginatedAPIMixin, UserMixin, db.Model):
         self.permission = ''.join([self.permission[:module_bit], str(permission), self.permission[module_bit+1:]])
 
     def check_permission(self, module_name, permission):
-        """验证权限\n
-        Args:\n
-            module_name str 模块名
-            permission int 权限值，可以为0，1，2，分别代表无权限，读权限，写权限
-        Returns:\n
-            True or False
+        """验证权限
+
+        Args:
+            module_name (str): 模块名
+            permission (int): 权限级别
+
+        Returns:
+            bool: 验证结果
         """
         module_bit = MODULES.get(module_name)
         if module_bit is None:
@@ -132,26 +151,33 @@ class User(PaginatedAPIMixin, UserMixin, db.Model):
         return user_premission >= permission
 
     def check_read_permission(self, module_name):
-        """验证读权限\n
-        Args:\n
-            module_name str 模块名
-        Returns:\n
-            True or False
+        """验证读权限
+
+        Args:
+            module_name (str): 模块名
+
+        Returns:
+            bool: 验证结果
         """
         return self.check_permission(module_name, READ_PERMISSION)
 
     def check_write_permission(self, module_name):
-        """验证写权限\n
-        Args:\n
-            module_name str 模块名
-        Returns:\n
-            True or False
+        """验证写权限
+
+        Args:
+            module_name (str): 模块名
+
+        Returns:
+            bool: 验证结果
         """
         return self.check_permission(module_name, WRITE_PERMISSION)
 
     def to_dict(self):
-        """序列化为json\n
-        Returns:\n
+        """序列化object为dict
+
+        Returns:
+            dict: 转换结果
+
             {
                 'user_id': 2,
                 'username': 'test',
@@ -169,12 +195,14 @@ class User(PaginatedAPIMixin, UserMixin, db.Model):
 
     @staticmethod
     def from_dict(payload, new_user=False):
-        """从json解析\n
-        Args:\n
-            payload dict 至少包含username
-            new_user bool 是否为新用户，新用户将从payload解析password，并设置password
-        Returns:\n
-            user User 根据payload解析得到的user对象，如果payload中缺少必要的字段，将返回None
+        """从dict反序列化为object
+
+        Args:
+            payload (dict): payload
+            new_user (bool, optional): 是否为新用户，新用户将从payload解析password，并设置password. Defaults to False.
+
+        Returns:
+            User: 转换结果，当缺少必要字段时返回None
         """
         required_fields = ['username']
         for field in required_fields:
@@ -186,12 +214,14 @@ class User(PaginatedAPIMixin, UserMixin, db.Model):
             user.set_password(payload.get('password'))
         return user
 
-    def get_token(self, expires_in=24):
-        """获得token\n
-        Args:\n
-            expires_in int 失效时间，单位为小时
-        Returns:\n
-            token str
+    def get_token(self, expires_in=24*7):
+        """获得token
+
+        Args:
+            expires_in (int, optional): 失效小时. Defaults to 24*7.
+
+        Returns:
+            str: token
         """
         now = datetime.utcnow()
         if self.token and self.token_expiration > now + timedelta(seconds=60):
@@ -203,17 +233,18 @@ class User(PaginatedAPIMixin, UserMixin, db.Model):
         return self.token
 
     def revoke_token(self):
-        """失效token\n
-        """
+        """失效token"""
         self.token_expiration = datetime.utcnow() - timedelta(seconds=1)
 
     @staticmethod
     def check_token(token):
-        """验证token\n
-        Args:\n
-            token str
-        Returns:\n
-            user User
+        """认证token
+
+        Args:
+            token (str): token
+
+        Returns:
+            User: 认证结果，当找不到用户时返回None
         """
         user = User.query.filter(User.token == token).first()
         if user is None or user.token_expiration < datetime.utcnow():
@@ -221,12 +252,14 @@ class User(PaginatedAPIMixin, UserMixin, db.Model):
         return user
 
     def add_visit_log(self, request, response):
-        """新增访问记录\n
-        Args:\n
-            request Request
-            response Response
-        Returns:\n
-            visit_log VisitLog
+        """新增访问记录
+
+        Args:
+            request (Request): 请求
+            response (Response): 响应
+
+        Returns:
+            VisitLog: 访问记录对象，当不属于指定模块时返回None
         """
         if request.blueprint in MODULES and request.endpoint not in EXCLUDED_ENDPOINTS:
             visit_log = VisitLog(
@@ -253,6 +286,14 @@ class User(PaginatedAPIMixin, UserMixin, db.Model):
 
 @login.user_loader
 def load_user(id):
+    """登录处理函数
+
+    Args:
+        id (int): 用户id
+
+    Returns:
+        User: 当找不到用户时返回None
+    """
     return User.query.get(int(id))
 
 
@@ -283,8 +324,11 @@ class VisitLog(db.Model):
         return '<VisitLog {}>'.format(self.url)
 
     def to_dict(self):
-        """序列化为json\n
-        Returns:\n
+        """序列化object为dict
+
+        Returns:
+            dict: 转换结果
+
             {
                 'url': 'http://localhost:5000/',
                 'method': 'GET',

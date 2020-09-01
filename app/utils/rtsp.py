@@ -16,11 +16,13 @@ RTSP_PORT = 554
 
 
 def check_rtsp(rtsp_url):
-    """检查rtsp_url格式\n
-    Args:\n
-        rtsp_url: str
-    Returns:\n
-        True or False
+    """检查rtsp地址格式
+
+    Args:
+        rtsp_url (str): rtsp地址
+
+    Returns:
+        bool: 检查结果
     """
     protocol = re.split('://', rtsp_url)[0]
     if protocol != 'rtsp':
@@ -32,16 +34,19 @@ def check_rtsp(rtsp_url):
 
 
 def scan_rtsp(ip_address, user=None, pwd=None, port=None):
-    """扫描局域网下的rtsp视频流\n
-    Args:\n
-        ip_address: str ip地址，用于获取网段
-        user: str 用户名
-        pwd: str 密码
-        port: int 端口
-    Returns:\n
-        rtsp_url_list list rtsp地址列表
-    Demo:\n
-        >>> scan_rtsp(get_ip('192.168.1.')[0], 'admin', 'Hik@sxxs4500')
+    """扫描局域网下的rtsp地址
+
+    Args:
+        ip_address (str): ip地址，用于获取局域网段
+        user (str, optional): 用户名. Defaults to None.
+        pwd (str, optional): 密码. Defaults to None.
+        port (int), optional): 端口. Defaults to None.
+
+    Returns:
+        list: 局域网下可用的rtsp地址
+
+    Examples:
+        >>> scan_rtsp(get_ip('192.168.1.1')[0], 'admin', '123456')
     """
     rtsp_url_list = []
     if not check_ip(ip_address):

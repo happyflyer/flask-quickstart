@@ -4,12 +4,12 @@ from . import EMPTY
 
 
 def has_empty(*values):
-    """是否存在空字符串\n
-    Args:\n
-        values list
-    Returns:\n
-        True or False
-    Demo:\n
+    """是否存在空字符串
+
+    Returns:
+        bool: 检查结果
+
+    Examples:
         >>> has_empty('hh', 'kk')
         False
         >>> has_empty('hh', 'kk', '   ')
@@ -23,12 +23,12 @@ def has_empty(*values):
 
 
 def all_empty(*values):
-    """是否都是空字符串\n
-    Args:\n
-        values list
-    Returns:\n
-        True or False
-    Demo:\n
+    """是否都是空字符串
+
+    Returns:
+        bool: 检查结果
+
+    Examples:
         >>> all_empty('hh', 'kk', '   ')
         False
         >>> all_empty('  ', '', '   ')

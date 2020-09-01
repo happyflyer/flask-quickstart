@@ -12,6 +12,7 @@ from .forms import LoginForm
 
 @bp.route('/login', methods=['GET', 'POST'])
 def login():
+    """页面登录"""
     if current_user.is_authenticated:
         return redirect(url_for('main.index'))
     form = LoginForm()
@@ -33,5 +34,6 @@ def login():
 
 @bp.route('/logout', methods=['GET'])
 def logout():
+    """页面注销"""
     logout_user()
     return redirect(url_for('main.index'))

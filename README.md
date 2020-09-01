@@ -19,7 +19,7 @@ Flask Quickstart 是一个具有 Web 后端基本功能、易于快读二次开�
 ## 3. 结构
 
 - `app`：源代码
-  - `api`：api 蓝图，只用于注册端点，实现分散到各个模块的 api
+  - `api`：api 蓝图，只用于 api 的基础配置，各个模块 api 实现在各模块的 api 文件夹
   - `auth`：用户认证，只用于界面验证，api 用户认证在 `api/tokens.py`
   - `beans`：业务模型
   - `errors`：错误处理

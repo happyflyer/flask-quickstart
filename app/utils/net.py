@@ -20,20 +20,24 @@ PING_TIMEOUT = 1
 
 
 def get_os():
-    """获得本机操作系统名称\n
-    Returns:\n
-        system str 'Windows'|'Linux'|'Darwin'
+    """获得操作系统名
+
+    Returns:
+        str: 'Windows'|'Linux'|'Darwin'
     """
     return platform.system()
 
 
 def get_ip(filter_prefix=None):
-    """获得本机ip地址\n
-    Args:\n
-        filter_prefix str 过滤前缀
-    Returns:\n
-        ip_address_list list 本机ip地址列表
-    Demo:\n
+    """获得本机ip
+
+    Args:
+        filter_prefix (str, optional): 过滤前缀. Defaults to None.
+
+    Returns:
+        list: 本机ip
+
+    Examples:
         >>> get_ip()
         >>> get_ip('192.168.1.')
     """
@@ -53,11 +57,13 @@ def get_ip(filter_prefix=None):
 
 
 def check_ip(ip_address):
-    """检查 ip 地址格式\n
-    Args:\n
-        ip_address: str
-    Returns:\n
-        True or False
+    """检查ip地址格式
+
+    Args:
+        ip_address (str)): ip地址
+
+    Returns:
+        bool: 检查结果
     """
     pattern = r'^((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})(\.((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})){3}$'
     if re.match(pattern, ip_address):
@@ -66,11 +72,13 @@ def check_ip(ip_address):
 
 
 def extract_ip(text):
-    """提取ip地址\n
-    Args:\n
-        text: str
-    Returns:\n
-        ip_address str 文本中首次出现的ip地址，不存在则返回None
+    """提取ip地址
+
+    Args:
+        text (str): 文本
+
+    Returns:
+        str: 文本中首次出现的ip地址，当文本中不包含ip地址时返回None
     """
     pattern = r'((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})(\.((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})){3}'
     match_obj = re.search(pattern, text)
@@ -80,12 +88,15 @@ def extract_ip(text):
 
 
 def ping_ip(ip_address):
-    """测试ip地址是否可以ping通\n
-    Args:\n
-        ip_address: str
-    Returns:\n
-        True or False
-    Demo:
+    """ping ip
+
+    Args:
+        ip_address (str): ip地址
+
+    Returns:
+        bool: 是否ping通
+
+    Examples:
         >>> ping_ip('192.168.1.1')
     """
     # 如果格式不正确，直接返回 False
@@ -108,16 +119,19 @@ def ping_ip(ip_address):
 
 
 def scan_ip(ip_address, start=1, end=255, including_me=False):
-    """扫描局域网中ping通的ip地址\n
-    Args:\n
-        ip_address: str
-        start: int
-        end: int 包括
-        including_me bool 扫描结果中是否包含 ip_address
-    Returns:\n
-        ip_address_list list ip地址列表
-    Demo:\n
-        >>> scan_ip(get_ip('192.168.1.')[0])
+    """扫描局域网下的ip地址
+
+    Args:
+        ip_address (str): ip地址，用于获取网段
+        start (int, optional): 开始数. Defaults to 1.
+        end (int, optional): 结束数，包括. Defaults to 255.
+        including_me (bool, optional): 是否包含提供的ip地址. Defaults to False.
+
+    Returns:
+        list: 局域网下可以ping通的ip地址，当局域网不可用时返回 []
+
+    Examples:
+        >>> scan_ip(get_ip('192.168.1.1')[0])
     """
     # 如果格式不正确，直接返回 []
     ip_address_list = []

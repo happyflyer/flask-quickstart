@@ -10,6 +10,7 @@ from ..models import User
 
 
 class UserAddForm(FlaskForm):
+    """新增用户表单"""
     username = StringField(_l('Username'), validators=[DataRequired()])
     password = PasswordField(_l('Password'), validators=[DataRequired()])
     password2 = PasswordField(_l('Repeat Password'), validators=[DataRequired(), EqualTo('password')])
@@ -25,10 +26,9 @@ class UserAddForm(FlaskForm):
 
 
 class UserGrantForm(FlaskForm):
-    module = SelectField(_l('Module'), validators=[DataRequired()],
-        choices=[(m, m) for m in MODULES])  # NOQA
-    permission = SelectField(_l('Permission'), validators=[DataRequired()],
-        choices=[(str(p), PERMISSIONS[p]) for p in PERMISSIONS])  # NOQA
+    """用户授权表单"""
+    module = SelectField(_l('Module'), validators=[DataRequired()], choices=[(m, m) for m in MODULES])  # NOQA
+    permission = SelectField(_l('Permission'), validators=[DataRequired()], choices=[(str(p), PERMISSIONS[p]) for p in PERMISSIONS])  # NOQA
     submit = SubmitField(_l('Grant'))
 
     def __init__(self, *args, **kwargs):

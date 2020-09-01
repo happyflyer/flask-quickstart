@@ -7,11 +7,11 @@
             <div class="form-group col-auto">
                 <a href="{{ url_for('main.add_user') }}" class="btn btn-primary">{{ _('Add User') }}</a>
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-4">
                 <label class="sr-only mr-sm-2" for="username">{{ _('Username') }}</label>
                 <input type="text" class="form-control" id="username" name="username" placeholder="{{ _('Username') }}" value="{{ keywords.get('username') if keywords }}">
             </div>
-            <div class="form-group col-md-2">
+            <div class="form-group col-auto">
                 <button type="submit" class="btn btn-primary">{{ _('Search') }}</button>
             </div>
         </div>
