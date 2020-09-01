@@ -3,5 +3,5 @@
 from flask import Blueprint
 bp = Blueprint('main_api', __name__)
 
-from . import metadata
+from . import metadata  # NOQA
 from . import users  # NOQA

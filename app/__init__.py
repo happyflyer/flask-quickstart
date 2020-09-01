@@ -71,15 +71,19 @@ def create_app(config_class=Config):
     CORS(app, supports_credentials=True)
     doc.init_app(app, title=_l('Flask Quickstart'), version=__version__)
 
+    # errors
     from .errors import bp as errors_bp
     app.register_blueprint(errors_bp, url_prefix='/')
+    # auth
     from .auth import bp as auth_bp
     app.register_blueprint(auth_bp, url_prefix='/auth')
+    # main
     from .main import bp as main_bp
     app.register_blueprint(main_bp, url_prefix='/')
     from .main.api import bp as main_api_bp
     app.register_blueprint(main_api_bp, url_prefix='/main/api')
     csrf.exempt(main_api_bp)
+    # api
     from .api import bp as api_bp
     app.register_blueprint(api_bp, url_prefix='/api')
     csrf.exempt(api_bp)
