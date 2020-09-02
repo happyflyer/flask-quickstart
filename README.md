@@ -164,7 +164,7 @@ service supervisor status
 
 ```bash
 service nginx status
-# [ ok ] Starting nginx: nginx.
+# [ ok ] nginx is running.
 ```
 
 说明 nginx 运行正常。
