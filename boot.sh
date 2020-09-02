@@ -4,7 +4,7 @@ cd /opt/flask-quickstart || return
 cp .env.template .env
 while true; do
   flask db upgrade
-  if "$?" == "0"; then
+  if [[ "$?" == "0" ]]; then
     break
   fi
   echo Deploy command failed, retrying in 5 secs...
@@ -16,3 +16,6 @@ service supervisor start
 rm /etc/nginx/sites-enabled/default
 cp nginx.conf /etc/nginx/sites-enabled/
 service nginx start
+while true; do
+  sleep 1
+done

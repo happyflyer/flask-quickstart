@@ -72,17 +72,17 @@ flush privileges;
 
 ```bash
 # 构建镜像
-docker build -t flask_quickstart_web:<tag> .
+docker build -t flask_quickstart_image:latest .
 ```
 
 ```bash
-docker run -itd --name=flask_quickstart_web_app -p 8080:8080 \
+docker run -itd --name=flask_quickstart_container -p 8080:8080 \
   -v /repo_path:/opt/flask-quickstart \
-  flask_quickstart_web:<tag> /bin/bash
+  flask_quickstart_image:latest /bin/bash
 ```
 
 ```bash
-docker exec -it flask_quickstart_web_app /bin/bash
+docker exec -it flask_quickstart_container /bin/bash
 ```
 
 ### 4.3. 容器内部操作
