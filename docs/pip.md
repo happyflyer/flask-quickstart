@@ -13,6 +13,11 @@ pip freeze > requirements.txt
 ## 2. 镜像源和代理
 
 ```bash
+# 临时使用
+pip install -i https://pypi.tuna.tsinghua.edu.cn/simple package
+```
+
+```bash
 vim ~/.config/pip/pip.conf
 ```
 
