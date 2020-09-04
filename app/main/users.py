@@ -56,9 +56,10 @@ def add_user():
         if User.query.filter(User.username == username).count() > 0:
             flash(_l('%(obj)s already exists!', obj=username))
             return redirect(url_for('main.add_user'))
-        user = User.from_dict(form.data, new_user=True)
-        db.session.add(user)
-        db.session.commit()
+        user = User.from_dict(form.data)
+        if user:
+            db.session.add(user)
+            db.session.commit()
         flash(_l('%(obj)s has been added.', obj=username))
         return redirect(url_for('main.list_users'))
     return render_template('edit.jinja2', title=_l('Add User'),

@@ -194,25 +194,26 @@ class User(PaginatedAPIMixin, UserMixin, db.Model):
         return payload
 
     @staticmethod
-    def from_dict(payload, new_user=False):
-        """从dict反序列化为object
+    def from_dict(payload, obj=None):
+        """从dict反序列化object
 
         Args:
             payload (dict): payload
-            new_user (bool, optional): 是否为新用户，新用户将从payload解析password，并设置password. Defaults to False.
+            obj (User, optional): 已有的User对象. Defaults to None.
 
         Returns:
             User: 转换结果，当缺少必要字段时返回None
         """
-        required_fields = ['username']
-        for field in required_fields:
-            if field not in payload:
-                return None
-        user = User()
-        user.username = payload.get('username', '')[:20]
-        if new_user and 'password' in payload:
-            user.set_password(payload.get('password'))
-        return user
+        if obj is None:
+            required_fields = ['username']
+            for field in required_fields:
+                if field not in payload:
+                    return None
+            obj = User()
+            obj.username = payload.get('username', '')[:20]
+        if 'password' in payload:
+            obj.set_password(payload.get('password'))
+        return obj
 
     def get_token(self, expires_in=24*7):
         """获得token

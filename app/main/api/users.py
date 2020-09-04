@@ -147,8 +147,8 @@ def add_user():
     @@@
     """
     form_data = request.form.to_dict()
-    user = User.from_dict(form_data, new_user=True)
-    if not user:
+    user = User.from_dict(form_data)
+    if user is None:
         return bad_request(_l('missing username!'))
     # 用户名重复检查
     if User.query.filter(User.username == user.username).count() > 0:
