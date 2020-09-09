@@ -23,7 +23,7 @@ git clone git@gitlab.com:happyflyer/flask-quickstart.git
 ## 2. conda 环境
 
 ```bash
-conda create -n flaskqs python=3.6.5
+conda create -n flaskqs python=3.6.8
 conda activate flaskqs
 pip install docs/requirements.txt
 ```
@@ -51,10 +51,7 @@ flush privileges;
 
 ```sql
 -- 查询用户
-select host,
-    user,
-    authentication_string
-from mysql.user;
+select host, user, authentication_string from mysql.user;
 -- 查询授权
 show grants for 'www' @'%';
 ```
@@ -66,7 +63,6 @@ cp .env.template .env
 ```
 
 ```properties
-# .env
 SECRET_KEY=a_random_and_long_string
 DB_SERVER=localhost
 DB_PORT=3306

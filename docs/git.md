@@ -52,10 +52,6 @@ git diff doc.txt
 git log
 git log --pretty=oneline
 git log --oneline --graph --decorate --all
-```
-
-```bash
-# 命令日志
 git reflog
 ```
 
@@ -94,6 +90,23 @@ rm doc.txt
 git checkout -- doc.txt
 ```
 
+## 分支与标签
+
+```bash
+git checkout -b dev
+git checkout dev
+```
+
+```bash
+git tag 0.1.0
+git checkout 0.1.0
+```
+
+```bash
+git checkout master
+git merge dev
+```
+
 ## 6. 关联远程仓库
 
 ```bash
@@ -108,7 +121,12 @@ ssh -T git@github.com
 ```
 
 ```bash
-git remote add origin git@server-name:username/repo-name.git
+git remote add origin git@server_name:username/repo_name.git
+```
+
+```bash
+git remote
+git remote -v
 ```
 
 ## 7. 拉取和推送
@@ -123,6 +141,13 @@ git pull origin next:master
 # git push <远程主机名> <本地分支名>:<远程分支名>
 # 首次推送时，加'-u'参数
 git push origin master
+git push origin --all
+git push origin --tags
+```
+
+```bash
+git tag -d 0.1.0
+git push origin :refs/tags/0.1.0
 ```
 
 [Git 教程 - 廖雪峰的官方网站](https://www.liaoxuefeng.com/wiki/896043488029600)
