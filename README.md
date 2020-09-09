@@ -65,7 +65,7 @@ flush privileges;
 3. 重启 mysql 服务 `service mysql restart`
 4. 验证 mysql 服务 `netstat -tnl | grep 3306` ，出现 `0.0.0.0:3306` , `:::3306`, `LISTEN` 类似字符，说明数据库运行正常。
 
-### 配置文件
+### 4.2. 配置文件
 
 ```bash
 cp .env.template .env
@@ -87,7 +87,7 @@ MAIL_PASSWORD=
 MAIL_ADMIN=
 ```
 
-### 4.2. 启动容器
+### 4.3. 启动容器
 
 ```bash
 chmod +x boot.sh
@@ -97,7 +97,7 @@ docker run -itd --name=flask_quickstart_container -p 8080:8080 --restart=always 
   flask_quickstart_image /opt/flask-quickstart/boot.sh
 ```
 
-### 4.3. 验证运行情况
+### 4.4. 验证运行情况
 
 > 验证方法均在容器内部进行。方法选其一即可。
 
@@ -106,7 +106,7 @@ docker run -itd --name=flask_quickstart_container -p 8080:8080 --restart=always 
 docker exec -it flask_quickstart_container /bin/bash
 ```
 
-#### 4.3.1. 端口监听
+#### 4.4.1. 端口监听
 
 ```bash
 netstat -tnl
@@ -115,7 +115,7 @@ netstat -tnl
 - 出现 `127.0.0.1:8000` , `LISTEN` 类似字符，说明 web 后端程序运行正常。
 - 出现 `0.0.0.0:8080` , `:::8080`, `LISTEN` 类似字符，说明 nginx 运行正常。
 
-#### 4.3.2. 服务状态
+#### 4.4.2. 服务状态
 
 ```bash
 service supervisor status

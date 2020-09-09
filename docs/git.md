@@ -90,7 +90,7 @@ rm doc.txt
 git checkout -- doc.txt
 ```
 
-## 分支与标签
+## 6. 分支与标签
 
 ```bash
 git checkout -b dev
@@ -107,7 +107,7 @@ git checkout master
 git merge dev
 ```
 
-## 6. 关联远程仓库
+## 7. 关联远程仓库
 
 ```bash
 ssh-keygen -t rsa -C "your_message"
@@ -129,7 +129,7 @@ git remote
 git remote -v
 ```
 
-## 7. 拉取和推送
+## 8. 拉取和推送
 
 ```bash
 # git pull <远程主机名> <远程分支名>:<本地分支名>
