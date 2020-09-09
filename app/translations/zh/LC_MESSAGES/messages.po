@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-09-02 00:22+0800\n"
+"POT-Creation-Date: 2020-09-08 21:19+0800\n"
 "PO-Revision-Date: 2020-07-26 01:40+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: zh\n"
@@ -98,26 +98,26 @@ msgstr "用户配置文件"
 msgid "%(obj)s already exists!"
 msgstr "%(obj)s 已经存在！"
 
-#: app/main/users.py:62
+#: app/main/users.py:63
 #, python-format
 msgid "%(obj)s has been added."
 msgstr "%(obj)s 已经新增。"
 
-#: app/main/users.py:64 app/templates/main/user_list.jinja2:8
+#: app/main/users.py:65 app/templates/main/user_list.jinja2:8
 msgid "Add User"
 msgstr "新增用户"
 
-#: app/main/api/users.py:210 app/main/users.py:80
+#: app/main/api/users.py:210 app/main/users.py:81
 #, python-format
 msgid "%(username)s must have %(permission)s to %(module)s!"
 msgstr "%(username)s 必须具有 %(module)s 模块的 %(permission)s 权限！"
 
-#: app/main/users.py:85
+#: app/main/users.py:86
 #, python-format
 msgid "%(username)s has been granted %(permission)s to %(module)s."
 msgstr "%(username)s 已经获得 %(module)s 模块的 %(permission)s 权限。"
 
-#: app/main/users.py:88
+#: app/main/users.py:89
 msgid "Grant User"
 msgstr "授权用户"
 

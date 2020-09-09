@@ -3,7 +3,7 @@
 sleep 5
 cd /opt/flask-quickstart || return
 # 生成配置文件
-cp .env.template .env
+# cp .env.template .env
 # 数据库升级
 # 执行前提：创建好数据库和配置 .env 文件
 # 执行效果：生成数据库表结构

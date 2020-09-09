@@ -275,7 +275,7 @@ class User(PaginatedAPIMixin, UserMixin, db.Model):
                 json=json.dumps(request.form.to_dict())[:200],
                 blueprint=request.blueprint[:20],
                 endpoint=request.endpoint[:50],
-                remote_addr=request.remote_addr[:20],
+                remote_addr=request.headers.get('X-Forwarded-For', '')[:20],
                 user_agent=str(request.user_agent)[:200],
                 status_code=str(response.status_code)[:10]
             )

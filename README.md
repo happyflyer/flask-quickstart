@@ -39,7 +39,7 @@ Flask Quickstart 是一个具有 Web 后端基本功能、易于快读二次开�
 - `tests`：单元测试
 - `tmp`：缓存数据
 - `config.py`：用于加载配置文件
-- `flask_quickstart.py`：用于启动应用程序
+- `main.py`：用于启动应用程序
 
 ## 4. 部署
 
@@ -65,9 +65,32 @@ flush privileges;
 3. 重启 mysql 服务 `service mysql restart`
 4. 验证 mysql 服务 `netstat -tnl | grep 3306` ，出现 `0.0.0.0:3306` , `:::3306`, `LISTEN` 类似字符，说明数据库运行正常。
 
+### 配置文件
+
+```bash
+cp .env.template .env
+```
+
+```vim
+SECRET_KEY=a_random_and_long_string
+DB_SERVER=
+DB_PORT=3306
+DB_USERNAME=www
+DB_PASSWORD=
+DB_DATABASE=flaskqs
+DB_DATABASE_TEST=
+MAIL_SERVER=
+MAIL_PORT=
+MAIL_USE_SSL=
+MAIL_USERNAME=
+MAIL_PASSWORD=
+MAIL_ADMIN=
+```
+
 ### 4.2. 启动容器
 
 ```bash
+chmod +x boot.sh
 # 创建容器
 docker run -itd --name=flask_quickstart_container -p 8080:8080 --restart=always \
   -v /repo_path:/opt/flask-quickstart \
