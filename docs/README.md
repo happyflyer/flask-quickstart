@@ -32,13 +32,11 @@ pip install docs/requirements.txt
 
 ```sql
 -- 创建数据库
-drop database if exists `flaskqs`;
-create database `flaskqs` character
-set 'utf8' collate 'utf8_general_ci';
+drop database if exists flaskqs;
+create database flaskqs character set 'utf8' collate 'utf8_general_ci';
 -- 创建测试数据库
-drop database if exists `flaskqs_test`;
-create database `flaskqs_test` character
-set 'utf8' collate 'utf8_general_ci';
+drop database if exists flaskqs_test;
+create database flaskqs_test character set 'utf8' collate 'utf8_general_ci';
 -- 创建用户
 drop user 'www' @'%';
 create user 'www' @'%' identified by 'password';
