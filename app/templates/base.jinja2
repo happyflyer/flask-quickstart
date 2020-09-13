@@ -3,9 +3,9 @@
 
 {% block title %}
     {% if title %}
-    {{ _('%(title)s - Flask Quickstart', title=title) }}
+    {{ _('%(title)s - %(app_name)s', title=title, app_name=config.get('APP_NAME')) }}
     {% else %}
-    {{ _('Welcome to Flask Quickstart') }}
+    {{ _('Welcome to %(app_name)s', app_name=config.get('APP_NAME')) }}
     {% endif %}
 {% endblock %}
 
@@ -61,7 +61,7 @@
         <div class="container">
             <a class="navbar-brand" href="{{ url_for('main.index') }}">
                 <img src="{{ url_for('static', filename='logo/logo.png') }}" width="32" height="32" class="d-inline-block align-top" alt="Logo">
-                {{ _('Flask Quickstart') }}
+                {{ _('%(app_name)s', app_name=config.get('APP_NAME')) }}
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>

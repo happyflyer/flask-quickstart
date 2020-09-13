@@ -25,7 +25,7 @@ from .permission import *
 # 主版本号：当你做了不兼容的 API 修改，
 # 次版本号：当你做了向下兼容的功能性新增，
 # 修订号：当你做了向下兼容的问题修正。
-__version__ = '0.2.16'
+__version__ = '0.2.17'
 
 db = SQLAlchemy()
 migrate = Migrate()
@@ -70,7 +70,7 @@ def create_app(config_class=Config):
     babel.init_app(app)
     csrf.init_app(app)
     CORS(app, supports_credentials=True)
-    doc.init_app(app, title=_l('Flask Quickstart'), version=__version__)
+    doc.init_app(app, title=app.config.get('APP_NAME'), version=__version__)
 
     # errors
     from .errors import bp as errors_bp
@@ -128,26 +128,30 @@ def create_app(config_class=Config):
         # 文件日志
         if not os.path.exists('log'):
             os.makedirs('log')
-        file_handler = TimedRotatingFileHandler(os.path.join(
-            'log', 'app.log'), when='D', interval=1, backupCount=10,
-            encoding='utf-8', delay=False, utc=True)
-        file_handler.setFormatter(logging.Formatter(
-            '%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'))
+        file_handler = TimedRotatingFileHandler(
+            os.path.join('log', 'app.log'),
+            when='D',
+            interval=1,
+            backupCount=10,
+            encoding='utf-8',
+            delay=False,
+            utc=True)
+        file_handler.setFormatter(logging.Formatter('%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'))  # NOQA
         file_handler.setLevel(logging.WARNING)
         app.logger.addHandler(file_handler)
         # 邮件日志
-        if app.config['MAIL_SERVER']:
+        if app.config.get('MAIL_SERVER'):
             auth = None
-            if app.config['MAIL_USERNAME'] or app.config['MAIL_PASSWORD']:
-                auth = (app.config['MAIL_USERNAME'], app.config['MAIL_PASSWORD'])
+            if app.config.get('MAIL_USERNAME') or app.config.get('MAIL_PASSWORD'):
+                auth = (app.config.get('MAIL_USERNAME'), app.config.get('MAIL_PASSWORD'))
             secure = None
-            if app.config['MAIL_USE_TLS']:
+            if app.config.get('MAIL_USE_TLS'):
                 secure = ()
             mail_handler = SMTPHandler(
-                mailhost=(app.config['MAIL_SERVER'], app.config['MAIL_PORT']),
-                fromaddr=app.config['MAIL_ADMINS'][0],
-                toaddrs=app.config['MAIL_ADMINS'],
-                subject='Your App Failure',
+                mailhost=(app.config.get('MAIL_SERVER'), app.config.get('MAIL_PORT')),
+                fromaddr=app.config.get('MAIL_ADMINS')[0],
+                toaddrs=app.config.get('MAIL_ADMINS'),
+                subject='{} Failure'.format(app.config.get('APP_NAME')),
                 credentials=auth,
                 secure=secure)
             mail_handler.setLevel(logging.ERROR)
@@ -166,7 +170,7 @@ def get_locale():
     Returns:
         str: 语言_地区
     """
-    return request.accept_languages.best_match(current_app.config['LANGUAGES'])
+    return request.accept_languages.best_match(current_app.config.get('LANGUAGES'))
 
 
 from . import models  # NOQA

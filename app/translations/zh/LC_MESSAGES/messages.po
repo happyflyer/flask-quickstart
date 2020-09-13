@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-09-08 21:19+0800\n"
+"POT-Creation-Date: 2020-09-13 22:05+0800\n"
 "PO-Revision-Date: 2020-07-26 01:40+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: zh\n"
@@ -21,10 +21,6 @@ msgstr ""
 #: app/__init__.py:34
 msgid "Please log in to access this page."
 msgstr "请登录以访问此页面"
-
-#: app/__init__.py:72 app/templates/base.jinja2:64
-msgid "Flask Quickstart"
-msgstr "Flask 快读上手"
 
 #: app/auth/forms.py:11 app/main/forms.py:14
 #: app/templates/main/user_list.jinja2:11
@@ -144,12 +140,18 @@ msgstr "无效的 module 或 permission！"
 
 #: app/templates/base.jinja2:6
 #, python-format
-msgid "%(title)s - Flask Quickstart"
-msgstr "%(title)s - Flask 项目快读上手"
+msgid "%(title)s - %(app_name)s"
+msgstr "%(title)s - %(app_name)s"
 
 #: app/templates/base.jinja2:8
-msgid "Welcome to Flask Quickstart"
-msgstr "欢迎访问 Flask 项目快读上手"
+#, python-format
+msgid "Welcome to %(app_name)s"
+msgstr "欢迎访问 %(app_name)s"
+
+#: app/templates/base.jinja2:64
+#, python-format
+msgid "%(app_name)s"
+msgstr "%(app_name)s"
 
 #: app/templates/base.jinja2:76
 msgid "Feature"
