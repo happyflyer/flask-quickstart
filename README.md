@@ -72,6 +72,7 @@ cp .env.template .env
 ```
 
 ```vim
+APP_NAME=Flask Quickstart
 SECRET_KEY=a_random_and_long_string
 DB_SERVER=
 DB_PORT=3306
