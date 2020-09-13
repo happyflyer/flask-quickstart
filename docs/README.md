@@ -25,7 +25,7 @@ git clone git@gitlab.com:happyflyer/flask-quickstart.git
 ```bash
 conda create -n flaskqs python=3.6.8
 conda activate flaskqs
-pip install docs/requirements.txt
+pip install -r docs/requirements.txt
 ```
 
 ## 3. mysql 数据库
