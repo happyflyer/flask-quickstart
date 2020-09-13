@@ -25,7 +25,7 @@ from .permission import *
 # 主版本号：当你做了不兼容的 API 修改，
 # 次版本号：当你做了向下兼容的功能性新增，
 # 修订号：当你做了向下兼容的问题修正。
-__version__ = '0.2.15'
+__version__ = '0.2.16'
 
 db = SQLAlchemy()
 migrate = Migrate()
@@ -45,7 +45,8 @@ RECORDS_MAX_PER_PAGE = 50
 # 用于访问统计、权限控制的模块
 MODULES = {
     'main': 0,
-    'api': 1
+    'main_api': 1,
+    'api': 2
 }
 # 用于访问统计、权限控制的模块数量
 MODULES_NUMBER = 32
