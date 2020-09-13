@@ -9,7 +9,7 @@ from . import bp
 
 @bp.route('/module', methods=['GET'])
 @token_auth.login_required
-@read_required(module='main')
+@read_required()
 def get_modules():
     """获取所有模块
 
@@ -38,7 +38,7 @@ def get_modules():
 
 @bp.route('/permission', methods=['GET'])
 @token_auth.login_required
-@read_required(module='main')
+@read_required()
 def get_permissions():
     """获取所有权限
 

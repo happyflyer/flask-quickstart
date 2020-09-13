@@ -11,7 +11,7 @@ from . import bp
 
 @bp.route('/user', methods=['GET'])
 @token_auth.login_required
-@write_required(module='main')
+@write_required()
 def get_users():
     """获取所有用户
 
@@ -75,7 +75,7 @@ def get_users():
 
 @bp.route('/user/<string:username>', methods=['GET'])
 @token_auth.login_required
-@read_required(module='main')
+@read_required()
 def get_user(username):
     """获取单个用户
 
@@ -112,7 +112,7 @@ def get_user(username):
 
 @bp.route('/user/add', methods=['POST'])
 @token_auth.login_required
-@write_required(module='main')
+@write_required()
 def add_user():
     """新增用户
 
@@ -160,7 +160,7 @@ def add_user():
 
 @bp.route('/user/grant/<string:username>', methods=['POST'])
 @token_auth.login_required
-@write_required(module='main')
+@write_required()
 def grant_user(username):
     """用户授权
 
