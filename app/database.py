@@ -18,6 +18,7 @@ def init_users():
             else:
                 res = User.query.filter(User.username == item.get('username')).first()
                 res = User.from_dict(item, res)
+                res.set_all_permissions(item.get('permission'))
                 db.session.commit()
         if items_ready_add:
             db.session.add_all(items_ready_add)
