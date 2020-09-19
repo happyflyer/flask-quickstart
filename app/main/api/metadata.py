@@ -20,7 +20,7 @@ def get_modules():
 
     ## 权限
 
-    - 访问用户对 main 模块有 R 权限。
+    - 访问用户对 main_api 模块有 R 权限。
 
     ## 响应示例
 
@@ -50,7 +50,7 @@ def get_permissions():
 
     ## 权限
 
-    - 访问用户对 main 模块有 R 权限。
+    - 访问用户对 main_api 模块有 R 权限。
 
     ## 响应示例
 

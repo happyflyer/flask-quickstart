@@ -8,10 +8,10 @@ from ..api import error_response as api_error_response
 
 
 def wants_json_response():
-    """是否使用api模块的错误处理函数
+    """是否使用api请求的错误处理函数
 
     Returns:
-        bool: 是否使用api模块的错误处理函数
+        bool: 是否使用api请求的错误处理函数
     """
     return request.accept_mimetypes['application/json'] >= request.accept_mimetypes['text/html']
 

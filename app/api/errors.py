@@ -5,7 +5,7 @@ from werkzeug.http import HTTP_STATUS_CODES
 
 
 def error_response(status_code, message=None):
-    """api 模块的请求错误处理函数
+    """api请求的错误处理函数
 
     Args:
         status_code (int): HTTP状态码

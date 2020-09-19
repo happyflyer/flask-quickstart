@@ -77,9 +77,9 @@ def grant_user(username):
         module_name = form.module.data
         permission = int(form.permission.data)
         # admin必须具有main模块的W权限
-        if username == 'admin' and module_name == 'main' and permission < WRITE_PERMISSION:
+        if username == 'admin' and (module_name == 'main' or module_name == 'main_api') and permission < WRITE_PERMISSION:
             flash(_l('%(username)s must have %(permission)s to %(module)s!',
-                username='admin', permission=PERMISSIONS[WRITE_PERMISSION], module='main'))  # NOQA
+                username=username, permission=PERMISSIONS[WRITE_PERMISSION], module=module_name))  # NOQA
             return redirect(url_for('main.grant_user', username=username))
         user.set_permission(module_name, permission)
         db.session.commit()

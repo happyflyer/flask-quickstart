@@ -22,7 +22,7 @@ def get_users():
 
     ## 权限
 
-    - 访问用户对 main 模块有 W 权限。
+    - 访问用户对 main_api 模块有 W 权限。
 
     ## 查询字段
 
@@ -86,8 +86,8 @@ def get_user(username):
 
     ## 权限
 
-    - 访问用户对 main 模块有 R 权限。
-    - 访问用户获取其他用户信息时，需要对 main 模块有 W 权限。
+    - 访问用户对 main_api 模块有 R 权限。
+    - 访问用户获取其他用户信息时，需要对 main_api 模块有 W 权限。
 
     ## 响应示例
 
@@ -104,7 +104,7 @@ def get_user(username):
     """
     # 获取其他用户信息时，需要main模块的W权限
     if g.current_user.username != username:
-        if not g.current_user.check_permission('main', WRITE_PERMISSION):
+        if not g.current_user.check_permission('main_api', WRITE_PERMISSION):
             return forbidden(_l('insufficient permission!'))
     user = User.query.filter(User.username == username).first_or_404()
     return jsonify(user.to_dict())
@@ -123,7 +123,7 @@ def add_user():
 
     ## 权限
 
-    - 访问用户对 main 模块有 W 权限。\n
+    - 访问用户对 main_api 模块有 W 权限。\n
     - 新增的用户对所有模块的权限都默认为 N 权限。\n
 
     ## 表单字段
@@ -171,7 +171,7 @@ def grant_user(username):
 
     ## 权限
 
-    - 访问用户对 main 模块有 W 权限。\n
+    - 访问用户对 main_api 模块有 W 权限。\n
 
     ## 表单字段
 
@@ -205,10 +205,10 @@ def grant_user(username):
     user = User.query.filter(User.username == username).first_or_404()
     if not user:
         return bad_request(_l('missing username!'))
-    # admin必须具有main模块的W权限
-    if user.username == 'admin' and module_name == 'main' and permission < WRITE_PERMISSION:
+    # admin必须具有main_api模块的W权限
+    if username == 'admin' and (module_name == 'main' or module_name == 'main_api') and permission < WRITE_PERMISSION:
         return bad_request(_l('%(username)s must have %(permission)s to %(module)s!',
-            username='admin', permission=PERMISSIONS[WRITE_PERMISSION], module='main'))  # NOQA
+            username=username, permission=PERMISSIONS[WRITE_PERMISSION], module=module_name))  # NOQA
     user.set_permission(module_name, permission)
     db.session.commit()
     return jsonify(user.to_dict())
