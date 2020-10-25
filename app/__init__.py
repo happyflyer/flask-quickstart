@@ -25,7 +25,7 @@ from .permission import *
 # 主版本号：当你做了不兼容的 API 修改，
 # 次版本号：当你做了向下兼容的功能性新增，
 # 修订号：当你做了向下兼容的问题修正。
-__version__ = '0.2.18'
+__version__ = '0.2.19'
 
 db = SQLAlchemy()
 migrate = Migrate()

@@ -31,71 +31,52 @@ Flask Quickstart 是一个具有 Web 后端基本功能、易于快读二次开�
   - `__init__.py`：应用工厂函数
   - `models.py`：系统模型，业务模型放到 `app/beans`
 - `.env.template`：配置文件模版
-- `data`：相对固定的数据，应用程序运行时产生的缓存数据放到 `tmp`
+- `data`：初始化数据，应用程序运行时产生的缓存数据放到 `tmp`
 - `docs`：开发者文档
-- `log`：错误日志
 - `migrations`：数据库迁移记录
-- `scripts`：各种脚本
+- `scripts`：数据库初始化脚本
 - `tests`：单元测试
-- `tmp`：缓存数据
 - `config.py`：用于加载配置文件
 - `main.py`：用于启动应用程序
 
 ## 4. 部署
 
-### 4.1. 配置数据库
+### 4.1. 创建数据库容器
 
 ```bash
-mysql -u root -p
+docker pull mysql:5.7
 ```
 
-```sql
--- 创建数据库
-drop database if exists flaskqs;
-create database flaskqs character set 'utf8' collate 'utf8_general_ci';
--- 创建用户
-create user 'www' @'%' identified by 'password';
--- 授权
-grant all privileges on flaskqs.* to 'www' @'%';
-flush privileges;
+```bash
+docker run -itd \
+  --name flask_quickstart_mysql \
+  --restart=always \
+  -p 23001:3306 \
+  -v $(pwd)/scripts:/docker-entrypoint-initdb.d \
+  -e MYSQL_ROOT_PASSWORD=root_password \
+  mysql:5.7
 ```
 
-1. 修改 `/etc/mysql/mysql.conf.d/mysqld.cnf` 中为：`bind-address = 0.0.0.0`
-2. 从 `/etc/mysql/mysql.conf.d/mysqld.cnf` 中还可以获知数据库端口，默认：`3306`
-3. 重启 mysql 服务 `service mysql restart`
-4. 验证 mysql 服务 `netstat -tnl | grep 3306` ，出现 `0.0.0.0:3306` , `:::3306`, `LISTEN` 类似字符，说明数据库运行正常。
-
-### 4.2. 配置文件
+### 4.2. 创建配置文件
 
 ```bash
 cp .env.template .env
 ```
 
-```vim
-APP_NAME=Flask Quickstart
-SECRET_KEY=a_random_and_long_string
-DB_SERVER=
-DB_PORT=3306
-DB_USERNAME=www
-DB_PASSWORD=
-DB_DATABASE=flaskqs
-DB_DATABASE_TEST=
-MAIL_SERVER=
-MAIL_PORT=
-MAIL_USE_SSL=
-MAIL_USERNAME=
-MAIL_PASSWORD=
-MAIL_ADMINS=
-```
+- 执行 `python -c "import uuid; print(uuid.uuid4().hex)"` ，粘贴到 `SECRET_KEY`
+- `172.17.0.1` 为 docker 网桥中宿主机默认 ip
+- `MAIL` 信息配置可参见 [邮箱配置](docs/mail.md)
 
-### 4.3. 启动容器
+### 4.3. 启动应用程序容器
 
 ```bash
 chmod +x boot.sh
-# 创建容器
-docker run -itd --name=flask_quickstart_container -p 8080:8080 --restart=always \
-  -v /repo_path:/opt/flask-quickstart \
-  flask_quickstart_image /opt/flask-quickstart/boot.sh
+docker run -itd \
+  --name=flask_quickstart_container \
+  -p 8080:8080 \
+  --restart=always \
+  -v $(pwd):/DATACENTER1/flask-quickstart \
+  flask_quickstart:latest /DATACENTER1/flask-quickstart/boot.sh
 ```
 
 ### 4.4. 验证运行情况

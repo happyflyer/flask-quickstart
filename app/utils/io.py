@@ -2,9 +2,12 @@
 
 import os
 import json
-from threading import Thread
+from threading import Thread, Lock
 
 from . import EMPTY, ENCODING
+
+
+mutex = Lock()
 
 
 # json文件缩进空格
@@ -23,18 +26,20 @@ def read_json(filename):
     payload = {}
     if not os.path.exists(filename):
         return payload
+    mutex.acquire(10)
     with open(filename, 'r', encoding=ENCODING) as f:
         payload = json.load(f)
+    mutex.release()
     return payload
 
 
-def write_json(payload, filename, new_thread=False):
+def write_json(payload, filename, new_thread=True):
     """写json
 
     Args:
         payload (dict): 文件内容
         filename (str): 文件路径
-        new_thread (bool, optional): 是否使用新线程. Defaults to False.
+        new_thread (bool, optional): 是否使用新线程. Defaults to True.
     """
     if new_thread:
         thr = Thread(target=_write_json, args=(payload, filename), daemon=True)
@@ -47,8 +52,10 @@ def _write_json(payload, filename):
     filedir = os.path.abspath(os.path.dirname(filename))
     if not os.path.exists(filedir):
         os.makedirs(filedir)
+    mutex.acquire(10)
     with open(filename, 'w', encoding=ENCODING) as f:
         json.dump(payload, f, indent=JSON_INDENT)
+    mutex.release()
 
 
 def read_properties(filename):

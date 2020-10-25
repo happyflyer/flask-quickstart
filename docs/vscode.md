@@ -21,7 +21,10 @@
     "log",
     "tmp",
     "**/*.db",
-    "**/*.mo"
+    "**/*.mo",
+    ".coverage",
+    ".pytest_cache",
+    ".env"
   ],
   "watcher": {
     "files": "**/*",
