@@ -1,5 +1,7 @@
 FROM python:3.6.8
 
+WORKDIR /DATACENTER1
+
 COPY ["requirements.txt", "/root/"]
 
 RUN sed -i "s@/deb.debian.org/@/mirrors.aliyun.com/@g" /etc/apt/sources.list && \
