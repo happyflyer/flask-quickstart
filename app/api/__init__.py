@@ -1,15 +1,6 @@
-# -*- coding: utf-8 -*-
-
 from flask import Blueprint
-bp = Blueprint('api', __name__)
-
-from .errors import error_response  # NOQA
-from .errors import bad_request  # NOQA
-from .errors import forbidden  # NOQA
-from .errors import not_found  # NOQA
-
-from .auth import basic_auth  # NOQA
-from .auth import token_auth  # NOQA
-
-from . import tokens  # NOQA
-from . import tests  # NOQA
+bp = Blueprint('api', __name__)  # NOQA
+from .errors import error_response, bad_request, unauthorized, forbidden, not_found
+from .auth import basic_auth, token_auth
+from . import tokens
+from . import tests

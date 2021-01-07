@@ -1,20 +1,18 @@
-# -*- coding: utf-8 -*-
-
 from flask_babel import lazy_gettext as _l
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, SelectField
 from wtforms.validators import DataRequired, EqualTo, ValidationError
-
-from .. import MODULES, PERMISSIONS
 from ..models import User
+from ..modules import MODULES
+from ..permission import PERMISSIONS
 
 
 class UserAddForm(FlaskForm):
-    """新增用户表单"""
-    username = StringField(_l('Username'), validators=[DataRequired()])
-    password = PasswordField(_l('Password'), validators=[DataRequired()])
-    password2 = PasswordField(_l('Repeat Password'), validators=[DataRequired(), EqualTo('password')])
-    submit = SubmitField(_l('Add'))
+    username = StringField(_l('username'), validators=[DataRequired()])
+    password = PasswordField(_l('password'), validators=[DataRequired()])
+    password2 = PasswordField(_l('repeat password'), validators=[
+        DataRequired(), EqualTo('password')])
+    submit = SubmitField(_l('add'))
 
     def __init__(self, *args, **kwargs):
         super(UserAddForm, self).__init__(*args, **kwargs)
@@ -22,22 +20,23 @@ class UserAddForm(FlaskForm):
     def validate_username(self, username):
         user = User.query.filter(User.username == username.data).first()
         if user is not None:
-            raise ValidationError(_l('This username is already in use, Please change another username!'))
+            raise ValidationError(_l('This username is already in use!'))
 
 
 class UserGrantForm(FlaskForm):
-    """用户授权表单"""
-    module = SelectField(_l('Module'), validators=[DataRequired()], choices=[(m, m) for m in MODULES])  # NOQA
-    permission = SelectField(_l('Permission'), validators=[DataRequired()], choices=[(str(p), PERMISSIONS[p]) for p in PERMISSIONS])  # NOQA
-    submit = SubmitField(_l('Grant'))
+    module = SelectField(_l('module'), validators=[DataRequired()], choices=[
+        (module, module) for module in MODULES])
+    permission = SelectField(_l('permission'), validators=[
+        DataRequired()], choices=[(str(p), PERMISSIONS[p]) for p in PERMISSIONS])
+    submit = SubmitField(_l('grant'))
 
     def __init__(self, *args, **kwargs):
         super(UserGrantForm, self).__init__(*args, **kwargs)
 
     def validate_module(self, module):
         if module.data not in MODULES:
-            raise ValidationError(_l('Invalid module!'))
+            raise ValidationError(_l('invalid module!'))
 
     def validate_permission(self, permission):
         if int(permission.data) not in PERMISSIONS:
-            raise ValidationError(_l('Invalid permission!'))
+            raise ValidationError(_l('invalid permission!'))

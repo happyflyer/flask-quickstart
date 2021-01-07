@@ -5,14 +5,11 @@
     <div class="my-3">
         {% block button_content %}{% endblock %}
     </div>
-
     <div class="my-3">
         {% block table_content %}
             {% include 'table.jinja2' %}
         {% endblock %}
     </div>
-
-    {# 底部页码 #}
     {% if res and res.total %}
     <div class="my-3">
         <form>

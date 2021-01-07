@@ -1,38 +1,26 @@
-# -*- coding: utf-8 -*-
-
-from functools import partial, wraps
-
-from flask import request, abort, g
-
+"""访问权限控制
+"""
 
 __all__ = [
-    'NO_PERMISSION',
-    'READ_PERMISSION',
-    'WRITE_PERMISSION',
-    'PERMISSIONS',
-    'read_required',
-    'write_required'
+    'NO_PERMISSION', 'READ_PERMISSION', 'WRITE_PERMISSION', 'PERMISSIONS',
+    'read_required', 'write_required'
 ]
 
-# 权限控制要求用户登录，匿名用户没有权限控制
+from functools import partial, wraps
+from flask import request, abort, g
+
 NO_PERMISSION = 0
 READ_PERMISSION = 1
 WRITE_PERMISSION = 2
 PERMISSIONS = {
-    NO_PERMISSION: 'N',
-    READ_PERMISSION: 'R',
-    WRITE_PERMISSION: 'W'
+    NO_PERMISSION: 'NO',
+    READ_PERMISSION: 'READ',
+    WRITE_PERMISSION: 'WRITE'
 }
 
 
 def _custom_required(permission, *args, **kw_args):
     """访问用户对指定模块有permission权限
-
-    Args:
-        permission (int): 权限级别
-
-    Returns:
-        None: 权限验证通过时执行函数，权限验证不通过时返回403状态码
     """
     def _permission_required(func):
         @wraps(func)

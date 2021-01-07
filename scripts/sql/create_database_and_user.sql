@@ -1,12 +1,3 @@
-# flask-quickstart
-
-```bash
-conda create -n flask_quickstart_venv python=3.6
-conda activate flask_quickstart_venv
-pip install -r requirements.txt
-```
-
-```sql
 -- 创建数据库 flask_quickstart
 drop database if exists flask_quickstart;
 create database flask_quickstart character set 'utf8' collate 'utf8_general_ci';
@@ -23,24 +14,3 @@ flush privileges;
 -- select host, user, authentication_string from mysql.user;
 -- 查看用户 flask_quickstart 的权限
 -- show grants for 'flask_quickstart'@'%';
-```
-
-```bash
-cp .env.template .env
-```
-
-```bash
-flask db init
-flask db migrate -m "create tables"
-flask db upgrade
-```
-
-```bash
-# flask translate init zh
-# flask translate update
-flask translate compile
-```
-
-```bash
-flask run
-```

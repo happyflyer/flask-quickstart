@@ -1,8 +1,7 @@
 #!/bin/bash
-# this script is used to boot a Docker container
-sleep 5
 
-cd /DATACENTER1/flask-quickstart || return
+APP_DIR="/root/flask-quickstart"
+cd $APP_DIR
 
 while true; do
   flask db upgrade
@@ -15,11 +14,10 @@ done
 
 flask translate compile
 
-cp supervisor.conf /etc/supervisor/conf.d/flask_quickstart.conf
+cp config/supervisor.conf /etc/supervisor/conf.d/flask_quickstart.conf
 service supervisor start
 
-rm /etc/nginx/sites-enabled/default
-cp nginx.conf /etc/nginx/sites-enabled/
+cp config/nginx.conf /etc/nginx/conf.d/
 service nginx start
 
 while true; do

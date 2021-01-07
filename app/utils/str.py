@@ -1,41 +1,42 @@
-# -*- coding: utf-8 -*-
+"""字符串处理
+"""
 
-from . import EMPTY
+__all__ = [
+    'has_empty', 'all_empty', 'is_empty'
+]
+
+_empty = ''
 
 
 def has_empty(*values):
-    """是否存在空字符串
-
-    Returns:
-        bool: 检查结果
-
-    Examples:
-        >>> has_empty('hh', 'kk')
-        False
-        >>> has_empty('hh', 'kk', '   ')
-        True
+    """values中是否存在空字符串，如果values中含有非str类型对象将抛出TypeError
     """
-    for v in values:
-        # 有一个元素为空就返回有空
-        if v is None or str.strip(v) == EMPTY:
-            return True
+    for value in values:
+        if isinstance(value, str):
+            if value.strip() == _empty:
+                return True
+        else:
+            raise TypeError("not str")
     return False
 
 
 def all_empty(*values):
-    """是否都是空字符串
-
-    Returns:
-        bool: 检查结果
-
-    Examples:
-        >>> all_empty('hh', 'kk', '   ')
-        False
-        >>> all_empty('  ', '', '   ')
-        True
+    """values中是否都是空字符串，如果values中含有非str类型对象将抛出TypeError
     """
-    for v in values:
-        if v is not None and str.strip(v) != EMPTY:
-            return False
-    # 所有元素都为空才返回为空
+    for value in values:
+        if isinstance(value, str):
+            if value.strip() != _empty:
+                return False
+        else:
+            raise TypeError("not str")
     return True
+
+
+def is_empty(value):
+    """value是否为空字符串，value为int类型时均为非空
+    """
+    if isinstance(value, int):
+        return False
+    if isinstance(value, str):
+        return value.strip() == _empty
+    return False if value else True

@@ -1,14 +1,14 @@
 # Chinese translations for PROJECT.
-# Copyright (C) 2020 ORGANIZATION
+# Copyright (C) 2021 ORGANIZATION
 # This file is distributed under the same license as the PROJECT project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-09-13 22:05+0800\n"
-"PO-Revision-Date: 2020-07-26 01:40+0800\n"
+"POT-Creation-Date: 2021-01-07 16:01+0800\n"
+"PO-Revision-Date: 2021-01-07 15:05+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: zh\n"
 "Language-Team: zh <LL@li.org>\n"
@@ -16,127 +16,132 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.8.0\n"
+"Generated-By: Babel 2.9.0\n"
 
-#: app/__init__.py:34
+#: app/__init__.py:26
 msgid "Please log in to access this page."
-msgstr "请登录以访问此页面"
+msgstr "请登录以访问此页。"
 
-#: app/auth/forms.py:11 app/main/forms.py:14
+#: app/auth/forms.py:8 app/main/forms.py:11
 #: app/templates/main/user_list.jinja2:11
 #: app/templates/main/user_list.jinja2:12
 #: app/templates/main/user_table.jinja2:7
-msgid "Username"
+msgid "username"
 msgstr "用户名"
 
-#: app/auth/forms.py:12 app/main/forms.py:15
-msgid "Password"
+#: app/auth/forms.py:9 app/main/forms.py:12
+msgid "password"
 msgstr "密码"
 
-#: app/auth/forms.py:13
-msgid "Remember Me"
+#: app/auth/forms.py:10
+msgid "remember me"
 msgstr "记住我"
 
-#: app/auth/forms.py:14 app/auth/routes.py:32
+#: app/auth/forms.py:11
+msgid "sign in"
+msgstr "登录"
+
+#: app/auth/routes.py:23
+msgid "invalid username or password!"
+msgstr "无效的用户名或密码！"
+
+#: app/auth/routes.py:30
+#, fuzzy
 msgid "Sign In"
 msgstr "登录"
 
-#: app/auth/routes.py:25
-msgid "Invalid username or password!"
-msgstr "无效的用户名或密码！"
-
-#: app/main/forms.py:16
-msgid "Repeat Password"
+#: app/main/forms.py:13
+msgid "repeat password"
 msgstr "重复密码"
 
-#: app/main/forms.py:17
-msgid "Add"
+#: app/main/forms.py:15
+msgid "add"
 msgstr "新增"
 
-#: app/main/forms.py:25
-msgid "This username is already in use, Please change another username!"
-msgstr "此用户名被占用，请换一个用户名！"
+#: app/main/forms.py:23
+msgid "This username is already in use!"
+msgstr "此用户名已被使用！"
 
-#: app/main/forms.py:30
-msgid "Module"
+#: app/main/forms.py:27
+msgid "module"
 msgstr "模块"
 
-#: app/main/forms.py:31
-msgid "Permission"
+#: app/main/forms.py:29
+msgid "permission"
 msgstr "权限"
 
-#: app/main/forms.py:32 app/templates/main/user_table.jinja2:11
-msgid "Grant"
+#: app/main/forms.py:31 app/templates/main/user_table.jinja2:11
+#: app/templates/main/user_table.jinja2:24
+msgid "grant"
 msgstr "授权"
 
-#: app/main/forms.py:39
-msgid "Invalid module!"
-msgstr "无效的模块！"
+#: app/main/api/users.py:123 app/main/forms.py:38
+msgid "invalid module!"
+msgstr "无效的 module！"
 
-#: app/main/forms.py:43
-msgid "Invalid permission!"
-msgstr "无效的权限！"
+#: app/main/api/users.py:129 app/main/forms.py:42
+msgid "invalid permission!"
+msgstr "无效的 permission！"
 
-#: app/main/routes.py:19 app/templates/base.jinja2:72
+#: app/main/routes.py:14 app/templates/base.jinja2:70
 msgid "Home"
 msgstr "主页"
 
-#: app/main/users.py:24
+#: app/main/users.py:23
 msgid "User List"
 msgstr "用户列表"
 
-#: app/main/users.py:43
+#: app/main/users.py:41
 msgid "User Profile"
 msgstr "用户配置文件"
 
-#: app/main/users.py:57
+#: app/main/users.py:54
 #, python-format
 msgid "%(obj)s already exists!"
 msgstr "%(obj)s 已经存在！"
 
-#: app/main/users.py:63
+#: app/main/users.py:60
 #, python-format
 msgid "%(obj)s has been added."
-msgstr "%(obj)s 已经新增。"
+msgstr "%(obj)s 成功新增。"
 
-#: app/main/users.py:65 app/templates/main/user_list.jinja2:8
+#: app/main/users.py:62 app/templates/main/user_list.jinja2:8
 msgid "Add User"
 msgstr "新增用户"
 
-#: app/main/api/users.py:210 app/main/users.py:81
-#, python-format
-msgid "%(username)s must have %(permission)s to %(module)s!"
-msgstr "%(username)s 必须具有 %(module)s 模块的 %(permission)s 权限！"
+#: app/main/api/users.py:133 app/main/users.py:77
+msgid "admin must have WRITE permission on main module!"
+msgstr "admin 用户必须具有 main 模块的 WRITE 权限！"
 
-#: app/main/users.py:86
+#: app/main/users.py:82
 #, python-format
-msgid "%(username)s has been granted %(permission)s to %(module)s."
-msgstr "%(username)s 已经获得 %(module)s 模块的 %(permission)s 权限。"
+msgid "%(username)s has been granted %(pl)s permission on %(module)s."
+msgstr "成功授予 %(username)s 用户对 %(module)s 模块的 %(pl)s 权限。"
 
-#: app/main/users.py:89
+#: app/main/users.py:85
 msgid "Grant User"
 msgstr "授权用户"
 
-#: app/main/api/users.py:108
+#: app/main/api/users.py:62
 msgid "insufficient permission!"
-msgstr "权限不足！"
+msgstr "权限不够！"
 
-#: app/main/api/users.py:152 app/main/api/users.py:207
+#: app/main/api/users.py:89
 msgid "missing username!"
-msgstr "缺失 username！"
+msgstr "缺少 username！"
 
-#: app/main/api/users.py:155
+#: app/main/api/users.py:92
 #, python-format
 msgid "%(username)s already exists!"
-msgstr "%(username)s 已经存在！"
+msgstr "%(username)s 已被使用！"
 
-#: app/main/api/users.py:199
-msgid "missing module or permission!"
-msgstr "缺失 module 或 permission！"
+#: app/main/api/users.py:120
+msgid "missing module"
+msgstr "缺少 module！"
 
-#: app/main/api/users.py:203
-msgid "invalid module or permission!"
-msgstr "无效的 module 或 permission！"
+#: app/main/api/users.py:126
+msgid "missing permission!"
+msgstr "缺少 permission！"
 
 #: app/templates/base.jinja2:6
 #, python-format
@@ -148,46 +153,32 @@ msgstr "%(title)s - %(app_name)s"
 msgid "Welcome to %(app_name)s"
 msgstr "欢迎访问 %(app_name)s"
 
-#: app/templates/base.jinja2:64
+#: app/templates/base.jinja2:62
 #, python-format
 msgid "%(app_name)s"
 msgstr "%(app_name)s"
 
-#: app/templates/base.jinja2:76
-msgid "Feature"
-msgstr "特性"
+#: app/templates/base.jinja2:74 app/templates/base.jinja2:77
+#: app/templates/base.jinja2:79 app/templates/base.jinja2:81
+#: app/templates/base.jinja2:85
+msgid "Text"
+msgstr "文本"
 
-#: app/templates/base.jinja2:79
-msgid "Complete functions"
-msgstr "功能齐全"
-
-#: app/templates/base.jinja2:81
-msgid "Simple deployment"
-msgstr "部署简单"
-
-#: app/templates/base.jinja2:83
-msgid "Easy to develop"
-msgstr "易于开发"
-
-#: app/templates/base.jinja2:87
-msgid "About"
-msgstr "关于"
-
-#: app/templates/base.jinja2:93
+#: app/templates/base.jinja2:91
 msgid "Login"
 msgstr "登录"
 
-#: app/templates/base.jinja2:98
+#: app/templates/base.jinja2:96
 msgid "User Permission"
 msgstr "用户权限"
 
-#: app/templates/base.jinja2:106
+#: app/templates/base.jinja2:104
 msgid "Profile"
 msgstr "配置文件"
 
-#: app/templates/base.jinja2:107
+#: app/templates/base.jinja2:105
 msgid "Logout"
-msgstr "注销"
+msgstr "退出"
 
 #: app/templates/errors/403.jinja2:5
 msgid "Forbidden!"
@@ -207,26 +198,22 @@ msgstr "发生意外错误！"
 
 #: app/templates/errors/500.jinja2:6
 msgid "The administrator has been notified. Sorry for the inconvenience!"
-msgstr "已通知管理员。很抱歉给您带来不便！"
+msgstr "已通知管理员，抱歉给你带来的不便！"
 
 #: app/templates/main/index.jinja2:5
 msgid "Current date and time: "
-msgstr "当前日期和时间："
+msgstr "当前日期时间"
 
 #: app/templates/main/user_item.jinja2:5
 #, python-format
-msgid "%(username)s"
-msgstr "%(username)s"
+msgid "%(obj)s"
+msgstr "%(obj)s"
 
 #: app/templates/main/user_list.jinja2:15
-msgid "Search"
+msgid "search"
 msgstr "搜索"
 
 #: app/templates/main/user_table.jinja2:6
-msgid "Id"
+msgid "id"
 msgstr "编号"
-
-#: app/templates/main/user_table.jinja2:24
-msgid "grant"
-msgstr "授权"
 

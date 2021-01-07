@@ -1,10 +1,7 @@
-# -*- coding: utf-8 -*-
-
 import os
 import logging
 from datetime import datetime
 from logging.handlers import TimedRotatingFileHandler, SMTPHandler
-
 from flask import Flask, request, g, current_app
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
@@ -15,18 +12,13 @@ from flask_babel import Babel, lazy_gettext as _l
 from flask_wtf.csrf import CSRFProtect
 from flask_cors import CORS
 from flask_docs import ApiDoc
-
+from flask_apscheduler import APScheduler
 from config import Config
 from .permission import *
-
+from .modules import *
 
 # https://semver.org/lang/zh-CN/
-# 版本格式：主版本号.次版本号.修订号，版本号递增规则如下：
-# 主版本号：当你做了不兼容的 API 修改，
-# 次版本号：当你做了向下兼容的功能性新增，
-# 修订号：当你做了向下兼容的问题修正。
-__version__ = '0.2.20'
-
+__version__ = '0.3.0'
 db = SQLAlchemy()
 migrate = Migrate()
 login = LoginManager()
@@ -37,31 +29,12 @@ bootstrap = Bootstrap()
 babel = Babel()
 csrf = CSRFProtect()
 doc = ApiDoc()
-
-# 每页记录数
-RECORDS_PER_PAGE = 25
-# 每页最大记录数
-RECORDS_MAX_PER_PAGE = 50
-# 用于访问统计、权限控制的模块
-MODULES = {
-    'main': 0,
-    'main_api': 1,
-    'api': 2
-}
-# 用于访问统计、权限控制的模块数量
-MODULES_NUMBER = 32
-# 新用户默认权限
-DEFAULT_PERMISSION = str(READ_PERMISSION) * 2 + str(NO_PERMISSION) * (MODULES_NUMBER - 2)
-# 不用于访问统计的endpoint
-EXCLUDED_ENDPOINTS = [
-    'main.favicon'
-]
+scheduler = APScheduler()
 
 
 def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(config_class)
-
     db.init_app(app)
     migrate.init_app(app, db)
     login.init_app(app)
@@ -71,7 +44,14 @@ def create_app(config_class=Config):
     csrf.init_app(app)
     CORS(app, supports_credentials=True)
     doc.init_app(app, title=app.config.get('APP_NAME'), version=__version__)
-
+    if not app.debug:
+        from .apscheduler import init_apscheduler
+        init_apscheduler(app, scheduler)
+    else:
+        scheduler.init_app(app)
+        scheduler.start()
+    from . import jobs
+    jobs.do_jobs()
     # errors
     from .errors import bp as errors_bp
     app.register_blueprint(errors_bp, url_prefix='/')
@@ -81,14 +61,10 @@ def create_app(config_class=Config):
     # main
     from .main import bp as main_bp
     app.register_blueprint(main_bp, url_prefix='/')
-    from .main.api import bp as main_api_bp
-    app.register_blueprint(main_api_bp, url_prefix='/main/api')
-    csrf.exempt(main_api_bp)
     # api
     from .api import bp as api_bp
     app.register_blueprint(api_bp, url_prefix='/api')
     csrf.exempt(api_bp)
-
     app.jinja_env.globals['str'] = str
     app.jinja_env.globals['int'] = int
     app.jinja_env.globals['max'] = max
@@ -129,14 +105,10 @@ def create_app(config_class=Config):
         if not os.path.exists('log'):
             os.makedirs('log')
         file_handler = TimedRotatingFileHandler(
-            os.path.join('log', 'app.log'),
-            when='D',
-            interval=1,
-            backupCount=10,
-            encoding='utf-8',
-            delay=False,
-            utc=True)
-        file_handler.setFormatter(logging.Formatter('%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'))  # NOQA
+            os.path.join('log', 'app.log'), when='D', interval=1,
+            backupCount=10, encoding='utf-8', delay=False, utc=True)
+        file_handler.setFormatter(logging.Formatter(
+            '%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'))  # NOQA
         file_handler.setLevel(logging.WARNING)
         app.logger.addHandler(file_handler)
         # 邮件日志
@@ -152,24 +124,16 @@ def create_app(config_class=Config):
                 fromaddr=app.config.get('MAIL_ADMINS')[0],
                 toaddrs=app.config.get('MAIL_ADMINS'),
                 subject='{} Failure'.format(app.config.get('APP_NAME')),
-                credentials=auth,
-                secure=secure)
+                credentials=auth, secure=secure)
             mail_handler.setLevel(logging.ERROR)
             app.logger.addHandler(mail_handler)
-
     app.logger.setLevel(logging.INFO)
     app.logger.info('app has been created.')
-
     return app
 
 
 @babel.localeselector
 def get_locale():
-    """获得本地区域设置
-
-    Returns:
-        str: 语言_地区
-    """
     return request.accept_languages.best_match(current_app.config.get('LANGUAGES'))
 
 

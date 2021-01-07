@@ -1,36 +1,41 @@
-# -*- coding: utf-8 -*-
+"""日期时间处理
+"""
+
+__all__ = [
+    'DATE_SEPARATOR', 'TIME_SEPARATOR', 'DATETIME_SEPARATOR',
+    'DATE_FORMATTER', 'TIME_FORMATTER', 'DATETIME_FORMATTER',
+    'CLOCK_FORMATTER', 'TIMESTAMP_FORMATTER',
+    'is_date_str', 'is_time_str', 'is_datetime_str',
+    'date_str_2_datetime', 'time_str_2_datetime', 'datetime_str_2_datetime',
+    'second_start', 'minute_start', 'hour_start', 'day_start',
+    'week_start', 'month_start', 'month_end'
+]
 
 import re
 from datetime import datetime, timedelta
 
 
-# 日期
 DATE_SEPARATOR = '-'
-DATE_FORMATTER = DATE_SEPARATOR.join(['%Y', '%m', '%d'])
-# 时间
 TIME_SEPARATOR = ':'
-TIME_FORMATTER = TIME_SEPARATOR.join(['%H', '%M', '%S'])
-CLOCK_FORMATTER = TIME_SEPARATOR.join(['%H', '00', '00'])
-# 日期时间
 DATETIME_SEPARATOR = ' '
-DATETIME_FORMATTER = DATETIME_SEPARATOR.join([DATE_FORMATTER, TIME_FORMATTER])
-# 时间戳
+DATE_FORMATTER = '%Y-%m-%d'
+TIME_FORMATTER = '%H:%M:%S'
+DATETIME_FORMATTER = '%Y-%m-%d %H:%M:%S'
+CLOCK_FORMATTER = '%H:00:00'
 TIMESTAMP_FORMATTER = '%Y%m%d_%H%M%S_%f'
 
 
 def is_date_str(date_str):
-    """判断是否为合法的日期字符串
-
-    Args:
-        date_str (str): 日期字符串，形如：'YYYY-mm-dd'
-
-    Returns:
-        bool: 检查结果
+    """Examples:
+        >>> is_date_str('2020-02-29')
+        True
+        >>> is_date_str('2019-02-29')
+        False
     """
     date_str = str(date_str)
     if not re.match(r'^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$', date_str):
         return False
-    year, month, day = list(map(int, str.split(date_str, DATE_SEPARATOR)))
+    year, month, day = list(map(int, date_str.split(DATE_SEPARATOR)))
     if month in [1, 3, 5, 7, 8, 10, 12]:
         return False if day > 31 else True
     elif month in [4, 6, 9, 11]:
@@ -40,17 +45,15 @@ def is_date_str(date_str):
             return False if day > 29 else True
         else:
             return False if day > 28 else True
-    return True
+    return False
 
 
 def is_time_str(time_str):
-    """检查是否为合法的时间字符串
-
-    Args:
-        time_str (str): 时间字符串，形如：'hh:MM:ss'
-
-    Returns:
-        bool: 检查结果
+    """Examples:
+        >>> is_time_str('23:59:59')
+        True
+        >>> is_time_str('23:59:60')
+        False
     """
     time_str = str(time_str)
     if re.match(r'^([0-1][0-9]|2[0-3])(:[0-5][0-9]){2}$', time_str):
@@ -58,116 +61,94 @@ def is_time_str(time_str):
     return False
 
 
-def date_str_2_dt(date_str):
-    """日期字符串转 datetime 类型
-
-    Args:
-        date_str (str): 日期字符串，形如：'YYYY-mm-dd'
-
-    Returns:
-        datetime: 转换结果，当日期字符串不合法时返回None
+def is_datetime_str(datetime_str):
+    """Examples:
+        >>> is_datetime_str('2020-02-29 23:59:59')
+        True
+        >>> is_datetime_str('2020-02-29 23:59:60')
+        False
     """
-    if not is_date_str(date_str):
-        return None
-    return datetime.strptime(date_str, DATE_FORMATTER)
+    datetime_str = str(datetime_str)
+    date_str, time_str = datetime_str.split(DATETIME_SEPARATOR)
+    return is_date_str(date_str) and is_time_str(time_str)
 
 
-def time_str_2_dt(time_str, dt=datetime.now()):
-    """时间字符串转 datetime 类型
-
-    Args:
-        time_str (str): 时间字符串，形如：'HH:MM:SS'
-        dt (datetime), optional): 转换后的日期. Defaults to datetime.now().
-
-    Returns:
-        datetime: 转换结果，当时间字符串不合法时返回None
+def date_str_2_datetime(date_str):
+    """Examples:
+        >>> date_str_2_datetime('2020-02-29')
+        datetime.datetime(2020, 2, 29, 0, 0)
+        >>> date_str_2_datetime('2019-02-29')
     """
-    if not is_time_str(time_str):
-        return None
-    hour, minute, second = list(map(int, str.split(time_str, TIME_SEPARATOR)))
-    return datetime(dt.year, dt.month, dt.day, hour, minute, second)
+    if is_date_str(date_str):
+        return datetime.strptime(date_str, DATE_FORMATTER)
+    return None
 
 
-def dt_str_2_dt(dt_str):
-    """日期时间字符串转 datetime 类型
-
-    Args:
-        dt_str (str): 日期时间字符串，形如：'YYYY-mm-dd HH:MM:SS'
-
-    Returns:
-        datetime: 转换结果，当日期时间字符串不可用时返回None
+def time_str_2_datetime(time_str, dt=datetime.now()):
+    """Examples:
+        >>> time_str_2_datetime('23:59:59', dt=date_str_2_datetime('2020-02-29'))
+        datetime.datetime(2020, 2, 29, 23, 59, 59)
     """
-    dt_str = str(dt_str)
-    date_str, time_str = str.split(dt_str, DATETIME_SEPARATOR)
-    if not (is_date_str(date_str) and is_time_str(time_str)):
-        return None
-    return datetime.strptime(dt_str, DATETIME_FORMATTER)
+    if is_time_str(time_str):
+        hour, minute, second = list(map(int, time_str.split(TIME_SEPARATOR)))
+        return datetime(dt.year, dt.month, dt.day, hour, minute, second)
+    return None
+
+
+def datetime_str_2_datetime(datetime_str):
+    """Examples:
+        >>> datetime_str_2_datetime('2020-02-29 23:59:59')
+        datetime.datetime(2020, 2, 29, 23, 59, 59)
+    """
+    if is_datetime_str(datetime_str):
+        return datetime.strptime(datetime_str, DATETIME_FORMATTER)
+    return None
 
 
 def second_start(dt):
-    """设置 datetime 为整数秒
-
-    Args:
-        dt (datetime): datetime
-
-    Returns:
-        datetime: 转换结果
+    """Examples:
+        >>> second_start(datetime_str_2_datetime('2020-02-29 23:59:59'))
+        datetime.datetime(2020, 2, 29, 23, 59, 59)
     """
-    if not isinstance(dt, datetime):
-        return None
-    return datetime(dt.year, dt.month, dt.day, dt.hour, dt.minute, dt.second)
+    if isinstance(dt, datetime):
+        return datetime(dt.year, dt.month, dt.day, dt.hour, dt.minute, dt.second)
+    return None
 
 
 def minute_start(dt):
-    """设置 datetime 为整数分钟
-
-    Args:
-        dt (datetime): datetime
-
-    Returns:
-        datetime: 转换结果
+    """Examples:
+        >>> minute_start(datetime_str_2_datetime('2020-02-29 23:59:59'))
+        datetime.datetime(2020, 2, 29, 23, 59)
     """
-    if not isinstance(dt, datetime):
-        return None
-    return datetime(dt.year, dt.month, dt.day, dt.hour, dt.minute)
+    if isinstance(dt, datetime):
+        return datetime(dt.year, dt.month, dt.day, dt.hour, dt.minute)
+    return None
 
 
 def hour_start(dt):
-    """设置 datetime 为整数小时
-
-    Args:
-        dt (datetime): datetime
-
-    Returns:
-        datetime: 转换结果
+    """Examples:
+        >>> hour_start(datetime_str_2_datetime('2020-02-29 23:59:59'))
+        datetime.datetime(2020, 2, 29, 23, 0)
     """
-    if not isinstance(dt, datetime):
-        return None
-    return datetime(dt.year, dt.month, dt.day, dt.hour)
+    if isinstance(dt, datetime):
+        return datetime(dt.year, dt.month, dt.day, dt.hour)
+    return None
 
 
 def day_start(dt):
-    """设置 datetime 为当天的00:00:00
-
-    Args:
-        dt (datetime): datetime
-
-    Returns:
-        datetime: 转换结果
+    """Examples:
+        >>> day_start(datetime_str_2_datetime('2020-02-29 23:59:59'))
+        datetime.datetime(2020, 2, 29, 0, 0)
     """
-    if not isinstance(dt, datetime):
-        return None
-    return datetime(dt.year, dt.month, dt.day)
+    if isinstance(dt, datetime):
+        return datetime(dt.year, dt.month, dt.day)
+    return None
 
 
 def week_start(dt):
-    """设置 datetime 为当前周星期一的00:00:00
-
-    Args:
-        dt (datetime): datetime
-
-    Returns:
-        datetime: 转换结果
+    """Examples:
+        >>> week_start(datetime_str_2_datetime('2020-02-29 23:59:59'))
+        datetime.datetime(2020, 2, 24, 0, 0)
     """
     while dt.weekday() > 0:
         dt -= timedelta(days=1)
@@ -175,25 +156,17 @@ def week_start(dt):
 
 
 def month_start(dt):
-    """设置 datetime 为当月周第一天的00:00:00
-
-    Args:
-        dt (datetime): datetime
-
-    Returns:
-        datetime: 转换结果
+    """Examples:
+        >>> month_start(datetime_str_2_datetime('2020-02-29 23:59:59'))
+        datetime.datetime(2020, 2, 1, 0, 0)
     """
     return datetime(dt.year, dt.month, 1)
 
 
 def month_end(dt):
-    """设置 datetime 为当月周最后一天的00:00:00
-
-    Args:
-        dt (datetime): datetime
-
-    Returns:
-        datetime: 转换结果
+    """Examples:
+        >>> month_end(datetime_str_2_datetime('2020-02-29 23:59:59'))
+        datetime.datetime(2020, 2, 29, 0, 0)
     """
     month = dt.month
     while dt.month == month:

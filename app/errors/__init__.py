@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from flask import Blueprint
-bp = Blueprint('errors', __name__)
-
-from . import handlers  # NOQA
+bp = Blueprint('errors', __name__)  # NOQA
+from . import handlers

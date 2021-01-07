@@ -1,4 +1,0 @@
--r ../requirements.txt
-autopep8==1.5.3
-pycodestyle==2.6.0
-toml==0.10.1

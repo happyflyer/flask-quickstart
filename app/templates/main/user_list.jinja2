@@ -8,11 +8,11 @@
                 <a href="{{ url_for('main.add_user') }}" class="btn btn-primary">{{ _('Add User') }}</a>
             </div>
             <div class="form-group col-md-4">
-                <label class="sr-only mr-sm-2" for="username">{{ _('Username') }}</label>
-                <input type="text" class="form-control" id="username" name="username" placeholder="{{ _('Username') }}" value="{{ keywords.get('username') if keywords }}">
+                <label class="sr-only mr-sm-2" for="username">{{ _('username') }}</label>
+                <input type="text" class="form-control" id="username" name="username" placeholder="{{ _('username') }}" value="{{ keywords.get('username') if keywords }}">
             </div>
             <div class="form-group col-auto">
-                <button type="submit" class="btn btn-primary">{{ _('Search') }}</button>
+                <button type="submit" class="btn btn-primary">{{ _('search') }}</button>
             </div>
         </div>
     </form>

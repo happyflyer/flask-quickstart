@@ -8,7 +8,7 @@
     </div>
     <div class="row">
         <div class="col-md-4">
-            {# flask-bootstrap库提供了常用类型的字段表单渲染 #}
+            {# flask-bootstrap提供了常用类型的字段表单渲染 #}
             {# 如果不满意快速表单，可以继承form_content块，自己写表单html和js #}
             {% block form_content %}
                 {{ wtf.quick_form(form, button_map={'submit': 'primary'}) }}

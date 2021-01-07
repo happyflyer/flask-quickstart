@@ -142,15 +142,10 @@ cython_debug/
 media
 # static
 
-# vscode
+# custom
 .vscode
-
-# pycharm
 .idea
-
-# mac
 .DS_Store
-
-# 临时文件
+migrations
 log
 tmp

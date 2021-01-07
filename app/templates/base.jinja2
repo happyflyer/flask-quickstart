@@ -19,7 +19,6 @@
 
 {%- block head %}
     {{ super() }}
-    {# JQuery放在head加载 #}
     <script src="{{ url_for('static', filename='jquery/jquery-3.4.1.min.js') }}"></script>
 {%- endblock head %}
 
@@ -48,7 +47,6 @@
         });
     </script>
 
-    {# 这里写有用户登录之后才能调用的全局js代码 #}
     {% if g.current_user and g.current_user.is_authenticated %}
     <script>
     </script>
@@ -73,18 +71,18 @@
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            {{ _('Feature') }}
+                            {{ _('Text') }}
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink1">
-                            <a class="dropdown-item" href="#">{{ _('Complete functions') }}</a>
+                            <a class="dropdown-item" href="#">{{ _('Text') }}</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">{{ _('Simple deployment') }}</a>
+                            <a class="dropdown-item" href="#">{{ _('Text') }}</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">{{ _('Easy to develop') }}</a>
+                            <a class="dropdown-item" href="#">{{ _('Text') }}</a>
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">{{ _('About') }}</a>
+                        <a class="nav-link" href="#">{{ _('Text') }}</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
@@ -126,8 +124,6 @@
                 {% endif %}
             {% endwith %}
         </div>
-
-        {# 主体部分 #}
         {% block app_content %}
         {% endblock %}
     </div>

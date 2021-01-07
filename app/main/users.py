@@ -1,11 +1,11 @@
-# -*- coding: utf-8 -*-
-
 from flask import request, render_template, flash, redirect, url_for, abort
 from flask_babel import lazy_gettext as _l
 from flask_login import login_required, current_user
-
-from .. import db, RECORDS_PER_PAGE, MODULES, PERMISSIONS, WRITE_PERMISSION, read_required, write_required
+from .. import db
 from ..models import User
+from ..modules import MODULES
+from ..page import RECORDS_PER_PAGE
+from ..permission import PERMISSIONS, WRITE_PERMISSION, read_required, write_required
 from . import bp
 from .forms import UserAddForm, UserGrantForm
 
@@ -14,7 +14,6 @@ from .forms import UserAddForm, UserGrantForm
 @login_required
 @write_required()
 def list_users():
-    """用户列表"""
     username = request.args.get('username', None, type=str)
     custom_query = User.query
     if username is not None:
@@ -34,8 +33,7 @@ def list_users():
 @login_required
 @read_required()
 def get_user(username):
-    """用户页"""
-    # 访问他人主页时，需要main模块的W权限
+    # 访问他人主页时，需要main模块的WRITE权限
     if current_user.username != username:
         if not current_user.check_permission('main', WRITE_PERMISSION):
             abort(403)
@@ -48,7 +46,6 @@ def get_user(username):
 @login_required
 @write_required()
 def add_user():
-    """新增用户"""
     form = UserAddForm()
     if form.validate_on_submit():
         username = form.username.data
@@ -70,21 +67,20 @@ def add_user():
 @login_required
 @write_required()
 def grant_user(username):
-    """用户授权"""
     user = User.query.filter(User.username == username).first_or_404()
     form = UserGrantForm()
     if form.validate_on_submit():
-        module_name = form.module.data
+        module = form.module.data
         permission = int(form.permission.data)
-        # admin必须具有main模块的W权限
-        if username == 'admin' and (module_name == 'main' or module_name == 'main_api') and permission < WRITE_PERMISSION:
-            flash(_l('%(username)s must have %(permission)s to %(module)s!',
-                username=username, permission=PERMISSIONS[WRITE_PERMISSION], module=module_name))  # NOQA
+        # admin 必须具有 main 模块的 WRITE 权限
+        if username == 'admin' and module == 'main' and permission < WRITE_PERMISSION:
+            flash(_l('admin must have WRITE permission on main module!'))
             return redirect(url_for('main.grant_user', username=username))
-        user.set_permission(module_name, permission)
+        # 设置其他用户的权限
+        user.set_permission(module, permission)
         db.session.commit()
-        flash(_l('%(username)s has been granted %(permission)s to %(module)s.',
-            username=username, permission=PERMISSIONS[permission], module=module_name))  # NOQA
-        return redirect(url_for('main.grant_user', username=username))
+        flash(_l('%(username)s has been granted %(pl)s permission on %(module)s.',
+            username=username, pl=PERMISSIONS[permission], module=module))  # NOQA
+        return redirect(url_for('main.grant_user', username=username, permission=permission))
     return render_template('edit.jinja2', title=_l('Grant User'),
         form=form)  # NOQA

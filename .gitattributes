@@ -20,17 +20,17 @@
 *.bat             text eol=crlf
 *.cmd             text eol=crlf
 *.coffee          text
-*.css             text linguist-language=Python
+*.css             text
 *.htm             text diff=html
-*.html            text diff=html linguist-language=Python
+*.html            text diff=html
 *.inc             text
 *.ini             text
-*.js              text linguist-language=Python
+*.js              text
 *.json            text
 *.jsx             text
-*.less            text linguist-language=Python
+*.less            text
 *.ls              text
-*.map             text -diff linguist-language=Python
+*.map             text -diff
 *.od              text
 *.onlydata        text
 *.php             text diff=php
@@ -40,12 +40,12 @@
 *.rb              text diff=ruby
 *.sass            text
 *.scm             text
-*.scss            text diff=css linguist-language=Python
+*.scss            text diff=css
 *.sh              text eol=lf
 *.sql             text
 *.styl            text
 *.tag             text
-*.ts              text linguist-language=Python
+*.ts              text
 *.tsx             text
 *.xml             text
 *.xhtml           text diff=html
