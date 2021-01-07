@@ -17,7 +17,7 @@
     {% for item in res.items %}
     <tr>
         <td>{{ item.id }}</td>
-        <td>{{ item.username }}</td>
+        <td><a href="{{ url_for('main.get_user', username=item.username) }}">{{ item.username }}</a></td>
         {% for m in modules %}
         <td>{{ permissions[int(item.permission[modules[m]])] }}</td>
         {% endfor %}

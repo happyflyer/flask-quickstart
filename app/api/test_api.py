@@ -8,15 +8,15 @@ def test_request():
     """测试普通请求
 
     @@@
-    ## 响应示例
+    ### 响应示例
     ```json
     {
-        "message": "success in test_request"
+        "message": "success"
     }
     ```
     @@@
     """
-    return jsonify({'message': 'success in test_request'})
+    return jsonify({'message': 'success'})
 
 
 @bp.route('/test_http_basic_auth_request', methods=['GET', 'POST'])
@@ -25,14 +25,14 @@ def test_http_basic_auth_request():
     """测试http基本认证请求
 
     @@@
-    ## 请求头
+    ### 请求头
     - [HTTP Basic Authentication认证](https://www.cnblogs.com/yuqiangli0616/p/9389273.html)
-    - 携带 `Authorization` 字段。`Authorization: Basic <auth>`
+    - 携带 `Authorization` 字段：`Authorization: Basic <auth>`
 
-    ## 响应示例
+    ### 响应示例
     ```json
     {
-        "message": "success in test_with_auth"
+        "message": "success"
     }
     ```
     @@@
@@ -46,10 +46,10 @@ def test_token_auth_request():
     """测试token认证请求
 
     @@@
-    ## 请求头
-    - 携带 `Authorization` 字段。`Authorization: Bearer <token>`
+    ### 请求头
+    - 携带 `Authorization` 字段：`Authorization: Bearer <token>`
 
-    ## 响应示例
+    ### 响应示例
     ```json
     {
         "message": "success"

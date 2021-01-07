@@ -10,7 +10,7 @@ from . import bp
 from .forms import UserAddForm, UserGrantForm
 
 
-@bp.route('/user', methods=['GET'])
+@bp.route('/view/user', methods=['GET'])
 @login_required
 @write_required()
 def list_users():
@@ -29,7 +29,7 @@ def list_users():
         })  # NOQA
 
 
-@bp.route('/user/<string:username>', methods=['GET'])
+@bp.route('/view/user/<string:username>', methods=['GET'])
 @login_required
 @read_required()
 def get_user(username):
@@ -42,7 +42,7 @@ def get_user(username):
         user=user)  # NOQA
 
 
-@bp.route('/user/add', methods=['GET', 'POST'])
+@bp.route('/view/user/add', methods=['GET', 'POST'])
 @login_required
 @write_required()
 def add_user():
@@ -63,7 +63,7 @@ def add_user():
         form=form)  # NOQA
 
 
-@bp.route('/user/grant/<string:username>', methods=['GET', 'POST'])
+@bp.route('/view/user/grant/<string:username>', methods=['GET', 'POST'])
 @login_required
 @write_required()
 def grant_user(username):
@@ -81,6 +81,6 @@ def grant_user(username):
         db.session.commit()
         flash(_l('%(username)s has been granted %(pl)s permission on %(module)s.',
             username=username, pl=PERMISSIONS[permission], module=module))  # NOQA
-        return redirect(url_for('main.grant_user', username=username, permission=permission))
+        return redirect(url_for('main.grant_user', username=username))
     return render_template('edit.jinja2', title=_l('Grant User'),
         form=form)  # NOQA

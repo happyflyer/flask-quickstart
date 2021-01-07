@@ -10,11 +10,11 @@ def get_token():
     """获取token
 
     @@@
-    ## 请求头
+    ### 请求头
     - [HTTP Basic Authentication认证](https://www.cnblogs.com/yuqiangli0616/p/9389273.html)
-    - 携带 `Authorization` 字段。`Authorization: Basic <auth>`
+    - 携带 `Authorization` 字段：`Authorization: Basic <auth>`
 
-    ## 响应示例
+    ### 响应示例
     ```json
     {
         "token": "e4YEcn05B4lbWYqrAqLUTf9KWPlHHdb2"
@@ -33,10 +33,10 @@ def revoke_token():
     """失效token
 
     @@@
-    ## 请求头
-    - 携带 `Authorization` 字段。`Authorization: Bearer <token>`
+    ### 请求头
+    - 携带 `Authorization` 字段：`Authorization: Bearer <token>`
 
-    ## 响应示例
+    ### 响应示例
     ```json
     {
         "token": null

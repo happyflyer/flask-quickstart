@@ -38,9 +38,11 @@ class Config(object):
     # flask_docs
     API_DOC_MEMBER = [
         'api',
-        'main'
+        'user'
     ]
     RESTFUL_API_DOC_EXCLUDE = []
+    # flask_apsheduler
+    SCHEDULER_API_ENABLED = True
 
 
 class DevelopmentConfig(Config):

@@ -16,11 +16,11 @@ def list_users_api():
     """获取所有用户
 
     @@@
-    ## 权限
+    ### 权限
     - 访问用户需登录，请求头携带 `Authorization` 字段。
     - 访问用户对 main 模块有 WRITE 权限。
 
-    ## 查询字段
+    ### 查询字段
     | 字段     | 是否必须 | 类型 | 说明         |
     | -------- | -------- | ---- | ------------ |
     | username |          | str  | 支持模糊查询 |
@@ -49,7 +49,7 @@ def get_user_api(username):
     """获取单个用户
 
     @@@
-    ## 权限
+    ### 权限
     - 访问用户需登录，请求头携带 `Authorization` 字段。
     - 访问用户对 main 模块有 READ 权限。
     - 访问用户获取其他用户信息时，需要对 main 模块有 WRITE 权限。
@@ -71,11 +71,11 @@ def add_user_api():
     """新增用户
 
     @@@
-    ## 权限
+    ### 权限
     - 访问用户需登录，请求头携带 `Authorization` 字段。
     - 访问用户对 main 模块有 WRITE 权限。
 
-    ## 表单字段
+    ### 表单字段
     | 字段     | 是否必须 | 类型 | 说明   |
     | -------- | -------- | ---- | ------ |
     | username | 是       | str  | 用户名 |
@@ -99,14 +99,14 @@ def add_user_api():
 @token_auth.login_required
 @write_required()
 def grant_user_api(username):
-    """用户授权
+    """授权单个用户
 
     @@@
-    ## 权限
+    ### 权限
     - 访问用户需登录，请求头携带 `Authorization` 字段。
     - 访问用户对 main 模块有 WRITE 权限。\n
 
-    ## 表单字段
+    ### 表单字段
     | 字段       | 是否必须 | 类型 | 说明     |
     | ---------- | -------- | ---- | -------- |
     | module     | 是       | str  | 模块名   |
