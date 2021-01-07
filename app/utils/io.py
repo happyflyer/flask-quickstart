@@ -16,8 +16,6 @@ mutex = Lock()
 
 
 def read_json(filename):
-    """读取json文件
-    """
     payload = {}
     if not os.path.exists(filename):
         return payload
@@ -29,8 +27,6 @@ def read_json(filename):
 
 
 def write_json(payload, filename, new_thread=True):
-    """写入json文件
-    """
     if new_thread:
         thr = Thread(target=_write_json, args=(payload, filename))
         thr.start()

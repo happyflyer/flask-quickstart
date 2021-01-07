@@ -44,14 +44,16 @@ def create_app(config_class=Config):
     csrf.init_app(app)
     CORS(app, supports_credentials=True)
     doc.init_app(app, title=app.config.get('APP_NAME'), version=__version__)
-    if not app.debug:
-        from .apscheduler import init_apscheduler
-        init_apscheduler(app, scheduler)
-    else:
+    if app.debug:
         scheduler.init_app(app)
         scheduler.start()
-    from . import jobs
-    jobs.do_jobs()
+    elif app.testing:
+        pass
+    else:
+        from .apscheduler import init_apscheduler
+        init_apscheduler(app, scheduler)
+        from . import jobs
+        jobs.do_jobs()
     # errors
     from .errors import bp as errors_bp
     app.register_blueprint(errors_bp, url_prefix='/')

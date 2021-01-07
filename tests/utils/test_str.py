@@ -2,9 +2,9 @@ import os
 import sys
 import unittest
 sys.path.append(os.getcwd())  # NOQA
-
 from app import db, create_app
 from config import TestingConfig
+from app.utils.str import *
 
 
 class UserModelCase(unittest.TestCase):
@@ -20,14 +20,22 @@ class UserModelCase(unittest.TestCase):
         self.app_context.pop()
 
     def test_has_empty(self):
-        from app.utils import has_empty
         self.assertFalse(has_empty('hh', 'kk'))
         self.assertTrue(has_empty('hh', 'kk', '   '))
 
     def test_all_empty(self):
-        from app.utils import all_empty
         self.assertFalse(all_empty('hh', 'kk', '   '))
         self.assertTrue(all_empty('  ', '', '   '))
+
+    def test_is_empty(self):
+        self.assertTrue(is_empty(''))
+        self.assertTrue(is_empty('  '))
+        self.assertFalse(is_empty('h'))
+        self.assertFalse(is_empty(0))
+        self.assertFalse(is_empty(1))
+        self.assertTrue(is_empty(()))
+        self.assertTrue(is_empty([]))
+        self.assertTrue(is_empty({}))
 
 
 if __name__ == '__main__':
