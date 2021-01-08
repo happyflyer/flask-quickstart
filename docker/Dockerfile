@@ -9,12 +9,12 @@ WORKDIR /root
 CMD ["/bin/bash"]
 
 RUN set -x && \
-    rm /etc/apt/sources.list.d/* && \
+    # rm /etc/apt/sources.list.d/* && \
     # 设置apt源
     # mirrors.163.com
     # mirrors.aliyun.com
     # 192.168.9.1   (实验室搭建的，暂时只用于构建docker)
-    export APT_MIRROR=192.168.9.1 && \
+    export APT_MIRROR=mirrors.aliyun.com && \
     # 设置ubuntu系统代号
     # 16.04=xenial 18.04=bionic 20.04=focal
     export MARK=bionic && \

@@ -20,7 +20,7 @@ class UserAddForm(FlaskForm):
     def validate_username(self, username):
         user = User.query.filter(User.username == username.data).first()
         if user is not None:
-            raise ValidationError(_l('This username is already in use!'))
+            raise ValidationError(_l('this username is already in use!'))
 
 
 class UserGrantForm(FlaskForm):

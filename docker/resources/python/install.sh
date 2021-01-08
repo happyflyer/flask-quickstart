@@ -8,10 +8,6 @@ cd $SCRIPT_DIR
 apt-get install -y --no-install-recommends python3-zeroc-ice
 # pip install --no-cache-dir zeroc-ice
 
-# ********** opencv-python
-apt-get install -y --no-install-recommends libgl1-mesa-glx
-pip install --no-cache-dir opencv-python
-
 # ********** mysql
 pip install --no-cache-dir mysql-connector-python
 
@@ -32,10 +28,10 @@ pip install --no-cache-dir \
     flask_apscheduler
 
 # ********** 测试
-# pip install --no-cache-dir pytest coverage httpie
+pip install --no-cache-dir pytest coverage httpie
 
 # ********** 部署
-pip install --no-cache-dir gunicorn fcntl
+pip install --no-cache-dir gunicorn
 
 # ********** 代码风格
-# pip install --no-cache-dir autopep8
+pip install --no-cache-dir autopep8

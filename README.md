@@ -1,10 +1,14 @@
 # flask-quickstart
 
+## 1. 安装依赖
+
 ```bash
 conda create -n flask_quickstart_venv python=3.6
 conda activate flask_quickstart_venv
 pip install -r requirements.txt
 ```
+
+## 2. 创建数据库
 
 ```sql
 -- 创建数据库 flask_quickstart
@@ -25,15 +29,46 @@ flush privileges;
 -- show grants for 'flask_quickstart'@'%';
 ```
 
+## 3. 修改配置文件
+
 ```bash
 cp .env.template .env
 ```
 
+```properties
+# .env
+APP_NAME=flask-quickstart
+SECRET_KEY=a_random_and_long_string
+DB_SERVER=localhost
+DB_PORT=3306
+DB_USERNAME=flask_quickstart
+DB_PASSWORD=MySQL@flask_quickstart123456
+DB_DATABASE=flask_quickstart
+DB_DATABASE_TEST=flask_quickstart_test
+MAIL_SERVER=
+MAIL_PORT=
+MAIL_USE_SSL=
+MAIL_USERNAME=
+MAIL_PASSWORD=
+MAIL_ADMINS=
+```
+
+```properties
+# .flaskenv
+FLASK_APP=main.py
+FLASK_ENV=development
+# FLASK_ENV=production
+```
+
+## 4. 执行表结构迁移
+
 ```bash
-flask db init
-flask db migrate -m "create tables"
+# flask db init
+# flask db migrate -m "create tables"
 flask db upgrade
 ```
+
+## 5. 编译翻译文本
 
 ```bash
 # flask translate init zh
@@ -41,6 +76,16 @@ flask db upgrade
 flask translate compile
 ```
 
+## 6. 启动调试
+
 ```bash
 flask run
+```
+
+```bash
+flask run -h 0.0.0.0 -p 8000
+```
+
+```bash
+flask shell
 ```

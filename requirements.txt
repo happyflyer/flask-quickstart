@@ -20,6 +20,5 @@ coverage
 httpie
 # deploy
 # gunicorn
-# fcntl
 # coding style
 autopep8

@@ -20,6 +20,7 @@ class UserModelCase(unittest.TestCase):
         self.app_context.pop()
 
     def test_read_json(self):
+        write_json({'a': 'b'}, 'tmp/tests/utils/demo.json', new_thread=False)
         payload = read_json('tmp/tests/utils/demo.json')
         self.assertIn('a', payload)
         self.assertEqual({'a': 'b'}, payload)

@@ -146,6 +146,5 @@ media
 .vscode
 .idea
 .DS_Store
-migrations
 log
 tmp

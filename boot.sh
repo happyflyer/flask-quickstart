@@ -1,6 +1,6 @@
 #!/bin/bash
 
-APP_DIR="/root/flask-quickstart"
+APP_DIR="/exec/flask-quickstart"
 cd $APP_DIR
 
 while true; do
@@ -17,7 +17,9 @@ flask translate compile
 cp config/supervisor.conf /etc/supervisor/conf.d/flask_quickstart.conf
 service supervisor start
 
-cp config/nginx.conf /etc/nginx/conf.d/
+rm -f /etc/nginx/sites-enabled/default
+cp config/nginx.conf /etc/nginx/sites-enabled/
+mkdir /var/log/flask_quickstart
 service nginx start
 
 while true; do

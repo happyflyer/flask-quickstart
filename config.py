@@ -30,11 +30,7 @@ class Config(object):
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
     MAIL_ADMINS = (os.environ.get('MAIL_ADMINS') or '').split(',')
     # flask_babel
-    LANGUAGES = [
-        'en',
-        'zh',
-        'zh_CN'
-    ]
+    LANGUAGES = ['en', 'zh', 'zh_CN']
     # flask_docs
     API_DOC_MEMBER = [
         'api',
