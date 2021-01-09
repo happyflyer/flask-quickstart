@@ -1,10 +1,11 @@
 from flask import jsonify, g
-from .. import db
+from .. import db, csrf
 from . import bp
 from .auth import basic_auth, token_auth
 
 
 @bp.route('/tokens', methods=['POST'])
+@csrf.exempt
 @basic_auth.login_required
 def get_token():
     """获取token
@@ -28,6 +29,7 @@ def get_token():
 
 
 @bp.route('/tokens', methods=['DELETE'])
+@csrf.exempt
 @token_auth.login_required
 def revoke_token():
     """失效token

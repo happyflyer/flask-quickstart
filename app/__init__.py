@@ -66,7 +66,6 @@ def create_app(config_class=Config):
     # api
     from .api import bp as api_bp
     app.register_blueprint(api_bp, url_prefix='/api')
-    csrf.exempt(api_bp)
     app.jinja_env.globals['str'] = str
     app.jinja_env.globals['int'] = int
     app.jinja_env.globals['max'] = max

@@ -1,9 +1,11 @@
 from flask import jsonify
+from .. import csrf
 from . import bp
 from .auth import basic_auth, token_auth
 
 
 @bp.route('/test_request', methods=['GET', 'POST'])
+@csrf.exempt
 def test_request():
     """测试普通请求
 
@@ -20,6 +22,7 @@ def test_request():
 
 
 @bp.route('/test_http_basic_auth_request', methods=['GET', 'POST'])
+@csrf.exempt
 @basic_auth.login_required
 def test_http_basic_auth_request():
     """测试http基本认证请求
@@ -41,6 +44,7 @@ def test_http_basic_auth_request():
 
 
 @bp.route('/test_token_auth_request', methods=['GET', 'POST'])
+@csrf.exempt
 @token_auth.login_required
 def test_token_auth_request():
     """测试token认证请求

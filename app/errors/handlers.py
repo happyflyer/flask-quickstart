@@ -11,6 +11,13 @@ def wants_json_response():
     return request.accept_mimetypes['application/json'] >= request.accept_mimetypes['text/html']
 
 
+@bp.app_errorhandler(400)
+def bad_request(error):
+    if wants_json_response():
+        return api_error_response(400)
+    return render_template('errors/400.jinja2'), 400
+
+
 @bp.app_errorhandler(403)
 def forbidden(error):
     if wants_json_response():

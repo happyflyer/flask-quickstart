@@ -1,6 +1,6 @@
 from flask import request, jsonify, g
 from flask_babel import lazy_gettext as _l
-from ... import db
+from ... import db, csrf
 from ...api import token_auth, bad_request, forbidden
 from ...models import User
 from ...modules import MODULES
@@ -65,6 +65,7 @@ def get_user_api(username):
 
 
 @bp.route('/user/add', methods=['POST'])
+@csrf.exempt
 @token_auth.login_required
 @write_required()
 def add_user_api():
@@ -96,6 +97,7 @@ def add_user_api():
 
 
 @bp.route('/user/grant/<string:username>', methods=['POST'])
+@csrf.exempt
 @token_auth.login_required
 @write_required()
 def grant_user_api(username):

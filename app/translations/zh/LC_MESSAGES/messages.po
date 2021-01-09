@@ -75,11 +75,11 @@ msgstr "权限"
 msgid "grant"
 msgstr "授权"
 
-#: app/main/api/user_api.py:123 app/main/forms.py:38
+#: app/main/api/user_api.py:125 app/main/forms.py:38
 msgid "invalid module!"
 msgstr "无效的 module！"
 
-#: app/main/api/user_api.py:129 app/main/forms.py:42
+#: app/main/api/user_api.py:131 app/main/forms.py:42
 msgid "invalid permission!"
 msgstr "无效的 permission！"
 
@@ -109,7 +109,7 @@ msgstr "%(obj)s 成功新增。"
 msgid "Add User"
 msgstr "新增用户"
 
-#: app/main/api/user_api.py:133 app/main/user_view.py:77
+#: app/main/api/user_api.py:135 app/main/user_view.py:77
 msgid "admin must have WRITE permission on main module!"
 msgstr "admin 用户必须具有 main 模块的 WRITE 权限！"
 
@@ -126,20 +126,20 @@ msgstr "授权用户"
 msgid "insufficient permission!"
 msgstr "权限不够！"
 
-#: app/main/api/user_api.py:89
+#: app/main/api/user_api.py:90
 msgid "missing username!"
 msgstr "缺少 username！"
 
-#: app/main/api/user_api.py:92
+#: app/main/api/user_api.py:93
 #, python-format
 msgid "%(username)s already exists!"
 msgstr "%(username)s 已被使用！"
 
-#: app/main/api/user_api.py:120
+#: app/main/api/user_api.py:122
 msgid "missing module"
 msgstr "缺少 module！"
 
-#: app/main/api/user_api.py:126
+#: app/main/api/user_api.py:128
 msgid "missing permission!"
 msgstr "缺少 permission！"
 
@@ -179,6 +179,10 @@ msgstr "配置文件"
 #: app/templates/base.jinja2:105
 msgid "Logout"
 msgstr "退出"
+
+#: app/templates/errors/400.jinja2:5
+msgid "Bad Request!"
+msgstr "非法请求！"
 
 #: app/templates/errors/403.jinja2:5
 msgid "Forbidden!"
