@@ -14,8 +14,6 @@ from flask_cors import CORS
 from flask_docs import ApiDoc
 from flask_apscheduler import APScheduler
 from config import Config
-from .permission import *
-from .modules import *
 
 # https://semver.org/lang/zh-CN/
 __version__ = '0.3.0'
@@ -28,6 +26,7 @@ mail = Mail()
 bootstrap = Bootstrap()
 babel = Babel()
 csrf = CSRFProtect()
+cors = CORS()
 doc = ApiDoc()
 scheduler = APScheduler()
 
@@ -42,7 +41,7 @@ def create_app(config_class=Config):
     bootstrap.init_app(app)
     babel.init_app(app)
     csrf.init_app(app)
-    CORS(app, supports_credentials=True)
+    cors.init_app(app, supports_credentials=True)
     doc.init_app(app, title=app.config.get('APP_NAME'), version=__version__)
     if app.debug:
         scheduler.init_app(app)

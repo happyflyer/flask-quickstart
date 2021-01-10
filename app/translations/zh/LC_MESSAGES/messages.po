@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.9.0\n"
 
-#: app/__init__.py:26
+#: app/__init__.py:24
 msgid "Please log in to access this page."
 msgstr "请登录以访问此页。"
 
