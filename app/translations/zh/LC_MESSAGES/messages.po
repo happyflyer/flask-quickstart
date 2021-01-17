@@ -164,19 +164,23 @@ msgstr "%(app_name)s"
 msgid "Text"
 msgstr "文本"
 
-#: app/templates/base.jinja2:91
+#: app/templates/base.jinja2:88
+msgid "Docs"
+msgstr "文档"
+
+#: app/templates/base.jinja2:94
 msgid "Login"
 msgstr "登录"
 
-#: app/templates/base.jinja2:96
+#: app/templates/base.jinja2:99
 msgid "User Permission"
 msgstr "用户权限"
 
-#: app/templates/base.jinja2:104
+#: app/templates/base.jinja2:107
 msgid "Profile"
 msgstr "配置文件"
 
-#: app/templates/base.jinja2:105
+#: app/templates/base.jinja2:108
 msgid "Logout"
 msgstr "退出"
 

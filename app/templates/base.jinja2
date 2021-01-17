@@ -84,6 +84,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">{{ _('Text') }}</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('api_doc.index') }}">{{ _('Docs') }}</a>
+                    </li>
                 </ul>
                 <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
                     {% if not g.current_user or g.current_user.is_anonymous %}
