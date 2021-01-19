@@ -16,7 +16,6 @@ service supervisor start
 
 rm -f /etc/nginx/sites-enabled/default
 cp config/nginx.conf /etc/nginx/sites-enabled/
-mkdir /var/log/flask_quickstart
 service nginx start
 
 while true; do
