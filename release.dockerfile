@@ -12,6 +12,6 @@ CMD ["bash", "/exec/boot.sh"]
 COPY . .
 
 # 编译可执行文件，删除无用的文件
-RUN rm -rf docker mysql scripts tests && \
+RUN rm -rf .git docker mysql scripts tests && \
     rm -f .env.template .gitattributes .gitignore README.md requirements.txt \
     release.dockerfile config/docker-compose.yml

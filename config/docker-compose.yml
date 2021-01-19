@@ -13,9 +13,9 @@ services:
       DB_USERNAME: flask_quickstart
       DB_PASSWORD: MySQL@flask_quickstart123456
       DB_DATABASE: flask_quickstart
-      MAIL_SERVER: smtp.qq.com
-      MAIL_PORT: 587
-      MAIL_USE_SSL: 1
+      MAIL_SERVER:
+      MAIL_PORT:
+      MAIL_USE_SSL:
       MAIL_USERNAME:
       MAIL_PASSWORD:
       MAIL_ADMINS:
