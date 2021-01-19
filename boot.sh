@@ -1,8 +1,5 @@
 #!/bin/bash
 
-APP_DIR="/exec/flask-quickstart"
-cd $APP_DIR
-
 while true; do
   flask db upgrade
   if [[ "$?" == "0" ]]; then

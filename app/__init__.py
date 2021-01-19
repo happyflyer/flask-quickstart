@@ -16,7 +16,7 @@ from flask_apscheduler import APScheduler
 from config import Config
 
 # https://semver.org/lang/zh-CN/
-__version__ = '0.3.1'
+__version__ = '0.4.0'
 db = SQLAlchemy()
 migrate = Migrate()
 login = LoginManager()
@@ -77,6 +77,8 @@ def create_app(config_class=Config):
         """应用程序启动后，在处理第一个请求前执行。通常做数据初始化等"""
         from . import database
         database.init_users()
+        import shutil
+        shutil.rmtree('tmp', ignore_errors=True)
 
     @app.before_request
     def before_request():

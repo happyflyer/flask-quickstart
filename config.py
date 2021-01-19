@@ -7,7 +7,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 
 class Config(object):
-    load_dotenv(os.path.join(basedir, '.env'))
+    load_dotenv(os.path.join(basedir, '.env'), verbose=False, override=False, encoding='utf-8')
     APP_NAME = os.environ.get('APP_NAME') or 'Flask Project'
     # python -c "import uuid; print(uuid.uuid4().hex)"
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'you-will-never-guess'

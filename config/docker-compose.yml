@@ -1,0 +1,28 @@
+version: '3'
+services:
+  flask_quickstart:
+    image: flask_quickstart:deploy
+    container_name: flask_quickstart_app
+    network_mode: host
+    restart: always
+    environment:
+      APP_NAME: flask-quickstart
+      SECRET_KEY: a_random_and_long_string
+      DB_SERVER: localhost
+      DB_PORT: 33060
+      DB_USERNAME: flask_quickstart
+      DB_PASSWORD: MySQL@flask_quickstart123456
+      DB_DATABASE: flask_quickstart
+      MAIL_SERVER: smtp.qq.com
+      MAIL_PORT: 587
+      MAIL_USE_SSL: 1
+      MAIL_USERNAME:
+      MAIL_PASSWORD:
+      MAIL_ADMINS:
+    volumes:
+      - /etc/localtime:/etc/localtime
+      - /etc/timezone:/etc/timezone
+      - ../../flask_quickstart_nginx_log:/var/log/flask_quickstart
+      - ../../flask_quickstart_supervisor_log:/var/log/supervisor
+      - ../../flask_quickstart_log:/exec/log
+      - ../../flask_quickstart_tmp:/exec/tmp
