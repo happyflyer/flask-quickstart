@@ -15,5 +15,5 @@ services:
       - /etc/localtime:/etc/localtime
       - /etc/timezone:/etc/timezone
       - ./config/mysql.cnf:/etc/mysql/conf.d/mysql.cnf
-      - ../../flask_quickstart_mysql_data:/var/lib/mysql
-      # - ./sql:/docker-entrypoint-initdb.d
+      - ./sql:/docker-entrypoint-initdb.d
+      - /project_home/mysql:/var/lib/mysql

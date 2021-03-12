@@ -39,7 +39,7 @@ cp .env.template .env
 
 ```properties
 # .env
-APP_NAME=flask-quickstart
+APP_NAME=flask_quickstart
 SECRET_KEY=a_random_and_long_string
 DB_SERVER=localhost
 DB_PORT=3306
@@ -121,7 +121,7 @@ docker build --squash -t flask_quickstart:latest .
 ### 2.3. 构建部署镜像
 
 ```bash
-docker build --squash -t flask_quickstart:deploy -f release.dockerfile .
+docker build --squash -t flask_quickstart:deploy_date -f release.dockerfile .
 ```
 
 ### 2.4. 启动 app 容器

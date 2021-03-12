@@ -1,12 +1,12 @@
 version: '3'
 services:
   flask_quickstart:
-    image: flask_quickstart:deploy
+    image: flask_quickstart:deploy_date
     container_name: flask_quickstart_app
     network_mode: host
     restart: always
     environment:
-      APP_NAME: flask-quickstart
+      APP_NAME: flask_quickstart
       SECRET_KEY: a_random_and_long_string
       DB_SERVER: localhost
       DB_PORT: 33060
@@ -22,7 +22,7 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime
       - /etc/timezone:/etc/timezone
-      - ../../flask_quickstart_nginx_log:/var/log/flask_quickstart
-      - ../../flask_quickstart_supervisor_log:/var/log/supervisor
-      - ../../flask_quickstart_log:/exec/log
-      - ../../flask_quickstart_tmp:/exec/tmp
+      - /project_home/log/flask_quickstart/nginx:/var/log/flask_quickstart
+      - /project_home/log/flask_quickstart/supervisor:/var/log/supervisor
+      - /project_home/log/flask_quickstart/log:/exec/log
+      - /project_home/log/flask_quickstart/tmp:/exec/tmp
