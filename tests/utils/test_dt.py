@@ -67,6 +67,20 @@ class UserModelCase(unittest.TestCase):
             datetime_str_2_datetime('2020-02-29 23:59:59')
         )
 
+    def test_datetime_format(self):
+        self.assertEqual(
+            '2020-02-29 23:59:59',
+            datetime_format(datetime(2020, 2, 29, 23, 59, 59))
+        )
+        self.assertEqual(
+            '2020-02-29',
+            datetime_format(datetime(2020, 2, 29, 23, 59, 59), DATE_FORMATTER)
+        )
+        self.assertEqual(
+            '23:59:59',
+            datetime_format(datetime(2020, 2, 29, 23, 59, 59), TIME_FORMATTER)
+        )
+
     def test_second_start(self):
         self.assertEqual(
             datetime(2020, 2, 29, 23, 59, 59),

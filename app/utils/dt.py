@@ -7,6 +7,7 @@ __all__ = [
     'CLOCK_FORMATTER', 'TIMESTAMP_FORMATTER',
     'is_date_str', 'is_time_str', 'is_datetime_str',
     'date_str_2_datetime', 'time_str_2_datetime', 'datetime_str_2_datetime',
+    'datetime_format',
     'second_start', 'minute_start', 'hour_start', 'day_start',
     'week_start', 'month_start', 'month_end'
 ]
@@ -38,7 +39,6 @@ def is_date_str(date_str):
             return False if day > 29 else True
         else:
             return False if day > 28 else True
-    return False
 
 
 def is_time_str(time_str):
@@ -70,6 +70,12 @@ def time_str_2_datetime(time_str, dt=datetime.now()):
 def datetime_str_2_datetime(datetime_str):
     if is_datetime_str(datetime_str):
         return datetime.strptime(datetime_str, DATETIME_FORMATTER)
+    return None
+
+
+def datetime_format(dt, formatter=DATETIME_FORMATTER):
+    if isinstance(dt, datetime):
+        return dt.strftime(formatter)
     return None
 
 

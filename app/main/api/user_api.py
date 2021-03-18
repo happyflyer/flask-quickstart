@@ -106,7 +106,7 @@ def grant_user_api(username):
     @@@
     ### 权限
     - 访问用户需登录，请求头携带 `Authorization` 字段。
-    - 访问用户对 main 模块有 WRITE 权限。\n
+    - 访问用户对 main 模块有 WRITE 权限。
 
     ### 表单字段
     | 字段       | 是否必须 | 类型 | 说明     |

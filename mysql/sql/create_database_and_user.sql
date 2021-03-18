@@ -2,7 +2,9 @@
 drop database if exists flask_quickstart;
 create database flask_quickstart character set 'utf8' collate 'utf8_general_ci';
 -- 创建用户 flask_quickstart 并授权
+drop user 'flask_quickstart'@'%';
 create user 'flask_quickstart'@'%' identified by 'MySQL@flask_quickstart123456';
+flush privileges;
 grant all privileges on flask_quickstart.* to 'flask_quickstart'@'%';
 flush privileges;
 -- 开发环境下还需要创建测试数据库 flask_quickstart_test

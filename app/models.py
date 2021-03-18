@@ -8,37 +8,36 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from . import db, login
 from .modules import *
 from .permission import *
-from .utils import DATETIME_FORMATTER
+from .utils import datetime_format
 
 _encoding = 'utf-8'
-DEFAULT_NO_PERMISSIONS = str(NO_PERMISSION) * MAX_MODULES_NUMBER
-DEFAULT_NEW_USER_PERMISSIONS = str(READ_PERMISSION) * 2 + str(
-    NO_PERMISSION) * (MAX_MODULES_NUMBER - 2)
+DEFAULT_NO_PERMISSIONS = str(NO_PERMISSION)*MAX_MODULES_NUMBER
+DEFAULT_NEW_USER_PERMISSIONS = str(READ_PERMISSION)*2 + str(NO_PERMISSION)*(MAX_MODULES_NUMBER-2)
 
 
 class PaginatedAPIMixin(object):
     """分页数据格式
 
-    Examples:
-
-        {
-            "items": [
-                { ... item resource ... },
-                { ... item resource ... },
-                ...
-            ],
-            "_meta": {
-                "page": 1,
-                "per_page": 10,
-                "total_pages": 20,
-                "total_items": 195
-            },
-            "_links": {
-                "self": "http://localhost:5000/api/users?page=1",
-                "next": "http://localhost:5000/api/users?page=2",
-                "prev": null
-            }
+    ```
+    {
+        "items": [
+            { ... item resource ... },
+            { ... item resource ... },
+            ...
+        ],
+        "_meta": {
+            "page": 1,
+            "per_page": 10,
+            "total_pages": 20,
+            "total_items": 195
+        },
+        "_links": {
+            "self": "http://localhost:5000/api/users?page=1",
+            "next": "http://localhost:5000/api/users?page=2",
+            "prev": null
         }
+    }
+    ```
     """
     @staticmethod
     def to_collection_dict(query, page, per_page, endpoint, **kwargs):
@@ -63,11 +62,24 @@ class PaginatedAPIMixin(object):
                 'total_items': resources.total
             },
             '_links': {
-                'self': url_for(endpoint, page=page, per_page=per_page, **kwargs),
-                'next': url_for(endpoint, page=page + 1, per_page=per_page,
-                                **kwargs) if resources.has_next else None,
-                'prev': url_for(endpoint, page=page - 1, per_page=per_page,
-                                **kwargs) if resources.has_prev else None
+                'self': url_for(
+                    endpoint,
+                    page=page,
+                    per_page=per_page,
+                    **kwargs
+                ),
+                'next': url_for(
+                    endpoint,
+                    page=page + 1,
+                    per_page=per_page,
+                    **kwargs
+                ) if resources.has_next else None,
+                'prev': url_for(
+                    endpoint,
+                    page=page - 1,
+                    per_page=per_page,
+                    **kwargs
+                ) if resources.has_prev else None
             }
         }
         return payload
@@ -146,8 +158,7 @@ class User(PaginatedAPIMixin, UserMixin, db.Model):
         payload = {
             'user_id': self.id,
             'username': self.username,
-            'last_visit': self.last_visit.strftime(
-                DATETIME_FORMATTER) if self.last_visit else None,
+            'last_visit': datetime_format(self.last_visit),
         }
         return payload
 
@@ -260,8 +271,7 @@ class VisitLog(db.Model):
         payload = {
             'url': self.url,
             'method': self.method,
-            'timestamp': self.timestamp.strftime(
-                DATETIME_FORMATTER) if self.timestamp else None,
+            'timestamp': datetime_format(self.timestamp),
             'endpoint': self.endpoint,
             'status_code': self.status_code
         }

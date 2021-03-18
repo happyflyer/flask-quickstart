@@ -1,4 +1,4 @@
-"""json读写
+"""文本文件读写
 """
 
 __all__ = [
@@ -9,7 +9,6 @@ import os
 import json
 from threading import Thread, Lock
 
-_empty = ''
 _encoding = 'utf-8'
 _indent = 2
 mutex = Lock()

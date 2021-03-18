@@ -1,6 +1,6 @@
 version: '3'
 services:
-  mysql:
+  flask_quickstart_mysql:
     image: mysql:8.0
     container_name: flask_quickstart_mysql
     restart: always

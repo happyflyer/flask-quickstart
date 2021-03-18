@@ -210,7 +210,7 @@ msgstr "已通知管理员，抱歉给你带来的不便！"
 
 #: app/templates/main/index.jinja2:5
 msgid "Current date and time: "
-msgstr "当前日期时间"
+msgstr "当前日期时间："
 
 #: app/templates/main/user_item.jinja2:5
 #, python-format
