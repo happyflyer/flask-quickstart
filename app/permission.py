@@ -2,8 +2,12 @@
 """
 
 __all__ = [
-    'NO_PERMISSION', 'READ_PERMISSION', 'WRITE_PERMISSION', 'PERMISSIONS',
-    'read_required', 'write_required'
+    'NO_PERMISSION',
+    'READ_PERMISSION',
+    'WRITE_PERMISSION',
+    'PERMISSIONS',
+    'read_required',
+    'write_required'
 ]
 
 from functools import partial, wraps

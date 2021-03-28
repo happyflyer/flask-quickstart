@@ -1,3 +1,5 @@
+__all__ = ['basic_auth', 'token_auth']
+
 from flask import g
 from flask_httpauth import HTTPBasicAuth, HTTPTokenAuth
 from ..models import User

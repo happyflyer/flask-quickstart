@@ -2,7 +2,9 @@
 """
 
 __all__ = [
-    'MAX_MODULES_NUMBER', 'MODULES', 'EXCLUDED_ENDPOINTS'
+    'MAX_MODULES_NUMBER',
+    'MODULES',
+    'EXCLUDED_ENDPOINTS'
 ]
 
 # 最大功能模块数量

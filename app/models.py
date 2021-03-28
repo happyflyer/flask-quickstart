@@ -128,8 +128,11 @@ class User(PaginatedAPIMixin, UserMixin, db.Model):
             raise RuntimeError('invalid module_name!')
         if permission not in PERMISSIONS:
             raise RuntimeError('invalid permission!')
-        self.permission = ''.join([self.permission[:module_bit],
-            str(permission), self.permission[module_bit+1:]])  # NOQA
+        self.permission = ''.join([
+            self.permission[:module_bit],
+            str(permission),
+            self.permission[module_bit+1:]
+        ])
 
     def check_permission(self, module_name, permission):
         """验证权限

@@ -3,9 +3,9 @@ from flask_babel import lazy_gettext as _l
 from ... import db, csrf
 from ...api import token_auth, bad_request, forbidden
 from ...models import User
-from ...modules import MODULES
-from ...page import RECORDS_PER_PAGE, MAX_RECORDS_PER_PAGE
-from ...permission import PERMISSIONS, WRITE_PERMISSION, read_required, write_required
+from ...modules import *
+from ...page import *
+from ...permission import *
 from .. import bp
 
 
@@ -37,8 +37,13 @@ def list_users_api():
     if username:
         custom_query = custom_query.filter(User.username.like('%' + username + '%'))
     custom_query = custom_query.order_by(User.id.asc())
-    payload = User.to_collection_dict(custom_query, page, per_page, 'main.list_users_api',
-        username=username)  # NOQA
+    payload = User.to_collection_dict(
+        custom_query,
+        page,
+        per_page,
+        'main.list_users_api',
+        username=username
+    )
     return jsonify(payload)
 
 
@@ -90,7 +95,10 @@ def add_user_api():
         return bad_request(_l('missing username!'))
     # 用户名重复检查
     if User.query.filter(User.username == user.username).count() > 0:
-        return bad_request(_l('%(username)s already exists!', username=user.username))
+        return bad_request(_l(
+            '%(username)s already exists!',
+            username=user.username
+        ))
     db.session.add(user)
     db.session.commit()
     return jsonify(user.to_dict())

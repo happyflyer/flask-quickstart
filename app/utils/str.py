@@ -1,14 +1,15 @@
 """字符串处理
 """
 
-__all__ = [
-    'has_empty', 'all_empty', 'is_empty'
-]
+__all__ = ['has_empty', 'all_empty', 'is_empty']
+
+from typing import Any
+
 
 _empty = ''
 
 
-def has_empty(*values):
+def has_empty(*values) -> bool:
     """values中是否存在空字符串，如果values中含有非str类型对象将抛出TypeError
     """
     for value in values:
@@ -20,7 +21,7 @@ def has_empty(*values):
     return False
 
 
-def all_empty(*values):
+def all_empty(*values) -> bool:
     """values中是否都是空字符串，如果values中含有非str类型对象将抛出TypeError
     """
     for value in values:
@@ -32,7 +33,7 @@ def all_empty(*values):
     return True
 
 
-def is_empty(value):
+def is_empty(value: Any) -> bool:
     """value是否为空字符串，value为int类型时均为非空
     """
     if isinstance(value, int):

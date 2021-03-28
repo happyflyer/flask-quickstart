@@ -16,7 +16,7 @@ from flask_apscheduler import APScheduler
 from config import Config
 
 # https://semver.org/lang/zh-CN/
-__version__ = '0.4.3'
+__version__ = '0.4.4'
 db = SQLAlchemy()
 migrate = Migrate()
 login = LoginManager()
@@ -110,8 +110,8 @@ def create_app(config_class=Config):
             os.path.join('log', 'app.log'), when='D', interval=1,
             backupCount=10, encoding='utf-8', delay=False, utc=True)
         file_handler.setFormatter(logging.Formatter(
-            '%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'))  # NOQA
-        file_handler.setLevel(logging.WARNING)
+            '%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'
+        ))
         app.logger.addHandler(file_handler)
         # 邮件日志
         if app.config.get('MAIL_SERVER'):

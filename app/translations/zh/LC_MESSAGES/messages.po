@@ -75,11 +75,11 @@ msgstr "权限"
 msgid "grant"
 msgstr "授权"
 
-#: app/main/api/user_api.py:125 app/main/forms.py:38
+#: app/main/api/user_api.py:133 app/main/forms.py:38
 msgid "invalid module!"
 msgstr "无效的 module！"
 
-#: app/main/api/user_api.py:131 app/main/forms.py:42
+#: app/main/api/user_api.py:139 app/main/forms.py:42
 msgid "invalid permission!"
 msgstr "无效的 permission！"
 
@@ -87,59 +87,59 @@ msgstr "无效的 permission！"
 msgid "Home"
 msgstr "主页"
 
-#: app/main/user_view.py:23
+#: app/main/user_view.py:25
 msgid "User List"
 msgstr "用户列表"
 
-#: app/main/user_view.py:41
+#: app/main/user_view.py:46
 msgid "User Profile"
 msgstr "用户配置文件"
 
-#: app/main/user_view.py:54
+#: app/main/user_view.py:60
 #, python-format
 msgid "%(obj)s already exists!"
 msgstr "%(obj)s 已经存在！"
 
-#: app/main/user_view.py:60
+#: app/main/user_view.py:66
 #, python-format
 msgid "%(obj)s has been added."
 msgstr "%(obj)s 成功新增。"
 
-#: app/main/user_view.py:62 app/templates/main/user_list.jinja2:8
+#: app/main/user_view.py:70 app/templates/main/user_list.jinja2:8
 msgid "Add User"
 msgstr "新增用户"
 
-#: app/main/api/user_api.py:135 app/main/user_view.py:77
+#: app/main/api/user_api.py:143 app/main/user_view.py:86
 msgid "admin must have WRITE permission on main module!"
 msgstr "admin 用户必须具有 main 模块的 WRITE 权限！"
 
-#: app/main/user_view.py:82
+#: app/main/user_view.py:91
 #, python-format
 msgid "%(username)s has been granted %(pl)s permission on %(module)s."
 msgstr "成功授予 %(username)s 用户对 %(module)s 模块的 %(pl)s 权限。"
 
-#: app/main/user_view.py:85
+#: app/main/user_view.py:100
 msgid "Grant User"
 msgstr "授权用户"
 
-#: app/main/api/user_api.py:62
+#: app/main/api/user_api.py:67
 msgid "insufficient permission!"
 msgstr "权限不够！"
 
-#: app/main/api/user_api.py:90
+#: app/main/api/user_api.py:95
 msgid "missing username!"
 msgstr "缺少 username！"
 
-#: app/main/api/user_api.py:93
+#: app/main/api/user_api.py:98
 #, python-format
 msgid "%(username)s already exists!"
 msgstr "%(username)s 已被使用！"
 
-#: app/main/api/user_api.py:122
+#: app/main/api/user_api.py:130
 msgid "missing module"
 msgstr "缺少 module！"
 
-#: app/main/api/user_api.py:128
+#: app/main/api/user_api.py:136
 msgid "missing permission!"
 msgstr "缺少 permission！"
 

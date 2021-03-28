@@ -2,7 +2,8 @@
 """
 
 __all__ = [
-    'RECORDS_PER_PAGE', 'MAX_RECORDS_PER_PAGE'
+    'RECORDS_PER_PAGE',
+    'MAX_RECORDS_PER_PAGE'
 ]
 
 # 每页记录数

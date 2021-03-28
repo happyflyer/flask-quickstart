@@ -3,9 +3,9 @@ from flask_babel import lazy_gettext as _l
 from flask_login import login_required, current_user
 from .. import db
 from ..models import User
-from ..modules import MODULES
-from ..page import RECORDS_PER_PAGE
-from ..permission import PERMISSIONS, WRITE_PERMISSION, read_required, write_required
+from ..modules import *
+from ..page import *
+from ..permission import *
 from . import bp
 from .forms import UserAddForm, UserGrantForm
 
@@ -20,13 +20,16 @@ def list_users():
         custom_query = custom_query.filter(User.username.like('%' + username + '%'))
     page = request.args.get('page', 1, type=int)
     res = custom_query.order_by(User.id.asc()).paginate(page, RECORDS_PER_PAGE, False)
-    return render_template('main/user_list.jinja2', title=_l('User List'),
+    return render_template(
+        'main/user_list.jinja2',
+        title=_l('User List'),
         res=res,
         modules=MODULES,
         permissions=PERMISSIONS,
         keywords={
             "username": username if username else ''
-        })  # NOQA
+        }
+    )
 
 
 @bp.route('/view/user/<string:username>', methods=['GET'])
@@ -38,8 +41,11 @@ def get_user(username):
         if not current_user.check_permission('main', WRITE_PERMISSION):
             abort(403)
     user = User.query.filter(User.username == username).first_or_404()
-    return render_template('main/user_item.jinja2', title=_l('User Profile'),
-        user=user)  # NOQA
+    return render_template(
+        'main/user_item.jinja2',
+        title=_l('User Profile'),
+        user=user
+    )
 
 
 @bp.route('/view/user/add', methods=['GET', 'POST'])
@@ -59,8 +65,11 @@ def add_user():
             db.session.commit()
         flash(_l('%(obj)s has been added.', obj=username))
         return redirect(url_for('main.list_users'))
-    return render_template('edit.jinja2', title=_l('Add User'),
-        form=form)  # NOQA
+    return render_template(
+        'edit.jinja2',
+        title=_l('Add User'),
+        form=form
+    )
 
 
 @bp.route('/view/user/grant/<string:username>', methods=['GET', 'POST'])
@@ -79,8 +88,15 @@ def grant_user(username):
         # 设置其他用户的权限
         user.set_permission(module, permission)
         db.session.commit()
-        flash(_l('%(username)s has been granted %(pl)s permission on %(module)s.',
-            username=username, pl=PERMISSIONS[permission], module=module))  # NOQA
+        flash(_l(
+            '%(username)s has been granted %(pl)s permission on %(module)s.',
+            username=username,
+            pl=PERMISSIONS[permission],
+            module=module
+        ))
         return redirect(url_for('main.grant_user', username=username))
-    return render_template('edit.jinja2', title=_l('Grant User'),
-        form=form)  # NOQA
+    return render_template(
+        'edit.jinja2',
+        title=_l('Grant User'),
+        form=form
+    )
