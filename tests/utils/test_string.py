@@ -4,7 +4,7 @@ import unittest
 sys.path.append(os.getcwd())  # NOQA
 from app import db, create_app
 from config import TestingConfig
-from app.utils.str import *
+from app.utils.string import *
 
 
 class UserModelCase(unittest.TestCase):
