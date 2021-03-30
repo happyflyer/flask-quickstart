@@ -17,13 +17,12 @@ __all__ = [
     'time_str_2_datetime',
     'datetime_str_2_datetime',
     'datetime_format',
-    'second_start',
-    'minute_start',
-    'hour_start',
-    'day_start',
-    'week_start',
-    'month_start',
-    'month_end'
+    'second_start', 'second_end',
+    'minute_start', 'minute_end',
+    'hour_start', 'hour_end',
+    'day_start', 'day_end',
+    'week_start', 'week_end',
+    'month_start', 'month_end'
 ]
 
 import re
@@ -115,11 +114,29 @@ def second_start(dt: datetime) -> datetime:
     return None
 
 
+def second_end(dt: datetime) -> datetime:
+    """日期时间秒结束
+    """
+    start = second_start(dt)
+    if start:
+        return start + timedelta(seconds=1, microseconds=-1)
+    return None
+
+
 def minute_start(dt: datetime) -> datetime:
     """日期时间分钟开始
     """
     if isinstance(dt, datetime):
         return datetime(dt.year, dt.month, dt.day, dt.hour, dt.minute)
+    return None
+
+
+def minute_end(dt: datetime) -> datetime:
+    """日期时间分钟结束
+    """
+    start = minute_start(dt)
+    if start:
+        return start + timedelta(minutes=1, microseconds=-1)
     return None
 
 
@@ -131,11 +148,29 @@ def hour_start(dt: datetime) -> datetime:
     return None
 
 
+def hour_end(dt: datetime) -> datetime:
+    """日期时间小时结束
+    """
+    start = hour_start(dt)
+    if start:
+        return start + timedelta(hours=1, microseconds=-1)
+    return None
+
+
 def day_start(dt: datetime) -> datetime:
     """日期时间天开始
     """
     if isinstance(dt, datetime):
         return datetime(dt.year, dt.month, dt.day)
+    return None
+
+
+def day_end(dt: datetime) -> datetime:
+    """日期时间天结束
+    """
+    start = day_start(dt)
+    if start:
+        return start + timedelta(days=1, microseconds=-1)
     return None
 
 
@@ -145,6 +180,15 @@ def week_start(dt: datetime) -> datetime:
     while dt.weekday() > 0:
         dt -= timedelta(days=1)
     return day_start(dt)
+
+
+def week_end(dt: datetime) -> datetime:
+    """日期时间周结束
+    """
+    start = week_start(dt)
+    if start:
+        return start + timedelta(weeks=1, microseconds=-1)
+    return None
 
 
 def month_start(dt: datetime) -> datetime:
