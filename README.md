@@ -43,7 +43,7 @@
 │   ├── utils
 │   │   ├── dt.py  # 日期时间处理
 │   │   ├── io.py  # 文本文件读写
-│   │   └── str.py  # 字符串处理
+│   │   └── string.py  # 字符串处理
 │   ├── __init__.py  # 应用工厂函数
 │   ├── apscheduler.py  # 解决多进程中APScheduler重复运行的问题
 │   ├── cli.py  # 自定义命令
