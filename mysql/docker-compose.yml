@@ -7,13 +7,13 @@ services:
     ports:
       - '33060:3306'
     environment:
-      MYSQL_ROOT_PASSWORD: MySQL@root123456
+      MYSQL_ROOT_PASSWORD: root123456
       MYSQL_USER: flask_quickstart
-      MYSQL_PASSWORD: MySQL@flask_quickstart123456
+      MYSQL_PASSWORD: flask_quickstart123456
       MYSQL_DATABASE: flask_quickstart
     volumes:
       - /etc/localtime:/etc/localtime
       - /etc/timezone:/etc/timezone
       - ./config/mysql.cnf:/etc/mysql/conf.d/mysql.cnf
       - ./sql:/docker-entrypoint-initdb.d
-      - /project_home/mysql:/var/lib/mysql
+      - ./data:/var/lib/mysql

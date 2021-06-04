@@ -96,8 +96,8 @@ pip install -r requirements.txt
 drop database if exists flask_quickstart;
 create database flask_quickstart character set 'utf8' collate 'utf8_general_ci';
 -- 创建用户 flask_quickstart 并授权
-drop user 'flask_quickstart'@'%';
-create user 'flask_quickstart'@'%' identified by 'MySQL@flask_quickstart123456';
+drop user if exists 'flask_quickstart'@'%';
+create user 'flask_quickstart'@'%' identified by 'flask_quickstart123456';
 flush privileges;
 grant all privileges on flask_quickstart.* to 'flask_quickstart'@'%';
 flush privileges;
@@ -125,7 +125,7 @@ SECRET_KEY=a_random_and_long_string
 DB_SERVER=localhost
 DB_PORT=33060
 DB_USERNAME=flask_quickstart
-DB_PASSWORD=MySQL@flask_quickstart123456
+DB_PASSWORD=flask_quickstart123456
 DB_DATABASE=flask_quickstart
 DB_DATABASE_TEST=flask_quickstart_test
 MAIL_SERVER=

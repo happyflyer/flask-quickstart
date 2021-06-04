@@ -16,7 +16,7 @@ from flask_apscheduler import APScheduler
 from config import Config
 
 # https://semver.org/lang/zh-CN/
-__version__ = '0.4.4'
+__version__ = '0.4.5'
 db = SQLAlchemy()
 migrate = Migrate()
 login = LoginManager()
